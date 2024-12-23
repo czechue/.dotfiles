@@ -1,242 +1,83 @@
-" .ideavimrc is a configuration file for IdeaVim plugin. It uses
-"   the same commands as the original .vimrc configuration.
-" You can find a list of commands here: https://jb.gg/h38q75
-" Find more examples here: https://jb.gg/share-ideavimrc
-
-
-"" -- Suggested options --
-" Show a few lines of context around the cursor. Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
-set scrolloff=5
-
-" Do incremental searching.
+" Basic settings
+set scrolloff=10
 set incsearch
 set which-key
 set notimeout
 set timeout=5000
-
-" Set wichkey delay for popup
-let g:WhichKey_DefaultDelay=100
-
-let g:WhichKey_ShowVimActions = "true"
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
-" Highlight copied text
-Plug 'machakann/vim-highlightedyank'
-" Commentary plugin
-Plug 'tpope/vim-commentary'
-" Navigation tree
-Plug 'preservim/nerdtree'
-map <C-e> :NERDTreeToggle<CR>
-
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"Map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
-
-set vim-plugin-which-key
-nmap gh <Action>(ShowErrorDescription)
-
-" https://github.com/igorbabko/ideavim-plugin/blob/main/.ideavimrc
-" leader key
-let mapleader = ' '
-
-
-" redo
-noremap U <C-r>
-
-" sync Vim clipboard with OS clipboard
 set clipboard^=unnamed,unnamedplus
-
-" jump between angle brackets
 set matchpairs+=<:>
-
-" smart line joining
 set ideajoin
-
-" enable case-sensitive search when uppercased letter is present
 set smartcase
 
-" go to the left split
+" Enable plugins
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+map \ :NERDTreeToggle<CR>
+
+" Leader key
+let mapleader = ' '
+let g:WhichKey_ShowVimActions = "true"
+let g:WhichKey_DefaultDelay = 100
+
+" Window navigation (zgodne z Neovim)
 map <C-h> <C-w>h
-
-" go to the bottom split
 map <C-j> <C-w>j
-
-" go to the top split
 map <C-k> <C-w>k
-
-" go to the right split
 map <C-l> <C-w>l
 
-" Przesuwanie zaznaczonego tekstu
-vmap J <Action>(MoveLineDown)
-" vmap K <Action>(MoveLineUp)
-vmap <S-k> <Action>(MoveLineUp)
-
-" Open File Tree
-" map <C-e> <Action>(ActivateProjectToolWindow)
-
-
+" Window management (zgodne z Neovim)
 map <leader>wv <Action>(SplitVertically)
 map <leader>wh <Action>(SplitHorizontally)
 map <leader>ww <Action>(Unsplit)
 map <leader>wa <Action>(UnsplitAll)
 
-map <leader>sc <Action>(GotoClass)
+" Search and navigation (zgodne z Telescope w Neovim)
 map <leader>sf <Action>(GotoFile)
+map <leader>sg <Action>(FindInPath)
 map <leader>ss <Action>(GotoSymbol)
 map <leader>sa <Action>(GotoAction)
+map <leader>sd <Action>(ShowErrorDescription)
+map <leader>sr <Action>(RecentFiles)
+
+" LSP-like features
 map <leader>gd <Action>(GotoDeclaration)
 map <leader>gy <Action>(GotoTypeDeclaration)
 map <leader>gi <Action>(GotoImplementation)
 map <leader>gt <Action>(GotoTest)
-map <leader>gm <Action>(GotoSuperMethod)
-map <leader>gl <Action>(GotoLine)
-
-map <leader>ug <Action>(FindUsages)
-map <leader>uu <Action>(ShowUsages)
-map <leader>vs <Action>(ViewSource)
-map <leader>im <Action>(QuickImplementations)
-map <leader>td <Action>(QuickTypeDefinition)
-map <leader>ti <Action>(ExpressionTypeInfo)
-map <leader>sh <Action>(ShowHoverInfo)
-map <leader>oo <Action>(FileStructurePopup)
-
-map <S-f> <Action>(Find)
-map <S-r> <Action>(Replace)
-map <leader>ff <Action>(FindInPath)
-map <leader>fe <Action>(RecentFiles)
-map <leader>fr <Action>(ReplaceInPath)
-
 map <leader>rn <Action>(RenameElement)
+
+" Code actions and refactoring
+map <leader>ca <Action>(ShowIntentionActions)
+map <leader>sw <Action>(SurroundWith)
+map <S-space> <Action>(Generate)
 map <leader>rm <Action>(ExtractMethod)
 map <leader>rv <Action>(IntroduceVariable)
 map <leader>rf <Action>(IntroduceField)
-map <leader>rs <Action>(ChangeSignature)
-map <leader>rr <Action>(Refactorings.QuickListPopupAction)
 
-map <leader>aa <Action>(ShowIntentionActions)
-map <leader>sw <Action>(SurroundWith)
-map <S-space> <Action>(Generate)
-" map <S-k> <Action>(EditorDuplicateLines)
-map <C-[> <Action>(EditorCompleteStatement)
-
+" Errors navigation
 map <leader>en <Action>(GotoNextError)
 map <leader>ep <Action>(GotoPreviousError)
-map <leader>lc <Action>(JumpToLastChange)
-map <leader>ll <Action>(RecentLocations)
-" map <S-k> <Action>(Forward)
-map <S-l> <Action>(Back)
-map <A-[> <Action>(MethodUp)
-map <A-]> <Action>(MethodDown)
 
-map <leader><leader> <Action>(ReformatCode)
-map <leader>oi <Action>(OptimizeImports)
-map <leader>ra <Action>(RearrangeCode)
-
-" map <C-k> <Action>(MoveLineDown)
-" map <C-l> <Action>(MoveLineUp)
-" map <C-i> <Action>(MoveStatementDown)
-" map <C-o> <Action>(MoveStatementUp)
-map <leader>ca <Action>(CopyAbsolutePath)
-map <leader>cn <Action>(CopyFileName)
-map <leader>cp <Action>(CopyContentRootPath)
-
-map <leader>fs <Action>(NewScratchFile)
+" File operations
 map <leader>qq <Action>(CloseContent)
 map <leader>qa <Action>(CloseAllEditors)
 map <leader>nf <Action>(NewFile)
 map <leader>nd <Action>(NewDir)
-map <leader>re <Action>(RenameFile)
-map <leader>of <Action>(OpenFile)
-map <leader>ri <Action>(RestartIde)
 
-" end
-" Window Management
-let g:WhichKeyDesc_split_vertically = "<leader>wv Split Vertically"
-let g:WhichKeyDesc_split_horizontally = "<leader>wh Split Horizontally"
-let g:WhichKeyDesc_unsplit = "<leader>ww Unsplit"
-let g:WhichKeyDesc_unsplit_all = "<leader>wa Unsplit All"
+" Code formatting
+map <leader><leader> <Action>(ReformatCode)
+map <leader>oi <Action>(OptimizeImports)
 
-" Navigation
-let g:WhichKeyDesc_goto_class = "<leader>sc Go to Class"
-let g:WhichKeyDesc_goto_file = "<leader>sf Go to File"
-let g:WhichKeyDesc_goto_symbol = "<leader>ss Go to Symbol"
-let g:WhichKeyDesc_goto_action = "<leader>sa Go to Action"
-let g:WhichKeyDesc_goto_declaration = "<leader>gd Go to Declaration"
-let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Go to Type Declaration"
-let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to Implementation"
-let g:WhichKeyDesc_goto_test = "<leader>gt Go to Test"
-let g:WhichKeyDesc_goto_super_method = "<leader>gm Go to Super Method"
-let g:WhichKeyDesc_goto_line = "<leader>gl Go to Line"
+" Movement and text manipulation
+vmap <S-j> <Action>(MoveLineDown)
+vmap <S-k> <Action>(MoveLineUp)
 
-" Usages and References
-let g:WhichKeyDesc_find_usages = "<leader>ug Find Usages"
-let g:WhichKeyDesc_show_usages = "<leader>uu Show Usages"
-let g:WhichKeyDesc_view_source = "<leader>vs View Source"
-let g:WhichKeyDesc_quick_implementations = "<leader>im Quick Implementations"
-let g:WhichKeyDesc_quick_type_definition = "<leader>td Quick Type Definition"
-let g:WhichKeyDesc_expression_type_info = "<leader>ti Expression Type Info"
-let g:WhichKeyDesc_show_hover_info = "<leader>sh Show Hover Info"
-let g:WhichKeyDesc_file_structure_popup = "<leader>oo File Structure Popup"
-
-" Find and Replace
-let g:WhichKeyDesc_find = "<S-f> Find"
-let g:WhichKeyDesc_replace = "<S-r> Replace"
-let g:WhichKeyDesc_find_in_path = "<leader>ff Find In Path"
-let g:WhichKeyDesc_recent_files = "<leader>fe Recent Files"
-let g:WhichKeyDesc_replace_in_path = "<leader>fr Replace In Path"
-
-" Refactoring
-let g:WhichKeyDesc_rename_element = "<leader>rn Rename Element"
-let g:WhichKeyDesc_extract_method = "<leader>rm Extract Method"
-let g:WhichKeyDesc_introduce_variable = "<leader>rv Introduce Variable"
-let g:WhichKeyDesc_introduce_field = "<leader>rf Introduce Field"
-let g:WhichKeyDesc_change_signature = "<leader>rs Change Signature"
-let g:WhichKeyDesc_quick_refactorings = "<leader>rr Refactorings Quick List"
-
-" Code Editing
-let g:WhichKeyDesc_show_intention_actions = "<leader>aa Show Intention Actions"
-let g:WhichKeyDesc_surround_with = "<leader>sw Surround With"
-let g:WhichKeyDesc_generate = "<S-space> Generate"
-let g:WhichKeyDesc_duplicate_line = "<S-k> Duplicate Lines"
-let g:WhichKeyDesc_complete_statement = "<C-[> Complete Statement"
-
-" Error and Navigation
-let g:WhichKeyDesc_goto_next_error = "<leader>en Go to Next Error"
-let g:WhichKeyDesc_goto_previous_error = "<leader>ep Go to Previous Error"
-let g:WhichKeyDesc_jump_to_last_change = "<leader>lc Jump to Last Change"
-let g:WhichKeyDesc_recent_locations = "<leader>ll Recent Locations"
-let g:WhichKeyDesc_forward = "<S-k> Forward"
-let g:WhichKeyDesc_back = "<S-l> Back"
-let g:WhichKeyDesc_method_up = "<A-[> Method Up"
-let g:WhichKeyDesc_method_down = "<A-]> Method Down"
-
-" Code Formatting
-let g:WhichKeyDesc_reformat_code = "<leader><leader> Reformat Code"
-let g:WhichKeyDesc_optimize_imports = "<leader>oi Optimize Imports"
-let g:WhichKeyDesc_rearrange_code = "<leader>ra Rearrange Code"
-
-" Copy and Path Operations
-let g:WhichKeyDesc_copy_absolute_path = "<leader>ca Copy Absolute Path"
-let g:WhichKeyDesc_copy_file_name = "<leader>cn Copy File Name"
-let g:WhichKeyDesc_copy_content_root_path = "<leader>cp Copy Content Root Path"
-
-" File Operations
-let g:WhichKeyDesc_new_scratch_file = "<leader>fs New Scratch File"
-let g:WhichKeyDesc_close_content = "<leader>qq Close Content"
-let g:WhichKeyDesc_close_all_editors = "<leader>qa Close All Editors"
-let g:WhichKeyDesc_new_file = "<leader>nf New File"
-let g:WhichKeyDesc_new_directory = "<leader>nd New Directory"
-let g:WhichKeyDesc_rename_file = "<leader>re Rename File"
-let g:WhichKeyDesc_open_file = "<leader>of Open File"
-let g:WhichKeyDesc_restart_ide = "<leader>ri Restart IDE"
+" Which Key descriptions
+let g:WhichKeyDesc_split = "<leader>w [W]indow operations"
+let g:WhichKeyDesc_search = "<leader>s [S]earch operations"
+let g:WhichKeyDesc_goto = "<leader>g [G]oto operations"
+let g:WhichKeyDesc_refactor = "<leader>r [R]efactor operations"
+let g:WhichKeyDesc_code = "<leader>c [C]ode operations"
+let g:WhichKeyDesc_new = "<leader>n [N]ew file operations"
+let g:WhichKeyDesc_close = "<leader>q [Q]uit operations"
