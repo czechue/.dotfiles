@@ -13,12 +13,14 @@ set smartcase
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
-map \ :NERDTreeToggle<CR>
+Plug 'tpope/vim-surround'
 
 " Leader key
 let mapleader = ' '
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_DefaultDelay = 100
+
+map <C-e> <Action>(ActivateProjectToolWindow)
 
 " Window navigation (zgodne z Neovim)
 map <C-h> <C-w>h
