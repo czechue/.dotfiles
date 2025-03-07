@@ -14,6 +14,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
 
 " Leader key
 let mapleader = ' '
@@ -74,6 +75,22 @@ map <leader>oi <Action>(OptimizeImports)
 " Movement and text manipulation
 vmap <S-j> <Action>(MoveLineDown)
 vmap <S-k> <Action>(MoveLineUp)
+
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-g> <Plug>NextWholeOccurrence
+xmap <C-g> <Plug>NextWholeOccurrence
+nmap g<C-g> <Plug>NextOccurrence
+xmap g<C-g> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Feel free to pick your own mappings that are not affected. I like to use <leader>
+nmap <leader><C-g> <Plug>AllWholeOccurrences
+xmap <leader><C-g> <Plug>AllWholeOccurrences
+nmap <leader>g<C-g> <Plug>AllOccurrences
+xmap <leader>g<C-g> <Plug>AllOccurrences
 
 " Which Key descriptions
 let g:WhichKeyDesc_split = "<leader>w [W]indow operations"
