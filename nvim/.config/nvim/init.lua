@@ -201,6 +201,15 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Theme switching keymaps
+vim.keymap.set('n', '<leader>tl', function()
+  vim.cmd.colorscheme 'catppuccin-latte'
+end, { desc = '[T]heme [L]ight' })
+
+vim.keymap.set('n', '<leader>td', function()
+  vim.cmd.colorscheme 'tokyonight-night'
+end, { desc = '[T]heme [D]ark' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -214,6 +223,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -643,7 +653,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -893,6 +903,12 @@ require('lazy').setup({
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
+  },
+
+  { -- Popular light/dark theme with great support
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
   },
 
   -- Highlight todo, notes, etc in comments
