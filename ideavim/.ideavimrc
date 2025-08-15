@@ -21,6 +21,7 @@ let mapleader = ' '
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_DefaultDelay = 100
 
+
 map <C-e> <Action>(ActivateProjectToolWindow)
 
 " Window navigation (zgodne z Neovim)

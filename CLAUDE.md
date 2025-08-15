@@ -49,3 +49,4 @@ ln -s ~/.dotfiles/aerospace/.config/aerospace/aerospace.toml ~/.config/aerospace
 - Vim-style navigation is used consistently across all tools (hjkl for movement)
 - Configuration files may contain Polish comments from the original author
 - The repository excludes only `.DS_Store` files via `.gitignore`
+- **Neovim and IdeaVim Synchronization**: The configurations for Neovim and IdeaVim must be kept as similar as possible to ensure consistent workflow between both tools. When modifying Neovim setup, always analyze and update the .ideavimrc file accordingly to maintain feature parity.
