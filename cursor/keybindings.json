@@ -1,0 +1,52 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "cmd+i",
+        "command": "composerMode.agent"
+    },
+    // Project explorer toggle (Ctrl+e like IntelliJ)
+    {
+        "key": "ctrl+e",
+        "command": "workbench.view.explorer",
+        "when": "!terminalFocus"
+    },
+    // Generate/show suggestions (Shift+Space like IntelliJ)
+    {
+        "key": "shift+space",
+        "command": "editor.action.triggerSuggest",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    // Multiple cursors - skip current and go to next
+    {
+        "key": "ctrl+k ctrl+d",
+        "command": "editor.action.moveSelectionToNextFindMatch",
+        "when": "editorFocus"
+    },
+    // Multiple cursors - select all occurrences
+    {
+        "key": "cmd+shift+l",
+        "command": "editor.action.selectHighlights",
+        "when": "editorFocus"
+    },
+    // Toggle sidebar (Cmd+1 like IntelliJ)
+    {
+        "key": "cmd+1",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    // Replace in Files (Cmd+Shift+R like IntelliJ)
+    {
+        "key": "cmd+shift+r",
+        "command": "workbench.action.replaceInFiles"
+    },
+    // AI Suggestions - Partial Acceptance (Cmd only, preserving Option for word navigation)
+    {
+        "key": "cmd+right",
+        "command": "editor.action.inlineSuggest.acceptNextWord",
+        "when": "inlineSuggestionVisible"
+    },
+    {
+        "key": "cmd+shift+right",
+        "command": "editor.action.inlineSuggest.acceptNextLine",
+        "when": "inlineSuggestionVisible"
+    }
+]
