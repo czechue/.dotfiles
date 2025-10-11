@@ -12,6 +12,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **nvim/**: Neovim configuration based on Kickstart.nvim
 - **tmux/**: Terminal multiplexer configuration with vim-style navigation
 - **ideavim/**: IntelliJ IDEA Vim emulation configuration
+- **cursor/**: Cursor IDE configuration with Vim mode and IntelliJ-style keybindings
 
 ## Common Development Tasks
 
@@ -22,6 +23,8 @@ Configurations are manually symlinked from the home directory:
 ln -s ~/.dotfiles/ideavim/.ideavimrc ~/.ideavimrc
 ln -s ~/.dotfiles/tmux/.tmux.conf ~/.tmux.conf
 ln -s ~/.dotfiles/aerospace/.config/aerospace/aerospace.toml ~/.config/aerospace/aerospace.toml
+ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
+ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 ```
 
 ### Neovim Development
@@ -33,6 +36,7 @@ ln -s ~/.dotfiles/aerospace/.config/aerospace/aerospace.toml ~/.config/aerospace
 - For tmux: `tmux source-file ~/.tmux.conf` or `C-b r` from within tmux
 - For AeroSpace: `alt-shift-semicolon` then `r` to reload config
 - For Neovim: Restart Neovim or run `:source %` on the current file
+- For Cursor: Settings reload automatically, but full restart recommended after config changes
 
 ## Architecture Notes
 
@@ -49,4 +53,9 @@ ln -s ~/.dotfiles/aerospace/.config/aerospace/aerospace.toml ~/.config/aerospace
 - Vim-style navigation is used consistently across all tools (hjkl for movement)
 - Configuration files may contain Polish comments from the original author
 - The repository excludes only `.DS_Store` files via `.gitignore`
-- **Neovim and IdeaVim Synchronization**: The configurations for Neovim and IdeaVim must be kept as similar as possible to ensure consistent workflow between both tools. When modifying Neovim setup, always analyze and update the .ideavimrc file accordingly to maintain feature parity.
+- **Vim Configuration Synchronization**: The configurations for Neovim, IdeaVim, and Cursor must be kept as similar as possible to ensure consistent workflow across all editors. When modifying any vim setup, always analyze and update the other configurations accordingly to maintain feature parity. Key shared features:
+  - Leader key: `Space`
+  - Window navigation: `Ctrl+hjkl`
+  - Search/navigation: `Space+s*` prefix
+  - LSP actions: `Space+g*` prefix
+  - Refactoring: `Space+r*` prefix

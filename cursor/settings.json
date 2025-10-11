@@ -1,0 +1,198 @@
+{
+    "window.commandCenter": 1,
+    "workbench.colorTheme": "Default Light Modern",
+    "update.releaseTrack": "prerelease",
+
+    // Vim Configuration
+    "vim.leader": "<space>",
+    "vim.useSystemClipboard": true,
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.smartcase": true,
+    "vim.scrolloff": 10,
+    "vim.timeout": 5000,
+
+    // Enable vim-surround emulation
+    "vim.surround": true,
+
+    // Let VSCode handle these keys (not vim) for AI suggestions
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-w>": false
+    },
+
+    // Window navigation with Ctrl+hjkl
+    "vim.normalModeKeyBindings": [
+        // Window navigation (zgodne z Neovim)
+        {
+            "before": ["<C-h>"],
+            "commands": ["workbench.action.navigateLeft"]
+        },
+        {
+            "before": ["<C-j>"],
+            "commands": ["workbench.action.navigateDown"]
+        },
+        {
+            "before": ["<C-k>"],
+            "commands": ["workbench.action.navigateUp"]
+        },
+        {
+            "before": ["<C-l>"],
+            "commands": ["workbench.action.navigateRight"]
+        },
+
+        // Window management
+        {
+            "before": ["<leader>", "w", "v"],
+            "commands": ["workbench.action.splitEditor"]
+        },
+        {
+            "before": ["<leader>", "w", "h"],
+            "commands": ["workbench.action.splitEditorDown"]
+        },
+        {
+            "before": ["<leader>", "w", "w"],
+            "commands": ["workbench.action.joinTwoGroups"]
+        },
+        {
+            "before": ["<leader>", "w", "a"],
+            "commands": ["workbench.action.closeAllEditors"]
+        },
+
+        // Search and navigation (zgodne z Telescope)
+        {
+            "before": ["<leader>", "s", "f"],
+            "commands": ["workbench.action.quickOpen"]
+        },
+        {
+            "before": ["<leader>", "s", "g"],
+            "commands": ["workbench.action.findInFiles"]
+        },
+        {
+            "before": ["<leader>", "s", "s"],
+            "commands": ["workbench.action.gotoSymbol"]
+        },
+        {
+            "before": ["<leader>", "s", "a"],
+            "commands": ["workbench.action.showCommands"]
+        },
+        {
+            "before": ["<leader>", "s", "d"],
+            "commands": ["editor.action.showHover"]
+        },
+        {
+            "before": ["<leader>", "s", "r"],
+            "commands": ["workbench.action.openRecent"]
+        },
+
+        // LSP-like features
+        {
+            "before": ["<leader>", "g", "d"],
+            "commands": ["editor.action.revealDefinition"]
+        },
+        {
+            "before": ["<leader>", "g", "y"],
+            "commands": ["editor.action.goToTypeDefinition"]
+        },
+        {
+            "before": ["<leader>", "g", "i"],
+            "commands": ["editor.action.goToImplementation"]
+        },
+        {
+            "before": ["<leader>", "g", "t"],
+            "commands": ["testing.goToTest"]
+        },
+        {
+            "before": ["<leader>", "r", "n"],
+            "commands": ["editor.action.rename"]
+        },
+
+        // Code actions and refactoring
+        {
+            "before": ["<leader>", "c", "a"],
+            "commands": ["editor.action.quickFix"]
+        },
+        {
+            "before": ["<leader>", "r", "m"],
+            "commands": ["editor.action.refactor"]
+        },
+
+        // Errors navigation
+        {
+            "before": ["<leader>", "e", "n"],
+            "commands": ["editor.action.marker.next"]
+        },
+        {
+            "before": ["<leader>", "e", "p"],
+            "commands": ["editor.action.marker.prev"]
+        },
+
+        // File operations
+        {
+            "before": ["<leader>", "q", "q"],
+            "commands": ["workbench.action.closeActiveEditor"]
+        },
+        {
+            "before": ["<leader>", "q", "a"],
+            "commands": ["workbench.action.closeAllEditors"]
+        },
+        {
+            "before": ["<leader>", "n", "f"],
+            "commands": ["workbench.action.files.newUntitledFile"]
+        },
+
+        // Code formatting
+        {
+            "before": ["<leader>", "<leader>"],
+            "commands": ["editor.action.formatDocument"]
+        },
+        {
+            "before": ["<leader>", "o", "i"],
+            "commands": ["editor.action.organizeImports"]
+        },
+
+        // Multiple cursors (vim-multiple-cursors style)
+        {
+            "before": ["<C-g>"],
+            "commands": ["editor.action.addSelectionToNextFindMatch"]
+        },
+        {
+            "before": ["<leader>", "<C-g>"],
+            "commands": ["editor.action.selectHighlights"]
+        }
+    ],
+
+    "vim.visualModeKeyBindings": [
+        // Move lines up/down
+        {
+            "before": ["<S-j>"],
+            "commands": ["editor.action.moveLinesDownAction"]
+        },
+        {
+            "before": ["<S-k>"],
+            "commands": ["editor.action.moveLinesUpAction"]
+        },
+
+        // Multiple cursors in visual mode
+        {
+            "before": ["<C-g>"],
+            "commands": ["editor.action.addSelectionToNextFindMatch"]
+        },
+        {
+            "before": ["<C-x>"],
+            "commands": ["cursorUndo"]
+        },
+        {
+            "before": ["<leader>", "<C-g>"],
+            "commands": ["editor.action.selectHighlights"]
+        }
+    ],
+    "editor.cursorSurroundingLines": 10,
+
+    // Enable partial accepts (word/line acceptance)
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlineSuggest.showToolbar": "onHover",
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.chat.enableMentions": true
+}
