@@ -194,5 +194,8 @@
     "editor.inlineSuggest.enabled": true,
     "editor.inlineSuggest.showToolbar": "onHover",
     "cursor.cpp.enablePartialAccepts": true,
-    "cursor.chat.enableMentions": true
+    "cursor.chat.enableMentions": true,
+    "cursor.cpp.disabledLanguages": [
+        "plaintext"
+    ]
 }
