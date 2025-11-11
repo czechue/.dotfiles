@@ -407,7 +407,7 @@ require('lazy').setup({
           -- mappings = {
           --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           -- },
-          file_ignore_patterns = { '.git/', 'node_modules/' },
+          file_ignore_patterns = { '^.git/', 'node_modules/' },
           vimgrep_arguments = {
             'rg',
             '--color=never',
@@ -417,11 +417,13 @@ require('lazy').setup({
             '--column',
             '--smart-case',
             '--follow', -- Follow symlinks
+            '--hidden', -- Search in hidden files
           },
         },
         pickers = {
           find_files = {
             follow = true, -- Follow symlinks for all find_files calls
+            hidden = true, -- Show hidden files (dotfiles)
           },
         },
         extensions = {
