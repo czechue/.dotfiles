@@ -144,7 +144,7 @@
 
         // Code formatting
         {
-            "before": ["<leader>", "<leader>"],
+            "before": ["<leader>", "f"],
             "commands": ["editor.action.formatDocument"]
         },
         {
