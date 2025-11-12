@@ -638,6 +638,16 @@ require('lazy').setup({
         end,
       })
 
+      -- Configure diagnostic display (required in Neovim 0.11+)
+      -- In Neovim 0.11, diagnostics are disabled by default and must be explicitly enabled
+      vim.diagnostic.config {
+        virtual_text = true, -- Show diagnostic messages inline
+        underline = true,    -- Underline problematic code
+        signs = true,        -- Show signs in the gutter
+        update_in_insert = false, -- Don't update diagnostics while typing
+        severity_sort = true, -- Sort by severity
+      }
+
       -- Change diagnostic symbols in the sign column (gutter)
       -- if vim.g.have_nerd_font then
       --   local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
@@ -693,9 +703,23 @@ require('lazy').setup({
           },
         },
         ts_ls = {
-          root_dir = function(...)
-            return require('lspconfig.util').root_pattern '.git'(...)
-          end,
+          cmd = { 'typescript-language-server', '--stdio' },
+          filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+          root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+        },
+        eslint = {
+          -- ESLint language server for JavaScript/TypeScript linting
+          -- Auto-detects package manager (npm/yarn/pnpm) from lock files
+          cmd = { 'vscode-eslint-language-server', '--stdio' },
+          filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+          root_markers = { '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc', 'eslint.config.js', 'package.json', '.git' },
+          settings = {
+            validate = 'on',
+            run = 'onType', -- Run ESLint as you type
+            workingDirectory = {
+              mode = 'location', -- Use the location of the eslint config file
+            },
+          },
         },
       }
 
@@ -711,6 +735,17 @@ require('lazy').setup({
             package_installed = '✓',
             package_pending = '➜',
             package_uninstalled = '✗',
+          },
+          keymaps = {
+            toggle_package_expand = '<CR>',
+            install_package = 'i',
+            update_package = 'u',
+            check_package_version = 'c',
+            update_all_packages = 'U',
+            check_outdated_packages = 'C',
+            uninstall_package = 'X',
+            cancel_installation = '<C-c>',
+            apply_language_filter = '<C-l>', -- Changed from <C-f> to <C-l>
           },
         },
       }
@@ -734,7 +769,12 @@ require('lazy').setup({
           -- by the server configuration above. Useful when disabling
           -- certain features of an LSP (for example, turning off formatting for ts_ls)
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
+          -- Register LSP configuration with Neovim 0.11 API
           vim.lsp.config(server_name, server)
+
+          -- Enable the LSP server (required in Neovim 0.11)
+          vim.lsp.enable(server_name)
         end,
       }
     end,
