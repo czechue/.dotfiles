@@ -4,20 +4,21 @@
 -- See the kickstart.nvim README for more information
 return {
   -- Multiple cursors plugin (like IntelliJ's Ctrl-G)
-  {
-    'smoka7/multicursors.nvim',
-    event = 'VeryLazy',
-    dependencies = { 'nvimtools/hydra.nvim' },
-    opts = {},
-    keys = {
-      {
-        mode = { 'v', 'n' },
-        '<C-g>',
-        '<cmd>MCstart<cr>',
-        desc = 'Create multiple cursors for selected text or word under cursor',
-      },
-    },
-  },
+  -- Commented out - not working well
+  -- {
+  --   'smoka7/multicursors.nvim',
+  --   event = 'VeryLazy',
+  --   dependencies = { 'nvimtools/hydra.nvim' },
+  --   opts = {},
+  --   keys = {
+  --     {
+  --       mode = { 'v', 'n' },
+  --       '<C-g>',
+  --       '<cmd>MCstart<cr>',
+  --       desc = 'Create multiple cursors for selected text or word under cursor',
+  --     },
+  --   },
+  -- },
 
   -- Markdown rendering plugin
   {

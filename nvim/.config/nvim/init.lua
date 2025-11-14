@@ -377,7 +377,12 @@ require('lazy').setup({
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
-    config = function()
+    config = (function()
+      -- Telescope directory scope toggle state
+      local telescope_last_dir = nil
+      local telescope_scope_frozen = false
+
+      return function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
       -- it can fuzzy find! It's more than just a "file finder", it can search
       -- many different aspects of Neovim, your workspace, LSP, and more!
@@ -404,9 +409,53 @@ require('lazy').setup({
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
+          mappings = {
+            i = {
+              ['<c-enter>'] = 'to_fuzzy_refine',
+              ['<C-d>'] = function(prompt_bufnr)
+                local actions = require('telescope.actions')
+                local builtin = require('telescope.builtin')
+
+                actions.close(prompt_bufnr)
+
+                if telescope_scope_frozen then
+                  -- Already frozen: ask to change directory or unfreeze
+                  vim.ui.input({
+                    prompt = 'Search directory (empty=unfreeze): ',
+                    default = telescope_last_dir,
+                    completion = 'dir'
+                  }, function(input)
+                    if input == nil then
+                      -- Cancelled (Escape) - do nothing, stay frozen
+                      builtin.find_files { cwd = telescope_last_dir }
+                    elseif input == '' or input == telescope_last_dir then
+                      -- Empty or unchanged - unfreeze
+                      telescope_scope_frozen = false
+                      telescope_last_dir = nil
+                      builtin.find_files { cwd = nil }
+                    else
+                      -- New directory - change and stay frozen
+                      telescope_last_dir = input
+                      builtin.find_files { cwd = telescope_last_dir }
+                    end
+                  end)
+                else
+                  -- Not frozen: ask for directory to freeze
+                  vim.ui.input({
+                    prompt = 'Search directory: ',
+                    default = telescope_last_dir or '',
+                    completion = 'dir'
+                  }, function(input)
+                    if input and input ~= '' then
+                      telescope_last_dir = input
+                      telescope_scope_frozen = true
+                      builtin.find_files { cwd = telescope_last_dir }
+                    end
+                  end)
+                end
+              end,
+            },
+          },
           file_ignore_patterns = { '^.git/', 'node_modules/' },
           vimgrep_arguments = {
             'rg',
@@ -441,7 +490,10 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sf', function()
+        local cwd = telescope_scope_frozen and telescope_last_dir or nil
+        builtin.find_files { cwd = cwd }
+      end, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -470,12 +522,13 @@ require('lazy').setup({
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { 
+        builtin.find_files {
           cwd = vim.fn.stdpath 'config',
           follow = true, -- Follow symlinks
         }
       end, { desc = '[S]earch [N]eovim files' })
-    end,
+      end
+    end)(),
   },
 
   -- LSP Plugins
@@ -717,7 +770,11 @@ require('lazy').setup({
             validate = 'on',
             run = 'onType', -- Run ESLint as you type
             workingDirectory = {
-              mode = 'location', -- Use the location of the eslint config file
+              mode = 'auto', -- Auto-detect working directory (better for monorepos)
+            },
+            -- For monorepos: resolve plugins relative to each package
+            experimental = {
+              useFlatConfig = false,
             },
           },
         },
