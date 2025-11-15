@@ -1,0 +1,9 @@
+{
+  "enabledPlugins": {
+    "humanlayer@jeffh-claude-plugins": true
+  },
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1753964358641
+  }
+}

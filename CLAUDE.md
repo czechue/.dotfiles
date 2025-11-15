@@ -13,6 +13,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **tmux/**: Terminal multiplexer configuration with vim-style navigation
 - **ideavim/**: IntelliJ IDEA Vim emulation configuration
 - **cursor/**: Cursor IDE configuration with Vim mode and IntelliJ-style keybindings
+- **claude/**: Claude Code CLI global configuration and settings
 
 ## Common Development Tasks
 
@@ -25,6 +26,12 @@ ln -s ~/.dotfiles/tmux/.tmux.conf ~/.tmux.conf
 ln -s ~/.dotfiles/aerospace/.config/aerospace/aerospace.toml ~/.config/aerospace/aerospace.toml
 ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
 ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
+
+# Claude Code:
+ln -sf ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json
+ln -sf ~/.dotfiles/claude/mcp-servers.json ~/.claude/mcp-servers.json
+# See claude/README.md for MCP server configuration details
 ```
 
 ### Neovim Development
@@ -37,6 +44,7 @@ ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor
 - For AeroSpace: `alt-shift-semicolon` then `r` to reload config
 - For Neovim: Restart Neovim or run `:source %` on the current file
 - For Cursor: Settings reload automatically, but full restart recommended after config changes
+- For Claude Code: Restart Claude Code CLI to load configuration changes
 
 ## Architecture Notes
 
