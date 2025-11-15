@@ -1,0 +1,2 @@
+- Always use english in the code (also in .md files)
+- skorzystaj z make install

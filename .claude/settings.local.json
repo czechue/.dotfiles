@@ -5,7 +5,9 @@
       "Bash(ls:*)",
       "Bash(claude mcp add:*)",
       "WebFetch(domain:github.com)",
-      "mcp__mcp-omnisearch__web_search"
+      "mcp__mcp-omnisearch__web_search",
+      "Read(//Users/michallester/.claude/**)",
+      "Bash(ln:*)"
     ],
     "deny": []
   }
