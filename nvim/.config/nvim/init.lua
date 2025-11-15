@@ -210,6 +210,10 @@ vim.keymap.set('n', '<leader>td', function()
   vim.cmd.colorscheme 'tokyonight-night'
 end, { desc = '[T]heme [D]ark' })
 
+vim.keymap.set('n', '<leader>ta', function()
+  require('telescope.builtin').colorscheme()
+end, { desc = '[T]heme [A]ll' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
