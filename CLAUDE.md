@@ -30,8 +30,9 @@ ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor
 # Claude Code:
 ln -sf ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json
-ln -sf ~/.dotfiles/claude/mcp-servers.json ~/.claude/mcp-servers.json
-# See claude/README.md for MCP server configuration details
+# Sync MCP servers (run after editing mcp-servers.json):
+~/.dotfiles/claude/sync-mcp.sh
+# See claude/README.md for detailed MCP server configuration
 ```
 
 ### Neovim Development
