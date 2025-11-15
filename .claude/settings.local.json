@@ -7,7 +7,8 @@
       "WebFetch(domain:github.com)",
       "mcp__mcp-omnisearch__web_search",
       "Read(//Users/michallester/.claude/**)",
-      "Bash(ln:*)"
+      "Bash(ln:*)",
+      "mcp__mcp-omnisearch__ai_search"
     ],
     "deny": []
   }
