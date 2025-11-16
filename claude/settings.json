@@ -1,6 +1,33 @@
 {
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
+          },
+          {
+            "type": "command",
+            "command": "osascript -e \"display notification \\\"DONE\\\" with title \\\"Claude Code: $(basename \\\"$PWD\\\")\\\"\""
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
-    "humanlayer@jeffh-claude-plugins": true
+    "humanlayer@jeffh-claude-plugins": false,
+    "work@work-plugins": true,
+    "personal@jeffh-claude-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "work-plugins": {
+      "source": {
+        "source": "git",
+        "url": "https://gitlab.com/example/prompts.git",
+        "path": "claude-plugins"
+      }
+    }
   },
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
