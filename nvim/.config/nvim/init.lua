@@ -555,7 +555,7 @@ require('lazy').setup({
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      { 'williamboman/mason-lspconfig.nvim', version = 'v1.*' },
+      'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -762,14 +762,20 @@ require('lazy').setup({
         ts_ls = {
           cmd = { 'typescript-language-server', '--stdio' },
           filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-          root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+          root_dir = function(fname)
+            local util = require('lspconfig.util')
+            return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')(fname)
+          end,
         },
         eslint = {
           -- ESLint language server for JavaScript/TypeScript linting
           -- Auto-detects package manager (npm/yarn/pnpm) from lock files
           cmd = { 'vscode-eslint-language-server', '--stdio' },
           filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-          root_markers = { '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc', 'eslint.config.js', 'package.json', '.git' },
+          root_dir = function(fname)
+            local util = require('lspconfig.util')
+            return util.root_pattern('.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc', 'eslint.config.js', 'package.json', '.git')(fname)
+          end,
           settings = {
             validate = 'on',
             run = 'onType', -- Run ESLint as you type
