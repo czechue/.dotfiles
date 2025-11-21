@@ -864,10 +864,23 @@ require('lazy').setup({
       {
         '<leader>f',
         function()
+          -- First run prettier/formatter
           require('conform').format { async = true, lsp_format = 'fallback' }
+
+          -- Then run ESLint auto-fix (only for JS/TS files)
+          local filetype = vim.bo.filetype
+          if filetype == 'javascript' or filetype == 'javascriptreact' or
+             filetype == 'typescript' or filetype == 'typescriptreact' then
+            vim.defer_fn(function()
+              vim.lsp.buf.code_action({
+                context = { only = { 'source.fixAll.eslint' } },
+                apply = true,
+              })
+            end, 100) -- Small delay to let prettier finish
+          end
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '[F]ormat buffer + ESLint fix',
       },
     },
     opts = {
