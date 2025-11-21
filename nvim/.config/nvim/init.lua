@@ -837,11 +837,8 @@ require('lazy').setup({
           -- certain features of an LSP (for example, turning off formatting for ts_ls)
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
 
-          -- Register LSP configuration with Neovim 0.11 API
-          vim.lsp.config(server_name, server)
-
-          -- Enable the LSP server (required in Neovim 0.11)
-          vim.lsp.enable(server_name)
+          -- Use lspconfig's setup (correct way in Neovim 0.11)
+          require('lspconfig')[server_name].setup(server)
         end,
       }
     end,
