@@ -860,21 +860,18 @@ require('lazy').setup({
 
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(servers or {}),
-        automatic_installation = false, -- Disable automatic installation to avoid the error
       }
 
-      require('mason-lspconfig').setup_handlers {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+      -- Configure each LSP server (new way in mason-lspconfig 2.0+)
+      for server_name, server_config in pairs(servers) do
+        -- This handles overriding only values explicitly passed
+        -- by the server configuration above. Useful when disabling
+        -- certain features of an LSP (for example, turning off formatting for ts_ls)
+        server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
 
-          -- Use lspconfig's setup (correct way in Neovim 0.11)
-          require('lspconfig')[server_name].setup(server)
-        end,
-      }
+        -- Use lspconfig's setup (correct way in Neovim 0.11)
+        require('lspconfig')[server_name].setup(server_config)
+      end
     end,
   },
 
