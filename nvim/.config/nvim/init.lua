@@ -214,6 +214,28 @@ vim.keymap.set('n', '<leader>ta', function()
   require('telescope.builtin').colorscheme()
 end, { desc = '[T]heme [A]ll' })
 
+-- Toggle Codeium AI completion
+vim.keymap.set('n', '<leader>tc', function()
+  local cmp = require('cmp')
+  local config = cmp.get_config()
+  local sources = config.sources
+
+  -- Check if codeium is currently enabled (first in sources list)
+  local codeium_enabled = sources[1] and sources[1].name == 'codeium'
+
+  if codeium_enabled then
+    -- Disable: remove codeium from sources
+    table.remove(sources, 1)
+    cmp.setup({ sources = sources })
+    vim.notify('Codeium AI: DISABLED', vim.log.levels.INFO)
+  else
+    -- Enable: add codeium as first source
+    table.insert(sources, 1, { name = 'codeium' })
+    cmp.setup({ sources = sources })
+    vim.notify('Codeium AI: ENABLED', vim.log.levels.INFO)
+  end
+end, { desc = '[T]oggle [C]odeium AI completion' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -966,6 +988,21 @@ require('lazy').setup({
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
 
+        -- Add visual indicators for completion sources
+        formatting = {
+          format = function(entry, vim_item)
+            -- Add source labels
+            vim_item.menu = ({
+              codeium = '[AI]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[Snip]',
+              path = '[Path]',
+              lazydev = '[Lua]',
+            })[entry.source.name] or '[' .. entry.source.name .. ']'
+            return vim_item
+          end,
+        },
+
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
         --
@@ -1019,6 +1056,7 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
+          { name = 'codeium' }, -- AI completions (toggleable)
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it

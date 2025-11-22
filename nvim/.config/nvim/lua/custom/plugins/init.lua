@@ -107,4 +107,19 @@ return {
       },
     },
   },
+
+  -- AI Autocompletion (Codeium) - toggleable with <leader>tc
+  {
+    'Exafunction/codeium.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
+    },
+    event = 'InsertEnter',
+    config = function()
+      require('codeium').setup({
+        enable_chat = false, -- Disable chat UI (we only want completion)
+      })
+    end,
+  },
 }
