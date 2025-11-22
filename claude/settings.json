@@ -9,7 +9,7 @@
           },
           {
             "type": "command",
-            "command": "osascript -e \"display notification \\\"DONE\\\" with title \\\"Claude Code: $(basename \\\"$PWD\\\")\\\"\""
+            "command": "osascript -e 'display notification \"DONE\" with title \"Claude Code: '$(basename \"$PWD\")'\"'"
           }
         ]
       }
