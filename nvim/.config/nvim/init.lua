@@ -793,8 +793,11 @@ require('lazy').setup({
             vim.api.nvim_create_autocmd('BufWritePre', {
               buffer = bufnr,
               callback = function()
-                -- Add missing imports
+                -- Add missing imports (filter for preferred actions to auto-apply)
                 vim.lsp.buf.code_action({
+                  filter = function(action)
+                    return action.isPreferred
+                  end,
                   apply = true,
                   context = {
                     only = { 'source.addMissingImports.ts' },
@@ -804,6 +807,9 @@ require('lazy').setup({
                 -- Remove unused imports (runs after a small delay)
                 vim.defer_fn(function()
                   vim.lsp.buf.code_action({
+                    filter = function(action)
+                      return action.isPreferred
+                    end,
                     apply = true,
                     context = {
                       only = { 'source.removeUnused.ts' },
