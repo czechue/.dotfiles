@@ -8,7 +8,9 @@
       "mcp__mcp-omnisearch__web_search",
       "Read(//Users/michallester/.claude/**)",
       "Bash(ln:*)",
-      "mcp__mcp-omnisearch__ai_search"
+      "mcp__mcp-omnisearch__ai_search",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
