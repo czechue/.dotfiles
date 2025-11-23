@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mxsdev/nvim-dap-vscode-js', -- TypeScript/JavaScript debugging support
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -94,7 +95,8 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        'delve', -- Go debugger
+        'js-debug-adapter', -- TypeScript/JavaScript debugger
       },
     }
 
@@ -144,5 +146,48 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    -- TypeScript/JavaScript debugging setup
+    require('dap-vscode-js').setup {
+      -- Path to the debug adapter (installed by Mason)
+      debugger_path = vim.fn.stdpath 'data' .. '/mason/packages/js-debug-adapter',
+      -- Supported debugger modes: node, chrome, terminal
+      adapters = { 'pwa-node', 'pwa-chrome', 'node-terminal' },
+    }
+
+    -- Configure debugging for TypeScript/JavaScript files
+    for _, language in ipairs { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' } do
+      dap.configurations[language] = {
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          cwd = '${workspaceFolder}',
+        },
+        {
+          type = 'pwa-node',
+          request = 'attach',
+          name = 'Attach to process',
+          processId = require('dap.utils').pick_process,
+          cwd = '${workspaceFolder}',
+        },
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Debug Jest Tests',
+          -- Adjust this to your project's test command
+          runtimeExecutable = 'node',
+          runtimeArgs = {
+            './node_modules/.bin/jest',
+            '--runInBand',
+          },
+          rootPath = '${workspaceFolder}',
+          cwd = '${workspaceFolder}',
+          console = 'integratedTerminal',
+          internalConsoleOptions = 'neverOpen',
+        },
+      }
+    end
   end,
 }
