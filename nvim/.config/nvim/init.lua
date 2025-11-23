@@ -788,6 +788,32 @@ require('lazy').setup({
             local util = require('lspconfig.util')
             return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')(fname)
           end,
+          on_attach = function(client, bufnr)
+            -- Auto-import on save: add missing imports and remove unused ones
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              buffer = bufnr,
+              callback = function()
+                -- Add missing imports
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { 'source.addMissingImports.ts' },
+                    diagnostics = {},
+                  },
+                })
+                -- Remove unused imports (runs after a small delay)
+                vim.defer_fn(function()
+                  vim.lsp.buf.code_action({
+                    apply = true,
+                    context = {
+                      only = { 'source.removeUnused.ts' },
+                      diagnostics = {},
+                    },
+                  })
+                end, 50)
+              end,
+            })
+          end,
         },
         eslint = {
           -- ESLint language server for JavaScript/TypeScript linting
