@@ -888,16 +888,18 @@ require('lazy').setup({
         ensure_installed = vim.tbl_keys(servers or {}),
       }
 
-      -- Configure each LSP server using native vim.lsp.config (Neovim 0.11+)
+      -- Configure each LSP server
+      -- Note: Using lspconfig.setup() is still the recommended way even in Neovim 0.11
+      -- The deprecation warning refers to the old require('lspconfig') framework pattern,
+      -- but setup() itself remains the standard API
       for server_name, server_config in pairs(servers) do
         -- This handles overriding only values explicitly passed
         -- by the server configuration above. Useful when disabling
         -- certain features of an LSP (for example, turning off formatting for ts_ls)
         server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
 
-        -- Use native Neovim 0.11+ LSP config API
-        vim.lsp.config(server_name, server_config)
-        vim.lsp.enable(server_name)
+        -- Setup LSP server
+        require('lspconfig')[server_name].setup(server_config)
       end
     end,
   },
