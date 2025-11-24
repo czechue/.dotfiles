@@ -68,7 +68,6 @@ local extension_map = {
 	csv = "csv",
 	tsv = "csv",
 	txt = "text",
-	json = "json",
 	parquet = "parquet",
 	xlsx = "excel",
 	duckdb = "duckdb",
