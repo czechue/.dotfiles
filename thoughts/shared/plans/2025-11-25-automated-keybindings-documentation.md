@@ -1564,8 +1564,8 @@ Use the search box below to find shortcuts across all tools:
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Quick reference page exists: `docs/quick-reference.md`
-- [ ] Site builds successfully: `mkdocs build`
+- [x] Quick reference page exists: `docs/quick-reference.md`
+- [x] Site builds successfully: `mkdocs build`
 - [ ] All cross-references link correctly
 - [ ] Search functionality works on unified table
 
@@ -1710,11 +1710,11 @@ In the repository settings, GitHub Pages should be configured to:
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Workflow file exists: `.github/workflows/docs.yml`
-- [ ] Workflow syntax is valid (GitHub will validate on push)
-- [ ] requirements.txt exists with pinned versions
-- [ ] Site builds locally without errors: `mkdocs build --strict`
-- [ ] No build warnings (--strict flag enforces this)
+- [x] Workflow file exists: `.github/workflows/docs.yml`
+- [x] Workflow syntax is valid (GitHub will validate on push)
+- [x] requirements.txt exists with pinned versions
+- [x] Site builds locally without errors: `mkdocs build --strict`
+- [x] No build warnings (--strict flag enforces this)
 
 #### Manual Verification:
 - [ ] Push to master triggers GitHub Actions workflow

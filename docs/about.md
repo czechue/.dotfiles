@@ -19,6 +19,38 @@ This documentation site provides a comprehensive reference for all keyboard shor
 - **[List.js](https://listjs.com/)**: Interactive table search and filtering
 - **[GitHub Actions](https://github.com/features/actions)**: Automated deployment
 
+## Deployment
+
+This documentation is automatically deployed to GitHub Pages when changes are pushed to the master branch.
+
+### Deployment Process
+
+1. Push changes to `master` branch
+2. GitHub Actions workflow triggers (`.github/workflows/docs.yml`)
+3. Workflow installs Python and MkDocs Material
+4. Site builds with `mkdocs build --strict`
+5. Deploys to `gh-pages` branch with `mkdocs gh-deploy`
+6. GitHub Pages serves the site at `https://czechue.github.io/.dotfiles/`
+
+### Manual Deployment
+
+You can also deploy manually from your local machine:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Build and deploy
+mkdocs gh-deploy
+```
+
+### GitHub Pages Settings
+
+In the repository settings, GitHub Pages should be configured to:
+- **Source**: Deploy from `gh-pages` branch
+- **Folder**: `/` (root)
+- **Custom domain**: None (using default GitHub Pages URL)
+
 ## Repository Structure
 
 ```

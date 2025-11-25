@@ -2,6 +2,8 @@
 
 Personal development environment configuration for macOS with support for terminal tools, text editors, and IDE integrations.
 
+**📚 [View Keybindings Documentation](https://czechue.github.io/.dotfiles/)** - Comprehensive keyboard shortcuts reference for all tools.
+
 ## Overview
 
 This repository contains configurations for:
