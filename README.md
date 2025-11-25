@@ -369,6 +369,40 @@ cat ~/.claude.json | jq '.mcpServers'
 ~/.dotfiles/claude/sync-mcp.sh
 ```
 
+## Updating Documentation
+
+The keybindings documentation is maintained manually in the `docs/` directory.
+
+### Local Preview
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Start local preview server
+mkdocs serve
+# Visit http://127.0.0.1:8000
+```
+
+### Update Workflow
+
+1. Edit documentation files in `docs/tools/*.md`
+2. Run validation helper:
+   ```bash
+   python scripts/update-docs.py
+   ```
+3. Preview changes locally: `mkdocs serve`
+4. Commit and push to master
+5. GitHub Actions automatically deploys to GitHub Pages
+
+### Manual Deployment
+
+If needed, you can deploy manually:
+
+```bash
+mkdocs gh-deploy
+```
+
 ## Contributing
 
 This is a personal dotfiles repository, but feel free to:

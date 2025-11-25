@@ -46,7 +46,7 @@ Welcome to the comprehensive keyboard shortcuts documentation for my personal de
 
     [:octicons-arrow-right-24: View shortcuts](tools/cursor.md)
 
--   :material-vim: __IdeaVim__
+-   :simple-vim: __IdeaVim__
 
     ---
 
@@ -54,13 +54,21 @@ Welcome to the comprehensive keyboard shortcuts documentation for my personal de
 
     [:octicons-arrow-right-24: View shortcuts](tools/ideavim.md)
 
--   :material-terminal: __zsh__
+-   :material-console-line: __zsh__
 
     ---
 
     Shell configuration with vi mode
 
     [:octicons-arrow-right-24: View shortcuts](tools/zsh.md)
+
+-   :material-keyboard-variant: __Glove80__
+
+    ---
+
+    Split ergonomic keyboard with Engrammer layout
+
+    [:octicons-arrow-right-24: View layout](keyboard/glove80.md)
 
 </div>
 

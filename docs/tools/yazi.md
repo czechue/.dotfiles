@@ -29,7 +29,11 @@ Terminal file manager with vim-style navigation and DuckDB plugin for CSV previe
 |----------|--------|---------|
 | ++o++ | Open selected files | File Operations |
 | ++y++ | Yank (copy) files | File Operations |
+| ++x++ | Cut files | File Operations |
 | ++p++ | Paste files | File Operations |
+| ++shift+p++ | Paste files (overwrite) | File Operations |
+| ++shift+y++ | Cancel yank status | File Operations |
+| ++shift+x++ | Cancel yank status | File Operations |
 | ++d++ | Trash selected files | File Operations |
 | ++a++ | Create file | File Operations |
 | ++r++ | Rename file | File Operations |
