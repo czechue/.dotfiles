@@ -16,6 +16,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://czechue.github.io/.dotfiles/keyboard/glove80-symbol/</loc>
+         <lastmod>2025-11-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://czechue.github.io/.dotfiles/keyboard/glove80/</loc>
+         <lastmod>2025-11-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://czechue.github.io/.dotfiles/tools/aerospace/</loc>
          <lastmod>2025-11-25</lastmod>
          <changefreq>daily</changefreq>
