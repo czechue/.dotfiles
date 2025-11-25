@@ -10,7 +10,13 @@
       "Bash(ln:*)",
       "mcp__mcp-omnisearch__ai_search",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebSearch",
+      "WebFetch(domain:squidfunk.github.io)",
+      "WebFetch(domain:til.simonwillison.net)",
+      "WebFetch(domain:listjs.com)",
+      "WebFetch(domain:gridjs.io)",
+      "Bash(mkdocs build:*)"
     ],
     "deny": []
   }

@@ -1,0 +1,73 @@
+site_name: Dotfiles Keybindings
+site_url: https://czechue.github.io/.dotfiles/
+site_description: Comprehensive keyboard shortcuts documentation for personal dotfiles
+site_author: Michal Lester
+repo_url: https://github.com/czechue/.dotfiles
+repo_name: czechue/.dotfiles
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - pymdownx.keys  # Keyboard shortcut rendering
+  - tables
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - stylesheets/shortcuts.css
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js
+  - javascripts/shortcuts.js
+
+nav:
+  - Home: index.md
+  - Tools:
+      - Neovim: tools/neovim.md
+      - tmux: tools/tmux.md
+      - AeroSpace: tools/aerospace.md
+      - yazi: tools/yazi.md
+      - Cursor: tools/cursor.md
+      - IdeaVim: tools/ideavim.md
+      - zsh: tools/zsh.md
+  - Quick Reference: quick-reference.md
+  - About: about.md
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
