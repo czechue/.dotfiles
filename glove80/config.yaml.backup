@@ -1,0 +1,148 @@
+draw_config:
+  # Key dimensions
+  key_w: 64
+  key_h: 58
+  split_gap: 30
+
+  # Styling
+  dark_mode: true
+
+  # Glyph rendering
+  glyph_tap_size: 12
+  glyph_hold_size: 10
+  glyph_shifted_size: 10
+
+  # Padding inside keys
+  inner_pad_w: 2
+  inner_pad_h: 2
+  svg_style: |
+    svg {
+      font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-kerning: normal;
+      text-rendering: optimizeLegibility;
+      fill: #24273a;
+    }
+    
+    /* Dark mode colors - Catppuccin Mocha inspired */
+    rect.key {
+      fill: #313244;
+      stroke: #45475a;
+      stroke-width: 1;
+      rx: 4;
+    }
+    
+    rect.key.held {
+      fill: #45475a;
+    }
+    
+    rect.key.ghost {
+      stroke-dasharray: 4 4;
+      stroke-width: 1;
+      fill: #1e1e2e;
+    }
+    
+    text.key {
+      fill: #cdd6f4;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    text.tap {
+      fill: #89b4fa;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    text.hold {
+      fill: #f38ba8;
+      font-size: 9px;
+    }
+    
+    text.mod {
+      fill: #fab387;
+      font-weight: 600;
+    }
+    
+    /* Layer indicator */
+    text.layer {
+      fill: #a6e3a1;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    
+    /* Special keys */
+    text.shifted {
+      fill: #f9e2af;
+    }
+    
+    /* Transparent keys */
+    text.trans {
+      fill: #6c7086;
+      font-style: italic;
+    }
+
+parse_config:
+  skip_layers: []
+  
+  # Map ZMK keycodes to nice labels
+  zmk_keycode_map:
+    GRAVE: "`"
+    TILDE: "~"
+    EXCL: "!"
+    AT: "@"
+    HASH: "#"
+    DLLR: "$"
+    PRCNT: "%"
+    CARET: "^"
+    AMPS: "&"
+    STAR: "*"
+    LPAR: "("
+    RPAR: ")"
+    UNDER: "_"
+    PLUS: "+"
+    MINUS: "-"
+    EQUAL: "="
+    LBKT: "["
+    RBKT: "]"
+    LBRC: "{"
+    RBRC: "}"
+    PIPE: "|"
+    BSLH: "\\"
+    SEMI: ";"
+    COLON: ":"
+    SQT: "'"
+    DQT: '"'
+    COMMA: ","
+    DOT: "."
+    LT: "<"
+    GT: ">"
+    FSLH: "/"
+    QMARK: "?"
+    SPACE: "Spc"
+    ENTER: "Ent"
+    BSPC: "Bsp"
+    TAB: "Tab"
+    ESC: "Esc"
+    DEL: "Del"
+    INS: "Ins"
+    HOME: "Hm"
+    END: "End"
+    PG_UP: "PgU"
+    PG_DN: "PgD"
+    LEFT: "←"
+    RIGHT: "→"
+    UP: "↑"
+    DOWN: "↓"
+    CAPS: "Cap"
+    LSFT: "Sft"
+    RSFT: "Sft"
+    LCTL: "Ctl"
+    RCTL: "Ctl"
+    LALT: "Alt"
+    RALT: "Alt"
+    LGUI: "Cmd"
+    RGUI: "Cmd"
+    LS(TAB): "S⇥"
+    LS(N9): "("
+    LS(N0): ")"

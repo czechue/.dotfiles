@@ -39,6 +39,9 @@ theme:
 
 markdown_extensions:
   - pymdownx.keys  # Keyboard shortcut rendering
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - tables
   - attr_list
   - md_in_html
@@ -65,6 +68,9 @@ nav:
       - Cursor: tools/cursor.md
       - IdeaVim: tools/ideavim.md
       - zsh: tools/zsh.md
+  - Keyboard:
+      - Glove80: keyboard/glove80.md
+      - Symbol Layer: keyboard/glove80-symbol.md
   - Quick Reference: quick-reference.md
   - About: about.md
 

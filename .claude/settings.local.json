@@ -16,7 +16,8 @@
       "WebFetch(domain:til.simonwillison.net)",
       "WebFetch(domain:listjs.com)",
       "WebFetch(domain:gridjs.io)",
-      "Bash(mkdocs build:*)"
+      "Bash(mkdocs build:*)",
+      "Bash(python -m keymap_drawer:*)"
     ],
     "deny": []
   }
