@@ -2,6 +2,10 @@
 
 Terminal multiplexer with vim-style navigation and custom keybindings.
 
+## Tmux cheet sheet
+
+**https://tmuxcheatsheet.com/**
+
 **Configuration**: `tmux/.tmux.conf`
 **Prefix Key**: ++ctrl+b++
 
