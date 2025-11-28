@@ -6,6 +6,15 @@ Terminal multiplexer with vim-style navigation and custom keybindings.
 
 **https://tmuxcheatsheet.com/**
 
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++ctrl+b+w++ | Session and Window Preview | Configuration                  |
+
+</div>
+
+
 **Configuration**: `tmux/.tmux.conf`
 **Prefix Key**: ++ctrl+b++
 
