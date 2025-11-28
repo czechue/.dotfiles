@@ -2,6 +2,10 @@
 
 Neovim configuration based on Kickstart.nvim with lazy.nvim plugin manager, LSP integration, Telescope fuzzy finder, and custom plugins.
 
+## Cheet Sheet of all Vim commands
+
+**https://vim.rtorr.com/**
+
 **Configuration**: `nvim/.config/nvim/init.lua`
 
 ## Core Navigation
