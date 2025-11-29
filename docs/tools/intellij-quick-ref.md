@@ -2,7 +2,22 @@
 
 > Top 30 Essential Shortcuts for TypeScript Full-Stack Development
 
-**Print This**: One-page quick reference for daily use | [Full Documentation](./intellij-keybindings.md)
+**Print This**: One-page quick reference for daily use
+
+**Related Docs**:
+- 📚 **[Full Documentation](./intellij-keybindings.md)** - Complete keybindings reference
+- 🎓 **[Mastery Path](./intellij-mastery-path.md)** - 6-week learning program with milestones
+- 🔧 **[Improvements](./intellij-improvements.md)** - What changed and why
+
+## 🎯 Three-Layer Shortcut System
+
+Your config now supports **three speed tiers** - use the right one for your flow:
+
+- **🏎️ Fast (1 key)**: Native shortcuts - `Cmd+B`, `Option+Enter` - Maximum speed
+- **⚡ Medium (2 keys)**: Vim-style - `gd`, `gr`, `gi` - Balanced & familiar
+- **🧭 Discoverable (3 keys)**: Leader-key - `Space+G+D` - Appears in Which-Key menu
+
+**Tip**: Start with leader-key (discoverable), graduate to Vim-style (fast), use native (fastest).
 
 ---
 
@@ -18,24 +33,50 @@
 
 ---
 
-## 🧭 Navigation & LSP
+## 🧭 Navigation & LSP (Three Layers!)
 
-| Shortcut | Action | Use Case |
-|----------|--------|----------|
-| ++cmd+b++ | Go to declaration/definition | Jump to source |
-| ++space+g+i++ | Go to implementation | Find interface implementations |
-| ++space+g+y++ | Go to type declaration | Jump to TypeScript type |
+### 🏎️ Fast Layer (Native - 1 key)
+| Shortcut | Action | When to Use |
+|----------|--------|-------------|
+| ++cmd+b++ | Go to declaration | **Fastest** - use this most! |
 | ++option+f7++ | Find usages | Where is this used? |
 | ++cmd+[++ / ++cmd+]++ | Navigate back/forward | Jump history |
+
+### ⚡ Medium Layer (Vim-style - 2 keys) **NEW!**
+| Shortcut | Action | When to Use |
+|----------|--------|-------------|
+| ++g+d++ | Go to declaration | Vim muscle memory |
+| ++g+r++ | Find usages (references) | Vim-style references |
+| ++g+i++ | Go to implementation | Find implementations |
+| ++g+h++ | Quick documentation | Hover docs (like Vim K) |
+
+### 🧭 Discoverable Layer (Leader-key - 3 keys)
+| Shortcut | Action | When to Use |
+|----------|--------|-------------|
+| ++space+g+d++ | Go to declaration | Learning, exploring |
+| ++space+g+i++ | Go to implementation | Appears in Which-Key |
+| ++space+g+y++ | Go to type declaration | TypeScript types |
+| ++space+g+r++ | Find usages | Show all references |
 
 ---
 
 ## ✏️ Editing & Refactoring
 
+### Critical Shortcuts (Learn These First!)
+| Shortcut | Action | Importance |
+|----------|--------|------------|
+| ++option+enter++ | **Context actions / Quick fixes** | ⭐⭐⭐⭐⭐ **THE most important!** |
+| ++ctrl+t++ | **Refactor This** (all refactorings menu) | ⭐⭐⭐⭐⭐ **One shortcut for everything!** |
+| ++shift+f6++ | Rename symbol | ⭐⭐⭐⭐ Most common refactoring |
+| ++cmd+option+l++ | Reformat code | ⭐⭐⭐⭐ Industry standard |
+
+### New Additions
 | Shortcut | Action | Use Case |
 |----------|--------|----------|
-| ++option+enter++ | **Context actions / Quick fixes** | **⭐ Auto-import, fix errors** |
-| ++shift+f6++ | Rename symbol | Rename across project |
+| ++space+rt++ | Refactor This menu | Alternative to Ctrl+T |
+| ++space+shift+k++ | Quick documentation | Show docs for symbol |
+| ++space+p++ | Parameter info | See method signatures |
+| ++space+s+o++ | File structure | Quick symbol overview |
 | ++cmd+option+v++ | Extract variable | Refactor to variable |
 | ++cmd+option+m++ | Extract method | Refactor to function |
 | ++cmd+option+o++ | Optimize imports | Remove unused imports |
@@ -97,20 +138,40 @@
 
 ## 💡 Pro Tips
 
+### Understanding the 3-Layer System
+
+**When typing fast (flow state)**:
+- Use native shortcuts: `Cmd+B`, `Option+Enter`, `Cmd+Option+L`
+- One keystroke, maximum speed
+
+**When using Vim muscle memory**:
+- Use Vim-style: `gd`, `gr`, `gi`, `gh`
+- Two keystrokes, familiar patterns
+
+**When learning/exploring**:
+- Use leader-key: `Space+G+D`, `Space+S+F`
+- Three keystrokes, appears in Which-Key menu for discovery
+
 ### Daily Habits
-1. **Replace mouse with keyboard**: When you click something, press ++cmd+z++ and find the keyboard shortcut using ++cmd+shift+a++
-2. **Use ++option+enter++ constantly**: Auto-import, fix ESLint, quick fixes
-3. **++shift+shift++ is your friend**: Search files, symbols, actions all at once
+1. **Master the critical two**: ++option+enter++ (auto-import/fix) and ++ctrl+t++ (refactor menu)
+2. **Replace mouse with keyboard**: When you click → press ++cmd+z++ → use ++cmd+shift+a++ to find shortcut
+3. **Use ++shift+shift++ for discovery**: Search files, symbols, actions all at once
+4. **Graduate through layers**: Start with `Space+G+D`, practice `gd`, eventually use `Cmd+B`
 
-### Week 1 Focus
-- Master: ++cmd+shift+a++, ++shift+shift++, ++option+enter++
+### Week 1 Focus (Updated!)
+- Master: ++cmd+shift+a++ (Find Action), ++shift+shift++ (Search Everywhere), ++option+enter++ (Quick Fixes)
+- Learn: ++ctrl+t++ (Refactor This menu) - one shortcut for all refactorings!
 - Practice: Window navigation with ++ctrl+h/j/k/l++
+- Try: Vim-style navigation with ++g+d++, ++g+r++, ++g+i++
 
-### TypeScript Workflow
-1. Write code → ++option+enter++ for auto-imports
-2. Refactor → ++shift+f6++ to rename, ++cmd+option+v++ to extract
-3. Debug → ++ctrl+d++ + ++cmd+f8++ for breakpoints
-4. Test APIs → Create `.http` files + ++ctrl+enter++
+### TypeScript Workflow (Enhanced)
+1. **Navigate**: `Cmd+B` (fastest) or `gd` (Vim-style) or `Space+G+D` (discoverable)
+2. **Write code**: ++option+enter++ constantly for auto-imports and quick fixes
+3. **Refactor**: ++ctrl+t++ to see all refactorings, choose from menu
+4. **Rename**: ++shift+f6++ across entire project
+5. **Debug**: ++ctrl+d++ + ++cmd+f8++ for breakpoints
+6. **Document**: ++g+h++ or ++space+shift+k++ for quick docs
+7. **Test APIs**: Create `.http` files + ++ctrl+enter++
 
 ### HTTP Client (Postman Alternative)
 Create `api-requests.http`:
