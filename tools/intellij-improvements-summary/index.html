@@ -1,0 +1,2049 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive keyboard shortcuts documentation for personal dotfiles">
+      
+      
+        <meta name="author" content="Michal Lester">
+      
+      
+        <link rel="canonical" href="https://czechue.github.io/.dotfiles/tools/intellij-improvements-summary/">
+      
+      
+        <link rel="prev" href="../intellij-improvements/">
+      
+      
+        <link rel="next" href="../zsh/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Implementation Summary - Dotfiles Keybindings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/shortcuts.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#intellij-idea-improvements-implementation-summary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Dotfiles Keybindings" class="md-header__button md-logo" aria-label="Dotfiles Keybindings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dotfiles Keybindings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Summary
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/czechue/.dotfiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    czechue/.dotfiles
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../neovim/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../keyboard/glove80/" class="md-tabs__link">
+          
+  
+  Keyboard
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../quick-reference/" class="md-tabs__link">
+        
+  
+    
+  
+  Quick Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Dotfiles Keybindings" class="md-nav__button md-logo" aria-label="Dotfiles Keybindings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Dotfiles Keybindings
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/czechue/.dotfiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    czechue/.dotfiles
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neovim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Neovim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tmux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tmux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aerospace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AeroSpace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yazi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    yazi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cursor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    IntelliJ IDEA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            IntelliJ IDEA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-mastery-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mastery Path
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-keybindings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete Keybindings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-quick-ref/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideavim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IdeaVim Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-improvements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improvements Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Implementation Summary
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Implementation Summary
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-was-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 What Was Implemented
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎉 What Was Implemented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-critical-missing-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Critical Missing Shortcuts ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-vim-style-navigation-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Vim-Style Navigation Shortcuts ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-typescript-specific-refactorings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: TypeScript-Specific Refactorings ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-comprehensive-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Comprehensive Documentation ✅
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-layer-shortcut-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Three-Layer Shortcut System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Three-Layer Shortcut System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layer-1-fast-native-1-keystroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏎️ Layer 1: Fast (Native - 1 keystroke)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-2-medium-vim-style-2-keystrokes-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Layer 2: Medium (Vim-style - 2 keystrokes) NEW!
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-3-discoverable-leader-key-3-keystrokes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Layer 3: Discoverable (Leader-key - 3 keystrokes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 What Changed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 What Changed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-vs-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before vs After
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-new-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 How to Use the New Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 How to Use the New Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-beginners-start-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Beginners (Start Here)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-intermediate-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Intermediate Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-advanced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Advanced Users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updated-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Updated Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Updated Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-modified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Files Modified
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-path-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Learning Path (Updated)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Learning Path (Updated)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-1-foundation-new-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 1: Foundation + New Shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-2-typescript-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 2: TypeScript Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3-full-stack-typescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 3: Full-Stack TypeScript
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-4-mastery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 4: Mastery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Migration Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-youre-coming-from-pure-neovim" class="md-nav__link">
+    <span class="md-ellipsis">
+      If You're Coming from Pure Neovim
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-youre-coming-from-standard-intellij" class="md-nav__link">
+    <span class="md-ellipsis">
+      If You're Coming from Standard IntelliJ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Success Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#result" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Result
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      📞 Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zsh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zsh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Keyboard
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Keyboard
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../keyboard/glove80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glove80
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../keyboard/glove80-symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Symbol Layer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-was-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 What Was Implemented
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎉 What Was Implemented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-critical-missing-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Critical Missing Shortcuts ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-vim-style-navigation-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Vim-Style Navigation Shortcuts ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-typescript-specific-refactorings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: TypeScript-Specific Refactorings ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-comprehensive-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Comprehensive Documentation ✅
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-layer-shortcut-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Three-Layer Shortcut System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Three-Layer Shortcut System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layer-1-fast-native-1-keystroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏎️ Layer 1: Fast (Native - 1 keystroke)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-2-medium-vim-style-2-keystrokes-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Layer 2: Medium (Vim-style - 2 keystrokes) NEW!
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-3-discoverable-leader-key-3-keystrokes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧭 Layer 3: Discoverable (Leader-key - 3 keystrokes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 What Changed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 What Changed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-vs-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before vs After
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use-the-new-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 How to Use the New Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 How to Use the New Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-beginners-start-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Beginners (Start Here)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-intermediate-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Intermediate Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-advanced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Advanced Users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updated-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Updated Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 Updated Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-modified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Files Modified
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-path-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Learning Path (Updated)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Learning Path (Updated)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-1-foundation-new-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 1: Foundation + New Shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-2-typescript-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 2: TypeScript Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3-full-stack-typescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 3: Full-Stack TypeScript
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-4-mastery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 4: Mastery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Migration Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-youre-coming-from-pure-neovim" class="md-nav__link">
+    <span class="md-ellipsis">
+      If You're Coming from Pure Neovim
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-youre-coming-from-standard-intellij" class="md-nav__link">
+    <span class="md-ellipsis">
+      If You're Coming from Standard IntelliJ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Success Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#result" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Result
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      📞 Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="intellij-idea-improvements-implementation-summary">IntelliJ IDEA Improvements - Implementation Summary</h1>
+<p><strong>Date</strong>: 2025-11-29
+<strong>Status</strong>: ✅ All Phases Complete</p>
+<p><strong>Related Docs</strong>:
+- 🎓 <strong><a href="../intellij-mastery-path/">Mastery Path</a></strong> - START HERE! 6-week learning program
+- 📚 <strong><a href="../intellij-keybindings/">Complete Keybindings</a></strong> - Full reference
+- ⚡ <strong><a href="../intellij-quick-ref/">Quick Reference</a></strong> - Top 30 shortcuts
+- 🔧 <strong><a href="../intellij-improvements/">Improvements Analysis</a></strong> - What was wrong and why</p>
+<hr />
+<h2 id="what-was-implemented">🎉 What Was Implemented</h2>
+<h3 id="phase-1-critical-missing-shortcuts">Phase 1: Critical Missing Shortcuts ✅</h3>
+<p>Added essential TypeScript development shortcuts that were missing:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; Quick documentation (like Vim&#39;s K)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>K <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>
+
+<span class="c">&quot; Parameter information</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">p</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ParameterInfo<span class="p">)</span>
+
+<span class="c">&quot; Refactor This - context-aware refactoring menu</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>RefactoringMenu<span class="p">)</span>
+
+<span class="c">&quot; File structure popup (quick symbol overview)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">so</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>FileStructurePopup<span class="p">)</span>
+
+<span class="c">&quot; Type info at cursor</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>ti <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ExpressionTypeInfo<span class="p">)</span>
+
+<span class="c">&quot; Complete current statement (add semicolons, braces)</span>
+imap <span class="p">&lt;</span>C<span class="p">-</span>CR<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>CompleteStatement<span class="p">)</span>
+</code></pre></div>
+<h3 id="phase-2-vim-style-navigation-shortcuts">Phase 2: Vim-Style Navigation Shortcuts ✅</h3>
+<p>Added fast 2-keystroke Vim-style navigation:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; Vim-style navigation shortcuts (2 keystrokes - FAST!)</span>
+nmap <span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>
+nmap gD <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>
+nmap gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>
+nmap <span class="k">gr</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowUsages<span class="p">)</span>
+nmap gh <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>
+</code></pre></div>
+<h3 id="phase-3-typescript-specific-refactorings">Phase 3: TypeScript-Specific Refactorings ✅</h3>
+<p>Added common TypeScript refactoring shortcuts:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; Additional refactorings</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rp <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceParameter<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">ri</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Inline<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">rs</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ChangeSignature<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>mov <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Move<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">del</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>SafeDelete<span class="p">)</span>
+
+<span class="c">&quot; TypeScript-specific</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">im</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ImplementMethods<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>om <span class="p">&lt;</span>Action<span class="p">&gt;(</span>OverrideMethods<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>ge <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Generate<span class="p">)</span>
+</code></pre></div>
+<h3 id="phase-4-comprehensive-documentation">Phase 4: Comprehensive Documentation ✅</h3>
+<p>Added detailed documentation at the top of <code>.ideavimrc</code>:</p>
+<ul>
+<li>Three-layer shortcut system explanation</li>
+<li>Complete list of native shortcuts to preserve</li>
+<li>Notes on when to use each layer</li>
+<li>Summary section explaining the hybrid approach</li>
+</ul>
+<hr />
+<h2 id="three-layer-shortcut-system">🎯 Three-Layer Shortcut System</h2>
+<p>Your IntelliJ setup now supports <strong>three speed tiers</strong> that work simultaneously:</p>
+<h3 id="layer-1-fast-native-1-keystroke">🏎️ Layer 1: Fast (Native - 1 keystroke)</h3>
+<p><strong>When to use</strong>: Maximum speed, flow state, typing fast</p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Cmd+B</code></td>
+<td>Go to declaration (fastest!)</td>
+</tr>
+<tr>
+<td><code>Option+Enter</code></td>
+<td>Show intention actions / Quick fixes ⭐</td>
+</tr>
+<tr>
+<td><code>Ctrl+T</code></td>
+<td>Refactor This (all refactorings menu) ⭐</td>
+</tr>
+<tr>
+<td><code>Shift+F6</code></td>
+<td>Rename</td>
+</tr>
+<tr>
+<td><code>Cmd+Option+L</code></td>
+<td>Reformat code</td>
+</tr>
+<tr>
+<td><code>Double Shift</code></td>
+<td>Search everywhere</td>
+</tr>
+<tr>
+<td><code>Cmd+P</code></td>
+<td>Parameter info</td>
+</tr>
+<tr>
+<td><code>F1</code></td>
+<td>Quick documentation</td>
+</tr>
+<tr>
+<td><code>F2</code>, <code>Shift+F2</code></td>
+<td>Next/Previous error</td>
+</tr>
+</tbody>
+</table>
+<h3 id="layer-2-medium-vim-style-2-keystrokes-new">⚡ Layer 2: Medium (Vim-style - 2 keystrokes) <strong>NEW!</strong></h3>
+<p><strong>When to use</strong>: Vim muscle memory, balanced speed/discoverability</p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gd</code></td>
+<td>Go to declaration</td>
+</tr>
+<tr>
+<td><code>gD</code></td>
+<td>Go to type declaration</td>
+</tr>
+<tr>
+<td><code>gi</code></td>
+<td>Go to implementation</td>
+</tr>
+<tr>
+<td><code>gr</code></td>
+<td>Show usages (references)</td>
+</tr>
+<tr>
+<td><code>gh</code></td>
+<td>Quick documentation (hover)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="layer-3-discoverable-leader-key-3-keystrokes">🧭 Layer 3: Discoverable (Leader-key - 3 keystrokes)</h3>
+<p><strong>When to use</strong>: Learning, exploring, Which-Key menu helpful</p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Space+G+D</code></td>
+<td>Go to declaration</td>
+</tr>
+<tr>
+<td><code>Space+G+I</code></td>
+<td>Go to implementation</td>
+</tr>
+<tr>
+<td><code>Space+G+Y</code></td>
+<td>Go to type declaration</td>
+</tr>
+<tr>
+<td><code>Space+G+R</code></td>
+<td>Show usages</td>
+</tr>
+<tr>
+<td><code>Space+G+T</code></td>
+<td>Go to test</td>
+</tr>
+<tr>
+<td><code>Space+S+F</code></td>
+<td>Find file</td>
+</tr>
+<tr>
+<td><code>Space+S+G</code></td>
+<td>Search in project</td>
+</tr>
+<tr>
+<td><code>Space+C+A</code></td>
+<td>Show intention actions</td>
+</tr>
+<tr>
+<td><code>Space+RT</code></td>
+<td>Refactor This menu</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="what-changed">📊 What Changed</h2>
+<h3 id="before-vs-after">Before vs After</h3>
+<p><strong>Before</strong> (Original Setup):
+- ✅ Good: Consistent leader-key mappings
+- ✅ Good: Neovim compatibility
+- ❌ Missing: Critical TypeScript shortcuts
+- ❌ Missing: Vim-style navigation
+- ❌ Slow: 3 keypresses for everything</p>
+<p><strong>After</strong> (Improved Setup):
+- ✅ <strong>Kept</strong>: All original mappings (backward compatible)
+- ✅ <strong>Added</strong>: Critical TypeScript shortcuts (<code>&lt;leader&gt;K</code>, <code>&lt;leader&gt;p</code>, <code>&lt;leader&gt;rt</code>, <code>&lt;leader&gt;so</code>)
+- ✅ <strong>Added</strong>: Fast Vim-style navigation (<code>gd</code>, <code>gr</code>, <code>gi</code>, <code>gh</code>)
+- ✅ <strong>Added</strong>: TypeScript refactorings (<code>&lt;leader&gt;rp</code>, <code>&lt;leader&gt;ri</code>, <code>&lt;leader&gt;rs</code>)
+- ✅ <strong>Documented</strong>: All native shortcuts to preserve
+- ✅ <strong>Flexible</strong>: Choose speed layer based on flow state</p>
+<hr />
+<h2 id="how-to-use-the-new-features">🚀 How to Use the New Features</h2>
+<h3 id="for-beginners-start-here">For Beginners (Start Here)</h3>
+<ol>
+<li><strong>Learn the critical two shortcuts</strong>:</li>
+<li><code>Option+Enter</code> - Auto-import, quick fixes (use this CONSTANTLY!)</li>
+<li>
+<p><code>Ctrl+T</code> - Refactor This menu (one shortcut for all refactorings)</p>
+</li>
+<li>
+<p><strong>Use leader-key mappings</strong> (3 keystrokes):</p>
+</li>
+<li>Press <code>Space</code> → wait 100ms → Which-Key menu appears</li>
+<li>Example: <code>Space</code> + <code>G</code> (shows: [G]oto operations) + <code>D</code> (go to declaration)</li>
+<li>
+<p>Discoverable and learnable</p>
+</li>
+<li>
+<p><strong>Master window navigation</strong>:</p>
+</li>
+<li><code>Ctrl+H/J/K/L</code> - Move between panes (Vim-style)</li>
+<li><code>Ctrl+E</code> - Open Project window</li>
+</ol>
+<h3 id="for-intermediate-users">For Intermediate Users</h3>
+<ol>
+<li><strong>Graduate to Vim-style navigation</strong> (2 keystrokes):</li>
+<li><code>gd</code> instead of <code>Space+G+D</code> (faster!)</li>
+<li><code>gr</code> instead of <code>Space+G+R</code> (find references)</li>
+<li>
+<p><code>gh</code> instead of <code>Space+K</code> (hover documentation)</p>
+</li>
+<li>
+<p><strong>Learn documentation shortcuts</strong>:</p>
+</li>
+<li><code>Space+P</code> or <code>Cmd+P</code> - Parameter info</li>
+<li><code>Space+K</code> or <code>gh</code> or <code>F1</code> - Quick docs</li>
+<li><code>Space+SO</code> or <code>Cmd+F12</code> - File structure</li>
+</ol>
+<h3 id="for-advanced-users">For Advanced Users</h3>
+<ol>
+<li><strong>Use native shortcuts for maximum speed</strong> (1 keystroke):</li>
+<li><code>Cmd+B</code> instead of <code>gd</code> (instant navigation!)</li>
+<li><code>Option+Enter</code> - Never stop using this</li>
+<li><code>Cmd+Option+L</code> - Format code (industry standard)</li>
+<li>
+<p><code>Double Shift</code> - Search everywhere</p>
+</li>
+<li>
+<p><strong>Mix and match layers</strong>:</p>
+</li>
+<li>Navigation: <code>Cmd+B</code> (fastest)</li>
+<li>Refactoring: <code>Ctrl+T</code> (refactor menu)</li>
+<li>Window: <code>Ctrl+H/J/K/L</code> (Vim-style)</li>
+<li>Discovery: <code>Cmd+Shift+A</code> (find any action)</li>
+</ol>
+<hr />
+<h2 id="updated-documentation">📚 Updated Documentation</h2>
+<h3 id="files-modified">Files Modified</h3>
+<ol>
+<li><strong><code>.ideavimrc</code></strong> ✅</li>
+<li>Backup created: <code>.ideavimrc.backup-[timestamp]</code></li>
+<li>Added 20+ new mappings</li>
+<li>Added comprehensive documentation header</li>
+<li>
+<p>Added Which-Key descriptions</p>
+</li>
+<li>
+<p><strong><code>docs/tools/intellij-keybindings.md</code></strong> ✅</p>
+</li>
+<li>Updated with three-layer system explanation</li>
+<li>Added new mappings to tables</li>
+<li>Added "NEW!" labels for added shortcuts</li>
+<li>
+<p>Updated LSP section with all three layers</p>
+</li>
+<li>
+<p><strong><code>docs/tools/intellij-quick-ref.md</code></strong> ✅</p>
+</li>
+<li>Added three-layer system overview</li>
+<li>Split navigation into three sections</li>
+<li>Updated pro tips with layer guidance</li>
+<li>
+<p>Enhanced TypeScript workflow section</p>
+</li>
+<li>
+<p><strong><code>docs/tools/intellij-improvements.md</code></strong> ✅</p>
+</li>
+<li>Complete analysis of inconsistencies</li>
+<li>7 detailed improvement proposals</li>
+<li>
+<p>Rationale for each change</p>
+</li>
+<li>
+<p><strong><code>docs/tools/intellij-improvements-summary.md</code></strong> ✅ (this file)</p>
+</li>
+<li>Implementation summary</li>
+<li>Before/after comparison</li>
+<li>Usage guide</li>
+</ol>
+<hr />
+<h2 id="learning-path-updated">🎓 Learning Path (Updated)</h2>
+<h3 id="week-1-foundation-new-shortcuts">Week 1: Foundation + New Shortcuts</h3>
+<ol>
+<li>Master <strong>critical shortcuts</strong>:</li>
+<li><code>Option+Enter</code> - Quick fixes ⭐⭐⭐⭐⭐</li>
+<li><code>Ctrl+T</code> - Refactor menu ⭐⭐⭐⭐⭐</li>
+<li><code>Cmd+Shift+A</code> - Find Action</li>
+<li>
+<p><code>Double Shift</code> - Search Everywhere</p>
+</li>
+<li>
+<p>Practice <strong>window navigation</strong>:</p>
+</li>
+<li><code>Ctrl+H/J/K/L</code> - Pane switching</li>
+<li>
+<p><code>Ctrl+E</code> - Project window</p>
+</li>
+<li>
+<p>Try <strong>Vim-style navigation</strong>:</p>
+</li>
+<li><code>gd</code> - Go to declaration (NEW!)</li>
+<li><code>gr</code> - Find references (NEW!)</li>
+<li><code>gh</code> - Hover docs (NEW!)</li>
+</ol>
+<h3 id="week-2-typescript-workflow">Week 2: TypeScript Workflow</h3>
+<ol>
+<li><strong>Navigate</strong> using three layers:</li>
+<li>Fast: <code>Cmd+B</code></li>
+<li>Medium: <code>gd</code></li>
+<li>
+<p>Discoverable: <code>Space+G+D</code></p>
+</li>
+<li>
+<p><strong>Document</strong> while coding:</p>
+</li>
+<li><code>gh</code> or <code>Space+K</code> - Quick docs (NEW!)</li>
+<li><code>Space+P</code> or <code>Cmd+P</code> - Parameter info (NEW!)</li>
+<li>
+<p><code>Space+SO</code> - File structure (NEW!)</p>
+</li>
+<li>
+<p><strong>Refactor</strong> efficiently:</p>
+</li>
+<li><code>Ctrl+T</code> - See all refactorings</li>
+<li><code>Shift+F6</code> - Rename</li>
+<li><code>Cmd+Option+V</code> - Extract variable</li>
+</ol>
+<h3 id="week-3-full-stack-typescript">Week 3: Full-Stack TypeScript</h3>
+<ol>
+<li><strong>React/Vue workflows</strong>:</li>
+<li><code>Space+C+A</code> or <code>Option+Enter</code> - Auto-import components</li>
+<li>
+<p><code>Space+GE</code> - Generate code</p>
+</li>
+<li>
+<p><strong>TypeScript-specific</strong>:</p>
+</li>
+<li><code>Space+IM</code> - Implement methods (NEW!)</li>
+<li><code>Space+OM</code> - Override methods (NEW!)</li>
+<li>
+<p><code>Space+RP</code> - Introduce parameter (NEW!)</p>
+</li>
+<li>
+<p><strong>Debugging</strong>:</p>
+</li>
+<li><code>Ctrl+D</code> + <code>Cmd+F8</code> - Debug with breakpoints</li>
+<li><code>F8</code>/<code>F7</code>/<code>Shift+F8</code> - Step over/into/out</li>
+</ol>
+<h3 id="week-4-mastery">Week 4: Mastery</h3>
+<ol>
+<li><strong>Graduate layers</strong>:</li>
+<li>Use <code>Cmd+B</code> instead of <code>gd</code></li>
+<li>Use <code>Option+Enter</code> constantly</li>
+<li>
+<p>Use <code>Double Shift</code> for discovery</p>
+</li>
+<li>
+<p><strong>Build muscle memory</strong>:</p>
+</li>
+<li>Track 3 new shortcuts per week</li>
+<li>Replace mouse actions with keyboard</li>
+<li>When you click → <code>Cmd+Z</code> → <code>Cmd+Shift+A</code> to find shortcut</li>
+</ol>
+<hr />
+<h2 id="migration-guide">🔄 Migration Guide</h2>
+<h3 id="if-youre-coming-from-pure-neovim">If You're Coming from Pure Neovim</h3>
+<p><strong>Good news</strong>: All your leader-key muscle memory still works!</p>
+<p><strong>New options</strong>:
+- Add Vim-style shortcuts (<code>gd</code>, <code>gr</code>) for speed
+- Learn IntelliJ's power features (<code>Ctrl+T</code>, <code>Option+Enter</code>)</p>
+<p><strong>Workflow</strong>:
+- Keep using <code>Space+G+D</code> when exploring
+- Use <code>gd</code> when you know what you want
+- Use <code>Cmd+B</code> for maximum speed</p>
+<h3 id="if-youre-coming-from-standard-intellij">If You're Coming from Standard IntelliJ</h3>
+<p><strong>Good news</strong>: All native shortcuts still work!</p>
+<p><strong>New options</strong>:
+- Vim-style window navigation (<code>Ctrl+H/J/K/L</code>)
+- Leader-key for discoverability (<code>Space+G+D</code>)
+- Which-Key menu shows available shortcuts</p>
+<p><strong>Workflow</strong>:
+- Keep using <code>Cmd+B</code>, <code>Option+Enter</code>, etc.
+- Try <code>Ctrl+H/J/K/L</code> for pane switching
+- Press <code>Space</code> to see What's available</p>
+<hr />
+<h2 id="success-criteria">✅ Success Criteria</h2>
+<p>All implemented successfully:</p>
+<ul>
+<li>[x] Backup created (<code>.ideavimrc.backup-[timestamp]</code>)</li>
+<li>[x] Phase 1: Added critical shortcuts (<code>&lt;leader&gt;K</code>, <code>&lt;leader&gt;p</code>, <code>&lt;leader&gt;rt</code>, <code>&lt;leader&gt;so</code>)</li>
+<li>[x] Phase 2: Added Vim-style navigation (<code>gd</code>, <code>gr</code>, <code>gi</code>, <code>gh</code>)</li>
+<li>[x] Phase 3: Added comprehensive documentation (native shortcuts, three-layer system)</li>
+<li>[x] TypeScript-specific actions (<code>&lt;leader&gt;im</code>, <code>&lt;leader&gt;om</code>, <code>&lt;leader&gt;rp</code>, etc.)</li>
+<li>[x] Updated <code>intellij-keybindings.md</code> with new mappings</li>
+<li>[x] Updated <code>intellij-quick-ref.md</code> with three-layer system</li>
+<li>[x] Created <code>intellij-improvements.md</code> with analysis</li>
+<li>[x] Created this summary document</li>
+<li>[x] All existing mappings preserved (100% backward compatible)</li>
+</ul>
+<hr />
+<h2 id="result">🎉 Result</h2>
+<p>You now have a <strong>world-class IntelliJ IDEA setup</strong> optimized for TypeScript full-stack development with:</p>
+<ul>
+<li>✅ <strong>Flexibility</strong>: Three speed layers (native, Vim-style, leader-key)</li>
+<li>✅ <strong>Discoverability</strong>: Which-Key menus + comprehensive docs</li>
+<li>✅ <strong>Speed</strong>: Fast Vim-style shortcuts (<code>gd</code>, <code>gr</code>, <code>gi</code>)</li>
+<li>✅ <strong>Power</strong>: All IntelliJ native shortcuts preserved</li>
+<li>✅ <strong>TypeScript-focused</strong>: Critical TS shortcuts added</li>
+<li>✅ <strong>Learning-friendly</strong>: Progressive path from discoverable to fast</li>
+<li>✅ <strong>Backward compatible</strong>: All original mappings still work</li>
+</ul>
+<p><strong>No configuration reload required</strong> - IdeaVim reloads <code>.ideavimrc</code> automatically!</p>
+<hr />
+<h2 id="next-steps">📞 Next Steps</h2>
+<ol>
+<li><strong>Open IntelliJ IDEA</strong> - changes are live immediately</li>
+<li><strong>Test Which-Key</strong>: Press <code>Space</code> and wait 100ms to see the menu</li>
+<li><strong>Try Vim-style</strong>: Use <code>gd</code> to go to declaration</li>
+<li><strong>Master critical two</strong>: <code>Option+Enter</code> and <code>Ctrl+T</code></li>
+<li><strong>Practice daily</strong>: Replace one mouse action per day with keyboard</li>
+</ol>
+<p><strong>Enjoy your enhanced IntelliJ IDEA setup!</strong> 🚀</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+      
+        <script src="../../javascripts/shortcuts.js"></script>
+      
+    
+  </body>
+</html>
