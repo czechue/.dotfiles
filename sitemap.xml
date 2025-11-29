@@ -2,62 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://czechue.github.io/.dotfiles/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/about/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/quick-reference/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/keyboard/glove80-symbol/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/keyboard/glove80/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/aerospace/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/cursor/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/ideavim/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://czechue.github.io/.dotfiles/tools/intellij-improvements-summary/</loc>
+         <lastmod>2025-11-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://czechue.github.io/.dotfiles/tools/intellij-improvements/</loc>
+         <lastmod>2025-11-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://czechue.github.io/.dotfiles/tools/intellij-keybindings/</loc>
+         <lastmod>2025-11-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://czechue.github.io/.dotfiles/tools/intellij-mastery-path/</loc>
+         <lastmod>2025-11-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://czechue.github.io/.dotfiles/tools/intellij-quick-ref/</loc>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/neovim/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/tmux/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/yazi/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://czechue.github.io/.dotfiles/tools/zsh/</loc>
-         <lastmod>2025-11-28</lastmod>
+         <lastmod>2025-11-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

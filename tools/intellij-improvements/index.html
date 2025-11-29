@@ -1,0 +1,2656 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive keyboard shortcuts documentation for personal dotfiles">
+      
+      
+        <meta name="author" content="Michal Lester">
+      
+      
+        <link rel="canonical" href="https://czechue.github.io/.dotfiles/tools/intellij-improvements/">
+      
+      
+        <link rel="prev" href="../ideavim/">
+      
+      
+        <link rel="next" href="../intellij-improvements-summary/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Improvements Analysis - Dotfiles Keybindings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/shortcuts.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#intellij-idea-setup-inconsistencies-improvement-proposals" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Dotfiles Keybindings" class="md-header__button md-logo" aria-label="Dotfiles Keybindings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dotfiles Keybindings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Improvements Analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/czechue/.dotfiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    czechue/.dotfiles
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../neovim/" class="md-tabs__link">
+          
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../keyboard/glove80/" class="md-tabs__link">
+          
+  
+  Keyboard
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../quick-reference/" class="md-tabs__link">
+        
+  
+    
+  
+  Quick Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Dotfiles Keybindings" class="md-nav__button md-logo" aria-label="Dotfiles Keybindings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Dotfiles Keybindings
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/czechue/.dotfiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    czechue/.dotfiles
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neovim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Neovim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tmux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tmux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aerospace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AeroSpace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yazi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    yazi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cursor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    IntelliJ IDEA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            IntelliJ IDEA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-mastery-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mastery Path
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-keybindings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete Keybindings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-quick-ref/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideavim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IdeaVim Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Improvements Analysis
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Improvements Analysis
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inconsistencies-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Inconsistencies Found
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Inconsistencies Found">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-navigation-shortcuts-speed-vs-consistency-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Navigation Shortcuts - Speed vs Consistency Trade-off
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Navigation Shortcuts - Speed vs Consistency Trade-off">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup-ideavim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup (IdeaVim)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native (macOS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-missing-critical-typescript-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Missing Critical TypeScript Shortcuts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Missing Critical TypeScript Shortcuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#not-currently-mapped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Not Currently Mapped
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-code-formatting-non-standard-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Code Formatting - Non-Standard Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Code Formatting - Non-Standard Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-refactoring-missing-refactor-this-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Refactoring - Missing "Refactor This" Menu
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Refactoring - Missing "Refactor This" Menu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-generate-menu-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Generate Menu Conflict
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Generate Menu Conflict">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ctrll-conflict-window-navigation-vs-tabby" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Ctrl+L Conflict - Window Navigation vs Tabby
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ctrl+L Conflict - Window Navigation vs Tabby">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup-custom-keymap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup (Custom Keymap)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ideavim-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      IdeaVim Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-double-shift-search-everywhere-not-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Double Shift (Search Everywhere) Not Documented
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Double Shift (Search Everywhere) Not Documented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#missing-from-your-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing from Your Config
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What It Does
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-youre-doing-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ What You're Doing Right
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ What You're Doing Right">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#excellent-decisions-in-your-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Excellent Decisions in Your Config
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#improvement-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Improvement Proposals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Improvement Proposals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommendation-hybrid-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendation: Hybrid Approach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-1-add-missing-critical-shortcuts-priority-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 1: Add Missing Critical Shortcuts (PRIORITY: HIGH)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-2-dual-mappings-for-navigation-priority-medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 2: Dual Mappings for Navigation (PRIORITY: MEDIUM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-3-document-native-shortcuts-to-preserve-priority-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 3: Document Native Shortcuts to Preserve (PRIORITY: HIGH)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-4-resolve-ctrll-conflict-priority-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 4: Resolve Ctrl+L Conflict (PRIORITY: LOW)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-5-add-typescript-specific-actions-priority-medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 5: Add TypeScript-Specific Actions (PRIORITY: MEDIUM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-6-add-http-client-shortcuts-priority-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 6: Add HTTP Client Shortcuts (PRIORITY: LOW)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-7-error-navigation-enhancement-priority-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 7: Error Navigation Enhancement (PRIORITY: LOW)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-implementation-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Recommended Implementation Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Recommended Implementation Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-critical-additions-do-this-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Critical Additions (Do This First)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-navigation-improvements-optional-but-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Navigation Improvements (Optional but Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-typescript-specific-nice-to-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: TypeScript-Specific (Nice to Have)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-recommendation-balanced-hybrid-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Final Recommendation: Balanced Hybrid Approach
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Summary of Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Summary of Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keep-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Keep As-Is
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      ➕ Add New
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document" class="md-nav__link">
+    <span class="md-ellipsis">
+      📖 Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Optional Changes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intellij-improvements-summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implementation Summary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zsh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zsh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Keyboard
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Keyboard
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../keyboard/glove80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glove80
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../keyboard/glove80-symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Symbol Layer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inconsistencies-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Inconsistencies Found
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Inconsistencies Found">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-navigation-shortcuts-speed-vs-consistency-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Navigation Shortcuts - Speed vs Consistency Trade-off
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Navigation Shortcuts - Speed vs Consistency Trade-off">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup-ideavim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup (IdeaVim)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native (macOS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-missing-critical-typescript-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Missing Critical TypeScript Shortcuts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Missing Critical TypeScript Shortcuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#not-currently-mapped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Not Currently Mapped
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-code-formatting-non-standard-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Code Formatting - Non-Standard Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Code Formatting - Non-Standard Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-refactoring-missing-refactor-this-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Refactoring - Missing "Refactor This" Menu
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Refactoring - Missing "Refactor This" Menu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-generate-menu-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Generate Menu Conflict
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Generate Menu Conflict">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij-native_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ Native
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ctrll-conflict-window-navigation-vs-tabby" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Ctrl+L Conflict - Window Navigation vs Tabby
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ctrl+L Conflict - Window Navigation vs Tabby">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-setup-custom-keymap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Setup (Custom Keymap)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ideavim-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      IdeaVim Mapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-double-shift-search-everywhere-not-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Double Shift (Search Everywhere) Not Documented
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Double Shift (Search Everywhere) Not Documented">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#missing-from-your-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing from Your Config
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What It Does
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-youre-doing-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ What You're Doing Right
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ What You're Doing Right">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#excellent-decisions-in-your-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Excellent Decisions in Your Config
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#improvement-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Improvement Proposals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Improvement Proposals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommendation-hybrid-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendation: Hybrid Approach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-1-add-missing-critical-shortcuts-priority-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 1: Add Missing Critical Shortcuts (PRIORITY: HIGH)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-2-dual-mappings-for-navigation-priority-medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 2: Dual Mappings for Navigation (PRIORITY: MEDIUM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-3-document-native-shortcuts-to-preserve-priority-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 3: Document Native Shortcuts to Preserve (PRIORITY: HIGH)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-4-resolve-ctrll-conflict-priority-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 4: Resolve Ctrl+L Conflict (PRIORITY: LOW)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-5-add-typescript-specific-actions-priority-medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 5: Add TypeScript-Specific Actions (PRIORITY: MEDIUM)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-6-add-http-client-shortcuts-priority-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 6: Add HTTP Client Shortcuts (PRIORITY: LOW)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-7-error-navigation-enhancement-priority-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal 7: Error Navigation Enhancement (PRIORITY: LOW)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-implementation-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Recommended Implementation Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Recommended Implementation Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-critical-additions-do-this-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Critical Additions (Do This First)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-navigation-improvements-optional-but-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Navigation Improvements (Optional but Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-typescript-specific-nice-to-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: TypeScript-Specific (Nice to Have)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-recommendation-balanced-hybrid-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Final Recommendation: Balanced Hybrid Approach
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Summary of Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Summary of Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keep-as-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Keep As-Is
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      ➕ Add New
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document" class="md-nav__link">
+    <span class="md-ellipsis">
+      📖 Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Optional Changes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="intellij-idea-setup-inconsistencies-improvement-proposals">IntelliJ IDEA Setup: Inconsistencies &amp; Improvement Proposals</h1>
+<blockquote>
+<p>Analysis of IdeaVim configuration vs native IntelliJ conventions for TypeScript development</p>
+</blockquote>
+<p><strong>Date</strong>: 2025-11-29
+<strong>Current Config</strong>: <code>ideavim/.ideavimrc</code> + <code>keymaps/macOS copy.xml</code>
+<strong>Focus</strong>: Optimize for TypeScript full-stack development while respecting IntelliJ conventions</p>
+<p><strong>Related Docs</strong>:
+- 🎓 <strong><a href="../intellij-mastery-path/">Mastery Path</a></strong> - 6-week learning program with milestones
+- 📚 <strong><a href="../intellij-keybindings/">Complete Keybindings</a></strong> - Full reference
+- ⚡ <strong><a href="../intellij-quick-ref/">Quick Reference</a></strong> - Top 30 shortcuts
+- ✅ <strong><a href="../intellij-improvements-summary/">Implementation Summary</a></strong> - What was done</p>
+<hr />
+<h2 id="inconsistencies-found">🔍 Inconsistencies Found</h2>
+<h3 id="1-navigation-shortcuts-speed-vs-consistency-trade-off">1. <strong>Navigation Shortcuts - Speed vs Consistency Trade-off</strong></h3>
+<h4 id="current-setup-ideavim">Current Setup (IdeaVim)</h4>
+<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gy <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTest<span class="p">)</span>
+</code></pre></div>
+<h4 id="intellij-native-macos">IntelliJ Native (macOS)</h4>
+<ul>
+<li><code>Cmd+B</code> → Go to Declaration (<strong>most frequently used</strong>)</li>
+<li><code>Cmd+Shift+B</code> → Go to Type Declaration</li>
+<li><code>Cmd+Option+B</code> → Go to Implementation</li>
+<li><code>Cmd+Shift+T</code> → Go to Test</li>
+</ul>
+<h4 id="issue">Issue</h4>
+<ul>
+<li><strong>Speed</strong>: <code>Cmd+B</code> is instant (1 chord), <code>Space+G+D</code> requires 3 keypresses</li>
+<li><strong>Industry Standard</strong>: <code>Cmd+B</code> is used across all JetBrains IDEs</li>
+<li><strong>Team Collaboration</strong>: Others on your team expect standard shortcuts</li>
+<li><strong>Discoverability</strong>: Native shortcuts appear in menus and tooltips</li>
+</ul>
+<h4 id="impact">Impact</h4>
+<p>⚠️ <strong>High</strong> - Navigation is the most frequent action in development. The speed difference compounds over a workday.</p>
+<hr />
+<h3 id="2-missing-critical-typescript-shortcuts">2. <strong>Missing Critical TypeScript Shortcuts</strong></h3>
+<h4 id="not-currently-mapped">Not Currently Mapped</h4>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Importance</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Option+Enter</code></td>
+<td><strong>Show Intention Actions</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Auto-import, quick fixes, ESLint fixes</td>
+</tr>
+<tr>
+<td><code>Cmd+P</code></td>
+<td>Parameter Info</td>
+<td>⭐⭐⭐⭐</td>
+<td>See method signatures while typing</td>
+</tr>
+<tr>
+<td><code>F1</code></td>
+<td>Quick Documentation</td>
+<td>⭐⭐⭐⭐</td>
+<td>Inline docs for symbols</td>
+</tr>
+<tr>
+<td><code>Ctrl+T</code></td>
+<td><strong>Refactor This</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Context-aware refactoring menu</td>
+</tr>
+<tr>
+<td><code>F2</code> / <code>Shift+F2</code></td>
+<td>Next/Previous Error</td>
+<td>⭐⭐⭐⭐</td>
+<td>Jump between errors (faster than <code>&lt;leader&gt;en/ep</code>)</td>
+</tr>
+<tr>
+<td><code>Cmd+F12</code></td>
+<td>File Structure</td>
+<td>⭐⭐⭐</td>
+<td>Quick symbol overview popup</td>
+</tr>
+<tr>
+<td><code>Cmd+Shift+Enter</code></td>
+<td>Complete Statement</td>
+<td>⭐⭐⭐</td>
+<td>Smart line completion with semicolons</td>
+</tr>
+<tr>
+<td><code>Ctrl+Shift+Space</code></td>
+<td>Type-Matching Completion</td>
+<td>⭐⭐⭐⭐</td>
+<td>Smart TypeScript type inference</td>
+</tr>
+<tr>
+<td><code>Double Shift</code></td>
+<td><strong>Search Everywhere</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Universal search (files + symbols + actions)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical Missing</strong>: <code>Option+Enter</code> (Show Intention Actions) is THE most important shortcut for TypeScript development - it handles auto-imports, quick fixes, and ESLint errors.</p>
+<hr />
+<h3 id="3-code-formatting-non-standard-mapping">3. <strong>Code Formatting - Non-Standard Mapping</strong></h3>
+<h4 id="current-setup">Current Setup</h4>
+<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">f</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ReformatCode<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>oi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>OptimizeImports<span class="p">)</span>
+</code></pre></div>
+<h4 id="intellij-native">IntelliJ Native</h4>
+<ul>
+<li><code>Cmd+Option+L</code> → Reformat Code (<strong>industry standard</strong>)</li>
+<li><code>Ctrl+Option+O</code> → Optimize Imports</li>
+</ul>
+<h4 id="issue_1">Issue</h4>
+<ul>
+<li><code>Cmd+Option+L</code> is the universal formatting shortcut across <strong>all JetBrains IDEs</strong> (IntelliJ, WebStorm, PyCharm, etc.)</li>
+<li>Deeply ingrained in developers' muscle memory</li>
+<li>Your mapping requires 3 keypresses vs 1 chord</li>
+</ul>
+<h4 id="impact_1">Impact</h4>
+<p>⚠️ <strong>Medium</strong> - Formatting is frequent but not as critical as navigation. However, using non-standard shortcuts hurts collaboration.</p>
+<hr />
+<h3 id="4-refactoring-missing-refactor-this-menu">4. <strong>Refactoring - Missing "Refactor This" Menu</strong></h3>
+<h4 id="current-setup_1">Current Setup</h4>
+<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rm <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ExtractMethod<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">rv</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceVariable<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rf <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceField<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rn <span class="p">&lt;</span>Action<span class="p">&gt;(</span>RenameElement<span class="p">)</span>
+</code></pre></div>
+<h4 id="intellij-native_1">IntelliJ Native</h4>
+<ul>
+<li><code>Ctrl+T</code> → <strong>Refactor This</strong> (context-aware menu with ALL refactorings)</li>
+<li><code>Shift+F6</code> → Rename (most common refactoring)</li>
+<li><code>Cmd+Option+M</code> → Extract Method</li>
+<li><code>Cmd+Option+V</code> → Introduce Variable</li>
+</ul>
+<h4 id="issue_2">Issue</h4>
+<p><strong>Missing the most powerful refactoring feature</strong>: <code>Ctrl+T</code> shows a context-aware popup with ALL available refactorings for the current context. This eliminates the need to memorize individual refactoring shortcuts.</p>
+<p><strong>Example workflow:</strong>
+1. Select code
+2. Press <code>Ctrl+T</code>
+3. See menu: "Extract Method, Extract Variable, Inline, Change Signature, Move..."
+4. Choose from menu or press number key</p>
+<h4 id="impact_2">Impact</h4>
+<p>⚠️ <strong>High</strong> - You're memorizing individual refactorings when one shortcut gives you access to all of them.</p>
+<hr />
+<h3 id="5-generate-menu-conflict">5. <strong>Generate Menu Conflict</strong></h3>
+<h4 id="current-setup_2">Current Setup</h4>
+<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>S<span class="p">-</span>space<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Generate<span class="p">)</span>  <span class="c">&quot; ✅ Good!</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">nf</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>NewFile<span class="p">)</span>  <span class="c">&quot; ⚠️ Conflicts with native Cmd+N</span>
+</code></pre></div>
+<h4 id="intellij-native_2">IntelliJ Native</h4>
+<ul>
+<li><code>Cmd+N</code> → Generate (constructors, getters, setters, toString, etc.)</li>
+<li>This is critical for TypeScript class development</li>
+</ul>
+<h4 id="issue_3">Issue</h4>
+<ul>
+<li>Your <code>&lt;leader&gt;nf</code> for NewFile is fine</li>
+<li>But native <code>Cmd+N</code> typically triggers Generate menu in editor context</li>
+<li>Consider whether you need both or if there's a conflict</li>
+</ul>
+<h4 id="impact_3">Impact</h4>
+<p>⚠️ <strong>Low</strong> - <code>Shift+Space</code> covers Generate, but document that <code>Cmd+N</code> might have different context-dependent behavior.</p>
+<hr />
+<h3 id="6-ctrll-conflict-window-navigation-vs-tabby">6. <strong>Ctrl+L Conflict - Window Navigation vs Tabby</strong></h3>
+<h4 id="current-setup-custom-keymap">Current Setup (Custom Keymap)</h4>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;action</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Tabby.Chat.ToggleChatToolWindow&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keyboard-shortcut</span><span class="w"> </span><span class="na">first-keystroke=</span><span class="s">&quot;ctrl l&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+<h4 id="ideavim-mapping">IdeaVim Mapping</h4>
+<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>C<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">w</span><span class="p">&gt;</span><span class="k">l</span>  <span class="c">&quot; Move to right window</span>
+</code></pre></div>
+<h4 id="issue_4">Issue</h4>
+<p><strong>Conflict</strong>: <code>Ctrl+L</code> mapped to both:
+1. Window navigation (Vim mode) - Move to right pane
+2. Tabby Chat toggle (IDE mode)</p>
+<p>This works because:
+- In <strong>Vim mode</strong> (editor): <code>Ctrl+L</code> moves windows
+- In <strong>non-Vim contexts</strong> (project tree, etc.): <code>Ctrl+L</code> opens Tabby</p>
+<p>However, it's confusing and non-discoverable.</p>
+<h4 id="impact_4">Impact</h4>
+<p>⚠️ <strong>Low</strong> - Works due to context separation, but consider using a different key for Tabby (e.g., <code>Cmd+Option+L</code> or <code>Ctrl+;</code>).</p>
+<hr />
+<h3 id="7-double-shift-search-everywhere-not-documented">7. <strong>Double Shift (Search Everywhere) Not Documented</strong></h3>
+<h4 id="missing-from-your-config">Missing from Your Config</h4>
+<p><code>Double Shift</code> → Search Everywhere</p>
+<h4 id="what-it-does">What It Does</h4>
+<p>Universal search that combines:
+- Go to File
+- Go to Symbol
+- Go to Action
+- Search Settings
+- Search Recent Files</p>
+<p>You can filter by typing <code>/</code> for actions, <code>@</code> for symbols, etc.</p>
+<h4 id="issue_5">Issue</h4>
+<p>This is <strong>IntelliJ's killer feature</strong> for discovery, but it's not mentioned in your config or documentation.</p>
+<h4 id="impact_5">Impact</h4>
+<p>⚠️ <strong>High</strong> - You have separate <code>&lt;leader&gt;sf</code>, <code>&lt;leader&gt;sg</code>, <code>&lt;leader&gt;ss</code> mappings, but <code>Double Shift</code> is faster and more powerful.</p>
+<hr />
+<h2 id="what-youre-doing-right">✅ What You're Doing Right</h2>
+<h3 id="excellent-decisions-in-your-config">Excellent Decisions in Your Config</h3>
+<ol>
+<li><strong>Window Navigation</strong> (<code>Ctrl+H/J/K/L</code>) ✅</li>
+<li>Perfect Vim-style pane navigation</li>
+<li>Doesn't conflict with critical IDE shortcuts</li>
+<li>
+<p>Muscle memory from Neovim</p>
+</li>
+<li>
+<p><strong>Window Management</strong> (<code>&lt;leader&gt;w*</code>) ✅</p>
+</li>
+<li>Clean namespace organization</li>
+<li>Consistent with Neovim Telescope</li>
+<li>
+<p>Split/unsplit mappings are logical</p>
+</li>
+<li>
+<p><strong>Search Namespace</strong> (<code>&lt;leader&gt;s*</code>) ✅</p>
+</li>
+<li>Excellent discoverability</li>
+<li>Matches Telescope patterns from Neovim</li>
+<li>
+<p><code>&lt;leader&gt;sa</code> for actions is great</p>
+</li>
+<li>
+<p><strong>Error Navigation</strong> (<code>&lt;leader&gt;en/ep</code>) ✅</p>
+</li>
+<li>Consistent namespace</li>
+<li>
+<p>Though <code>F2</code>/<code>Shift+F2</code> are faster native alternatives</p>
+</li>
+<li>
+<p><strong>Which-Key Integration</strong> ✅</p>
+</li>
+<li>Fantastic for discoverability</li>
+<li>Shows available completions after <code>Space</code></li>
+<li>
+<p>Helps learn shortcuts</p>
+</li>
+<li>
+<p><strong>Ctrl+E Override</strong> ✅</p>
+</li>
+<li>Good choice to map <code>Ctrl+E</code> to Project window</li>
+<li>
+<p>More useful than scroll down in IDE context</p>
+</li>
+<li>
+<p><strong>Multiple Cursors</strong> ✅</p>
+</li>
+<li>vim-multiple-cursors plugin with Mac-friendly shortcuts</li>
+<li>Avoids dead keys (<code>Alt+N</code> → ñ issue)</li>
+<li><code>&lt;leader&gt;&lt;C-g&gt;</code> for select all is discoverable</li>
+</ol>
+<hr />
+<h2 id="improvement-proposals">💡 Improvement Proposals</h2>
+<h3 id="recommendation-hybrid-approach">Recommendation: <strong>Hybrid Approach</strong></h3>
+<p>Keep your Vim-style consistency while preserving IntelliJ's power features. Use <strong>both</strong> native and leader-key mappings where appropriate.</p>
+<hr />
+<h3 id="proposal-1-add-missing-critical-shortcuts-priority-high">Proposal 1: <strong>Add Missing Critical Shortcuts</strong> (PRIORITY: HIGH)</h3>
+<p>Add these essential shortcuts that are currently missing:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
+<span class="c">&quot; CRITICAL ADDITIONS - TypeScript Development</span>
+<span class="c">&quot; ===================================================================</span>
+
+<span class="c">&quot; Show intention actions and quick fixes (THE most important for TS!)</span>
+<span class="c">&quot; Already have: map &lt;leader&gt;ca &lt;Action&gt;(ShowIntentionActions)</span>
+<span class="c">&quot; Native Option+Enter also works - preserve it!</span>
+
+<span class="c">&quot; Parameter info while typing (critical for TypeScript)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>K <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>        <span class="c">&quot; Quick documentation (like Vim K)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">p</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ParameterInfo<span class="p">)</span>       <span class="c">&quot; Parameter hints</span>
+
+<span class="c">&quot; Refactor This - context-aware refactoring menu (most powerful)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Refactorin gMenu<span class="p">)</span>
+
+<span class="c">&quot; File structure popup (quick symbol navigation within file)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">so</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>FileStructurePopup<span class="p">)</span>  <span class="c">&quot; Symbol outline</span>
+
+<span class="c">&quot; Complete current statement (add semicolons, braces)</span>
+imap <span class="p">&lt;</span>C<span class="p">-</span>CR<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>CompleteStatement<span class="p">)</span>
+
+<span class="c">&quot; Type-matching completion (smart TypeScript types)</span>
+<span class="c">&quot; Native Ctrl+Shift+Space works, but add alias:</span>
+imap <span class="p">&lt;</span>C<span class="p">-</span>Space<span class="p">&gt;&lt;</span>C<span class="p">-</span>Space<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>SmartTypeCompletion<span class="p">)</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: These shortcuts fill critical gaps in TypeScript workflows without disrupting your existing mappings.</p>
+<hr />
+<h3 id="proposal-2-dual-mappings-for-navigation-priority-medium">Proposal 2: <strong>Dual Mappings for Navigation</strong> (PRIORITY: MEDIUM)</h3>
+<p>Support <strong>both</strong> native IntelliJ shortcuts AND your leader-key mappings for flexibility:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
+<span class="c">&quot; DUAL NAVIGATION - Best of Both Worlds</span>
+<span class="c">&quot; ===================================================================</span>
+
+<span class="c">&quot; Your leader-key mappings (keep for consistency)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gy <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTest<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">gr</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowUsages<span class="p">)</span>          <span class="c">&quot; NEW: Find usages</span>
+
+<span class="c">&quot; ALSO add Vim-style alternatives (faster than leader-key)</span>
+nmap <span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>            <span class="c">&quot; Vim-style &#39;go to definition&#39;</span>
+nmap gD <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>        <span class="c">&quot; Vim-style &#39;go to type&#39;</span>
+nmap gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>         <span class="c">&quot; Already Vim standard</span>
+nmap <span class="k">gr</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowUsages<span class="p">)</span>                 <span class="c">&quot; Vim-style &#39;go to references&#39;</span>
+nmap gh <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>               <span class="c">&quot; Hover documentation</span>
+
+<span class="c">&quot; PRESERVE native shortcuts (don&#39;t override these!)</span>
+<span class="c">&quot; Cmd+B, Cmd+Shift+B, Cmd+Option+B, Cmd+Shift+T work automatically</span>
+</code></pre></div>
+<p><strong>Rationale</strong>:
+- Vim-style <code>gd</code>, <code>gr</code>, <code>gi</code> are faster than leader sequences (2 keys vs 3)
+- Matches Neovim LSP conventions (<code>gd</code> is standard for go-to-definition)
+- Native <code>Cmd+B</code> still works for maximum speed
+- Choose based on context: leader-key for consistency, <code>g*</code> for speed, <code>Cmd+B</code> for fastest</p>
+<hr />
+<h3 id="proposal-3-document-native-shortcuts-to-preserve-priority-high">Proposal 3: <strong>Document Native Shortcuts to Preserve</strong> (PRIORITY: HIGH)</h3>
+<p>Add a section to your <code>.ideavimrc</code> documenting critical native shortcuts to preserve:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
+<span class="c">&quot; IMPORTANT: Preserve These Native IntelliJ Shortcuts</span>
+<span class="c">&quot; ===================================================================</span>
+<span class="c">&quot; These shortcuts are NOT remapped - use them directly!</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Navigation &amp; Search:</span>
+<span class="c">&quot;   Cmd+B           - Go to Declaration (FASTEST - use this!)</span>
+<span class="c">&quot;   Cmd+Shift+B     - Go to Type Declaration</span>
+<span class="c">&quot;   Cmd+Option+B    - Go to Implementation</span>
+<span class="c">&quot;   Option+F7       - Find Usages</span>
+<span class="c">&quot;   Cmd+[, Cmd+]    - Navigate Back/Forward</span>
+<span class="c">&quot;   Double Shift    - Search Everywhere (universal search!)</span>
+<span class="c">&quot;   Cmd+E           - Recent Files</span>
+<span class="c">&quot;   Cmd+Shift+E     - Recent Edited Files</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Quick Fixes &amp; Refactoring:</span>
+<span class="c">&quot;   Option+Enter    - Show Intention Actions (auto-import, quick fixes)</span>
+<span class="c">&quot;   Ctrl+T          - Refactor This (context-aware refactoring menu)</span>
+<span class="c">&quot;   Shift+F6        - Rename Element</span>
+<span class="c">&quot;   Cmd+Option+L    - Reformat Code (industry standard)</span>
+<span class="c">&quot;   Ctrl+Option+O   - Optimize Imports</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Code Intelligence:</span>
+<span class="c">&quot;   Cmd+P           - Parameter Info</span>
+<span class="c">&quot;   F1              - Quick Documentation</span>
+<span class="c">&quot;   Cmd+F12         - File Structure Popup</span>
+<span class="c">&quot;   Ctrl+Shift+Space - Smart Type Completion</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Errors &amp; Debugging:</span>
+<span class="c">&quot;   F2, Shift+F2    - Next/Previous Error (faster than &lt;leader&gt;en/ep)</span>
+<span class="c">&quot;   Cmd+F8          - Toggle Breakpoint</span>
+<span class="c">&quot;   Ctrl+D          - Debug</span>
+<span class="c">&quot;   Ctrl+R          - Run</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; Discovery:</span>
+<span class="c">&quot;   Cmd+Shift+A     - Find Action (command palette)</span>
+<span class="c">&quot;   Cmd+Shift+P     - Command Palette (alternative)</span>
+<span class="c">&quot;</span>
+<span class="c">&quot; ===================================================================</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: Documenting preserved shortcuts helps you remember to use them and aids team collaboration.</p>
+<hr />
+<h3 id="proposal-4-resolve-ctrll-conflict-priority-low">Proposal 4: <strong>Resolve Ctrl+L Conflict</strong> (PRIORITY: LOW)</h3>
+<p><strong>Option A</strong>: Keep current setup (works due to context separation)
+<div class="highlight"><pre><span></span><code><span class="c">&quot; Current: Ctrl+L for window navigation (Vim mode)</span>
+<span class="c">&quot; Current: Ctrl+L for Tabby Chat (non-editor contexts)</span>
+<span class="c">&quot; Status: Works but confusing</span>
+</code></pre></div></p>
+<p><strong>Option B</strong>: Remap Tabby Chat to different key (recommended)
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- In keymaps/macOS copy.xml, change from ctrl l to: --&gt;</span>
+<span class="nt">&lt;action</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Tabby.Chat.ToggleChatToolWindow&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keyboard-shortcut</span><span class="w"> </span><span class="na">first-keystroke=</span><span class="s">&quot;ctrl semicolon&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!-- or --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keyboard-shortcut</span><span class="w"> </span><span class="na">first-keystroke=</span><span class="s">&quot;meta alt l&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div></p>
+<p><strong>Rationale</strong>: <code>Ctrl+;</code> or <code>Cmd+Option+L</code> would be less confusing and more discoverable.</p>
+<hr />
+<h3 id="proposal-5-add-typescript-specific-actions-priority-medium">Proposal 5: <strong>Add TypeScript-Specific Actions</strong> (PRIORITY: MEDIUM)</h3>
+<p>Add shortcuts for TypeScript-specific refactorings and actions:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
+<span class="c">&quot; TYPESCRIPT-SPECIFIC ACTIONS</span>
+<span class="c">&quot; ===================================================================</span>
+
+<span class="c">&quot; Generate (constructors, getters, etc.)</span>
+<span class="c">&quot; Already have: map &lt;S-space&gt; &lt;Action&gt;(Generate)</span>
+<span class="c">&quot; Add alias:</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>ge <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Generate<span class="p">)</span>
+
+<span class="c">&quot; Implement/Override Methods</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">im</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ImplementMethods<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>om <span class="p">&lt;</span>Action<span class="p">&gt;(</span>OverrideMethods<span class="p">)</span>
+
+<span class="c">&quot; Introduce Parameter (common in TypeScript refactoring)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rp <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceParameter<span class="p">)</span>
+
+<span class="c">&quot; Inline variable/method (reverse of extract)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">ri</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Inline<span class="p">)</span>
+
+<span class="c">&quot; Change signature (useful for refactoring function signatures)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">rs</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ChangeSignature<span class="p">)</span>
+
+<span class="c">&quot; Move refactoring (move functions between files)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span>mov <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Move<span class="p">)</span>
+
+<span class="c">&quot; Safe delete (checks usages before deleting)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">del</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>SafeDelete<span class="p">)</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: These are common TypeScript refactorings that complement your existing mappings.</p>
+<hr />
+<h3 id="proposal-6-add-http-client-shortcuts-priority-low">Proposal 6: <strong>Add HTTP Client Shortcuts</strong> (PRIORITY: LOW)</h3>
+<p>Since you're using the HTTP Client for API testing:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
+<span class="c">&quot; HTTP CLIENT (API Testing)</span>
+<span class="c">&quot; ===================================================================</span>
+
+<span class="c">&quot; Execute HTTP request (in .http files)</span>
+<span class="c">&quot; Native Ctrl+Enter works, but add for discoverability:</span>
+<span class="c">&quot; map &lt;leader&gt;hr &lt;Action&gt;(Execution.Http)</span>
+
+<span class="c">&quot; Note: Ctrl+Enter is standard and works well in .http files</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: <code>Ctrl+Enter</code> is already standard and works well. No change needed unless you want a discoverable alias.</p>
+<hr />
+<h3 id="proposal-7-error-navigation-enhancement-priority-low">Proposal 7: <strong>Error Navigation Enhancement</strong> (PRIORITY: LOW)</h3>
+<p>Keep your existing error navigation but add native shortcuts as aliases:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&quot; Errors navigation (keep current)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">en</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoNextError<span class="p">)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">ep</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoPreviousError<span class="p">)</span>
+
+<span class="c">&quot; ALSO support native F2/Shift+F2 for speed</span>
+<span class="c">&quot; (These work automatically, just document them)</span>
+
+<span class="c">&quot; Show error description (already have &lt;leader&gt;sd)</span>
+map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">ed</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowErrorDescription<span class="p">)</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: <code>F2</code>/<code>Shift+F2</code> are faster (1 key vs 3), but your mappings are more discoverable via Which-Key.</p>
+<hr />
+<h2 id="recommended-implementation-plan">📋 Recommended Implementation Plan</h2>
+<h3 id="phase-1-critical-additions-do-this-first">Phase 1: Critical Additions (Do This First)</h3>
+<ol>
+<li><strong>Add missing critical shortcuts</strong> (Proposal 1)</li>
+<li>Parameter Info (<code>&lt;leader&gt;p</code>)</li>
+<li>Quick Documentation (<code>&lt;leader&gt;K</code>)</li>
+<li>Refactor This (<code>&lt;leader&gt;rt</code>)</li>
+<li>File Structure (<code>&lt;leader&gt;so</code>)</li>
+<li>
+<p>Complete Statement (<code>Ctrl+Enter</code> in insert mode)</p>
+</li>
+<li>
+<p><strong>Document native shortcuts to preserve</strong> (Proposal 3)</p>
+</li>
+<li>Add comment section at top of <code>.ideavimrc</code></li>
+<li>List critical shortcuts to NOT override</li>
+</ol>
+<h3 id="phase-2-navigation-improvements-optional-but-recommended">Phase 2: Navigation Improvements (Optional but Recommended)</h3>
+<ol>
+<li><strong>Add Vim-style navigation aliases</strong> (Proposal 2)</li>
+<li><code>gd</code> → GotoDeclaration (faster than <code>&lt;leader&gt;gd</code>)</li>
+<li><code>gr</code> → ShowUsages</li>
+<li><code>gi</code> → GotoImplementation</li>
+<li><code>gh</code> → QuickJavaDoc</li>
+</ol>
+<h3 id="phase-3-typescript-specific-nice-to-have">Phase 3: TypeScript-Specific (Nice to Have)</h3>
+<ol>
+<li><strong>Add TypeScript refactorings</strong> (Proposal 5)</li>
+<li>Introduce Parameter</li>
+<li>Inline variable</li>
+<li>Change signature</li>
+<li>
+<p>Safe delete</p>
+</li>
+<li>
+<p><strong>Resolve Ctrl+L conflict</strong> (Proposal 4)</p>
+</li>
+<li>Consider remapping Tabby Chat to <code>Ctrl+;</code></li>
+</ol>
+<hr />
+<h2 id="final-recommendation-balanced-hybrid-approach">🎯 Final Recommendation: <strong>Balanced Hybrid Approach</strong></h2>
+<p><strong>Strategy</strong>: Keep your Neovim-consistent leader-key mappings for discoverability, but ADD:
+1. Vim-style <code>g*</code> shortcuts for speed (2 keypresses)
+2. Documentation of native shortcuts to preserve
+3. Missing critical shortcuts for TypeScript</p>
+<p><strong>Workflow</strong>:
+- <strong>For consistency</strong>: Use <code>&lt;leader&gt;*</code> mappings
+- <strong>For speed</strong>: Use <code>g*</code> mappings (Vim-style)
+- <strong>For maximum speed</strong>: Use native <code>Cmd+*</code> shortcuts
+- <strong>For discovery</strong>: Use <code>Cmd+Shift+A</code> (Find Action)</p>
+<p>This gives you <strong>three layers of shortcuts</strong>:
+1. <strong>Fast</strong>: Native <code>Cmd+B</code> (1 chord)
+2. <strong>Medium</strong>: Vim-style <code>gd</code> (2 keys)
+3. <strong>Discoverable</strong>: <code>&lt;leader&gt;gd</code> (3 keys, appears in Which-Key menu)</p>
+<p>Use the appropriate layer based on your current flow state and familiarity.</p>
+<hr />
+<h2 id="summary-of-changes">📝 Summary of Changes</h2>
+<h3 id="keep-as-is">✅ Keep As-Is</h3>
+<ul>
+<li>Window navigation (<code>Ctrl+H/J/K/L</code>)</li>
+<li>Window management (<code>&lt;leader&gt;w*</code>)</li>
+<li>Search namespace (<code>&lt;leader&gt;s*</code>)</li>
+<li>All existing mappings</li>
+</ul>
+<h3 id="add-new">➕ Add New</h3>
+<ul>
+<li>Parameter Info (<code>&lt;leader&gt;p</code>)</li>
+<li>Quick Documentation (<code>&lt;leader&gt;K</code>)</li>
+<li>Refactor This (<code>&lt;leader&gt;rt</code>)</li>
+<li>File Structure (<code>&lt;leader&gt;so</code>)</li>
+<li>Vim-style navigation (<code>gd</code>, <code>gr</code>, <code>gi</code>, <code>gh</code>)</li>
+<li>Documentation of native shortcuts</li>
+</ul>
+<h3 id="document">📖 Document</h3>
+<ul>
+<li>Native shortcuts to preserve</li>
+<li>Three-layer shortcut strategy</li>
+<li>When to use which layer</li>
+</ul>
+<h3 id="optional-changes">🔧 Optional Changes</h3>
+<ul>
+<li>Resolve <code>Ctrl+L</code> conflict (Tabby → <code>Ctrl+;</code>)</li>
+<li>Add TypeScript-specific refactorings</li>
+</ul>
+<hr />
+<p><strong>Next Steps</strong>: Review these proposals and decide which changes align with your workflow. I can help implement any approved changes to your <code>.ideavimrc</code> file.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+      
+        <script src="../../javascripts/shortcuts.js"></script>
+      
+    
+  </body>
+</html>
