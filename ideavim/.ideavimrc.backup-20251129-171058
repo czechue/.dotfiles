@@ -1,0 +1,103 @@
+" Basic settings
+set scrolloff=10
+set incsearch
+set which-key
+set notimeout
+set timeout=5000
+set clipboard^=unnamed,unnamedplus
+set matchpairs+=<:>
+set ideajoin
+set smartcase
+
+" Enable plugins
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+
+" Leader key
+let mapleader = ' '
+let g:WhichKey_ShowVimActions = "true"
+let g:WhichKey_DefaultDelay = 100
+
+
+map <C-e> <Action>(ActivateProjectToolWindow)
+
+" Window navigation (zgodne z Neovim)
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Window management (zgodne z Neovim)
+map <leader>wv <Action>(SplitVertically)
+map <leader>wh <Action>(SplitHorizontally)
+map <leader>ww <Action>(Unsplit)
+map <leader>wa <Action>(UnsplitAll)
+
+" Search and navigation (zgodne z Telescope w Neovim)
+map <leader>sf <Action>(GotoFile)
+map <leader>sg <Action>(FindInPath)
+map <leader>ss <Action>(GotoSymbol)
+map <leader>sa <Action>(GotoAction)
+map <leader>sd <Action>(ShowErrorDescription)
+map <leader>sr <Action>(RecentFiles)
+
+" LSP-like features
+map <leader>gd <Action>(GotoDeclaration)
+map <leader>gy <Action>(GotoTypeDeclaration)
+map <leader>gi <Action>(GotoImplementation)
+map <leader>gt <Action>(GotoTest)
+map <leader>rn <Action>(RenameElement)
+
+" Code actions and refactoring
+map <leader>ca <Action>(ShowIntentionActions)
+map <leader>sw <Action>(SurroundWith)
+map <S-space> <Action>(Generate)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rf <Action>(IntroduceField)
+
+" Errors navigation
+map <leader>en <Action>(GotoNextError)
+map <leader>ep <Action>(GotoPreviousError)
+
+" File operations
+map <leader>qq <Action>(CloseContent)
+map <leader>qa <Action>(CloseAllEditors)
+map <leader>nf <Action>(NewFile)
+map <leader>nd <Action>(NewDir)
+
+" Code formatting
+map <leader>f <Action>(ReformatCode)
+map <leader>oi <Action>(OptimizeImports)
+
+" Movement and text manipulation
+vmap <S-j> <Action>(MoveLineDown)
+vmap <S-k> <Action>(MoveLineUp)
+
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-g> <Plug>NextWholeOccurrence
+xmap <C-g> <Plug>NextWholeOccurrence
+nmap g<C-g> <Plug>NextOccurrence
+xmap g<C-g> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Feel free to pick your own mappings that are not affected. I like to use <leader>
+nmap <leader><C-g> <Plug>AllWholeOccurrences
+xmap <leader><C-g> <Plug>AllWholeOccurrences
+nmap <leader>g<C-g> <Plug>AllOccurrences
+xmap <leader>g<C-g> <Plug>AllOccurrences
+
+" Which Key descriptions
+let g:WhichKeyDesc_split = "<leader>w [W]indow operations"
+let g:WhichKeyDesc_search = "<leader>s [S]earch operations"
+let g:WhichKeyDesc_goto = "<leader>g [G]oto operations"
+let g:WhichKeyDesc_refactor = "<leader>r [R]efactor operations"
+let g:WhichKeyDesc_code = "<leader>c [C]ode operations"
+let g:WhichKeyDesc_new = "<leader>n [N]ew file operations"
+let g:WhichKeyDesc_close = "<leader>q [Q]uit operations"

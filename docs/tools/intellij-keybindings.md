@@ -2,6 +2,12 @@
 
 > Comprehensive keyboard shortcuts for full-stack TypeScript development with IdeaVim, React/Vue, Node.js, and IntelliJ IDEA Ultimate
 
+**Related Docs**:
+- 🎓 **[Mastery Path](./intellij-mastery-path.md)** - 6-week program to achieve fluency
+- ⚡ **[Quick Reference](./intellij-quick-ref.md)** - Top 30 essential shortcuts (printable)
+- 🔧 **[Improvements](./intellij-improvements.md)** - Analysis & optimization proposals
+- 📝 **[IdeaVim Basics](./ideavim.md)** - Vim mode fundamentals
+
 **Quick Navigation**: [IdeaVim](#ideavim-keybindings-vim-mode) | [Custom IDE](#custom-ide-shortcuts) | [TypeScript](#typescript-essential-shortcuts) | [Conflicts](#vim-vs-ide-conflicts) | [Learning Path](#typescript-focused-learning-path)
 
 ---
@@ -9,6 +15,13 @@
 ## IdeaVim Keybindings (Vim Mode)
 
 IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as leader key.
+
+> **📚 Three-Layer Shortcut System**: This config uses a hybrid approach with three speed tiers:
+> - **🏎️ Fast (1 key)**: Native shortcuts like `Cmd+B`, `Option+Enter` - use for maximum speed
+> - **⚡ Medium (2 keys)**: Vim-style `gd`, `gr`, `gi` - balanced speed/familiarity
+> - **🧭 Discoverable (3 keys)**: Leader-key `Space+G+D` - appears in Which-Key menu
+>
+> Choose the layer based on your flow state. All three work simultaneously!
 
 ### Window Navigation
 
@@ -52,17 +65,29 @@ IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as
 
 </div>
 
-### LSP/Code Intelligence
+### LSP/Code Intelligence (Three-Layer System)
 
 <div class="shortcuts-table" markdown>
 
-| Shortcut | Action | IntelliJ Action | Context |
-|----------|--------|-----------------|---------|
-| ++space+g+d++ | Go to declaration | `GotoDeclaration` | LSP |
-| ++space+g+y++ | Go to type declaration | `GotoTypeDeclaration` | LSP |
-| ++space+g+i++ | Go to implementation | `GotoImplementation` | LSP |
-| ++space+g+t++ | Go to test / Create test | `GotoTest` | LSP |
-| ++space+r+n++ | Rename element | `RenameElement` | LSP |
+| Shortcut | Action | Speed | IntelliJ Action |
+|----------|--------|-------|-----------------|
+| **Vim-Style (2 keys - FAST)** ||||
+| ++g+d++ | Go to declaration | ⚡ Fast | `GotoDeclaration` |
+| ++g+shift+d++ | Go to type declaration | ⚡ Fast | `GotoTypeDeclaration` |
+| ++g+i++ | Go to implementation | ⚡ Fast | `GotoImplementation` |
+| ++g+r++ | Show usages (references) | ⚡ Fast | `ShowUsages` |
+| ++g+h++ | Quick documentation (hover) | ⚡ Fast | `QuickJavaDoc` |
+| **Leader-Key (3 keys - DISCOVERABLE)** ||||
+| ++space+g+d++ | Go to declaration | 🧭 Discover | `GotoDeclaration` |
+| ++space+g+y++ | Go to type declaration | 🧭 Discover | `GotoTypeDeclaration` |
+| ++space+g+i++ | Go to implementation | 🧭 Discover | `GotoImplementation` |
+| ++space+g+t++ | Go to test / Create test | 🧭 Discover | `GotoTest` |
+| ++space+g+r++ | Show usages (references) | 🧭 Discover | `ShowUsages` |
+| **Native Shortcuts (1 key - FASTEST)** ||||
+| ++cmd+b++ | Go to declaration | 🏎️ Fastest | Native shortcut |
+| ++cmd+shift+b++ | Go to type declaration | 🏎️ Fastest | Native shortcut |
+| ++cmd+option+b++ | Go to implementation | 🏎️ Fastest | Native shortcut |
+| ++option+f7++ | Find usages | 🏎️ Fastest | Native shortcut |
 
 </div>
 
@@ -70,14 +95,24 @@ IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as
 
 <div class="shortcuts-table" markdown>
 
-| Shortcut | Action | IntelliJ Action | Context |
-|----------|--------|-----------------|---------|
-| ++space+c+a++ | Show intention actions (code actions) | `ShowIntentionActions` | Code Actions |
-| ++space+s+w++ | Surround with | `SurroundWith` | Code Actions |
-| ++shift+space++ | Generate menu (constructor, getter, etc.) | `Generate` | Code Actions |
-| ++space+r+m++ | Extract method | `ExtractMethod` | Refactoring |
-| ++space+r+v++ | Introduce variable | `IntroduceVariable` | Refactoring |
-| ++space+r+f++ | Introduce field | `IntroduceField` | Refactoring |
+| Shortcut | Action | IntelliJ Action | Notes |
+|----------|--------|-----------------|-------|
+| ++space+c+a++ | Show intention actions (quick fixes) | `ShowIntentionActions` | Also: ++option+enter++ (native, faster) ⭐ |
+| ++space+rt++ | **Refactor This** (context menu) | `RefactoringMenu` | Also: ++ctrl+t++ (native) - shows ALL refactorings ⭐ |
+| ++space+r+n++ | Rename element | `RenameElement` | Also: ++shift+f6++ (native, faster) |
+| ++space+r+m++ | Extract method | `ExtractMethod` | Also: ++cmd+option+m++ |
+| ++space+r+v++ | Introduce variable | `IntroduceVariable` | Also: ++cmd+option+v++ |
+| ++space+r+f++ | Introduce field | `IntroduceField` | Also: ++cmd+option+f++ |
+| ++space+r+p++ | Introduce parameter | `IntroduceParameter` | NEW |
+| ++space+r+i++ | Inline variable/method | `Inline` | NEW |
+| ++space+r+s++ | Change signature | `ChangeSignature` | NEW |
+| ++space+mov++ | Move refactoring | `Move` | NEW |
+| ++space+del++ | Safe delete (checks usages) | `SafeDelete` | NEW |
+| ++space+s+w++ | Surround with | `SurroundWith` | Wrap code |
+| ++shift+space++ | Generate menu | `Generate` | Constructors, getters, etc. |
+| ++space+g+e++ | Generate menu (alias) | `Generate` | Same as above |
+| ++space+i+m++ | Implement methods | `ImplementMethods` | NEW - TypeScript |
+| ++space+o+m++ | Override methods | `OverrideMethods` | NEW - TypeScript |
 
 </div>
 
@@ -105,14 +140,28 @@ IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as
 
 </div>
 
+### Code Intelligence & Documentation (NEW!)
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | IntelliJ Action | Notes |
+|----------|--------|-----------------|-------|
+| ++space+shift+k++ | Quick documentation | `QuickJavaDoc` | Also: ++f1++ (native), Vim-style: ++g+h++ |
+| ++space+p++ | Parameter info | `ParameterInfo` | Also: ++cmd+p++ (native) |
+| ++space+s+o++ | File structure popup | `FileStructurePopup` | Also: ++cmd+f12++ (native) |
+| ++space+t+i++ | Type info at cursor | `ExpressionTypeInfo` | NEW |
+
+</div>
+
 ### Code Formatting
 
 <div class="shortcuts-table" markdown>
 
-| Shortcut | Action | IntelliJ Action | Context |
-|----------|--------|-----------------|---------|
-| ++space+f++ | Reformat code | `ReformatCode` | Formatting |
-| ++space+o+i++ | Optimize imports | `OptimizeImports` | Formatting |
+| Shortcut | Action | IntelliJ Action | Notes |
+|----------|--------|-----------------|-------|
+| ++space+f++ | Reformat code | `ReformatCode` | Also: ++cmd+option+l++ (native, industry standard) |
+| ++space+o+i++ | Optimize imports | `OptimizeImports` | Also: ++ctrl+option+o++ (native) |
+| ++ctrl+enter++ (insert mode) | Complete statement | `CompleteStatement` | Also: ++cmd+shift+enter++ (native) - adds semicolons, braces |
 
 </div>
 

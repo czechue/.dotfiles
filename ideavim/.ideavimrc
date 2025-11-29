@@ -1,3 +1,14 @@
+" ===================================================================
+" IdeaVim Configuration - TypeScript-Focused Hybrid Approach
+" ===================================================================
+" Three-layer shortcut system:
+"   1. Fast Layer (Native IntelliJ - 1 keystroke): Cmd+B, Option+Enter
+"   2. Medium Layer (Vim-style - 2 keystrokes): gd, gr, gh, gi
+"   3. Discoverable Layer (Leader-key - 3 keystrokes): <leader>gd, <leader>sf
+"
+" Use the appropriate layer based on your flow state and familiarity.
+" ===================================================================
+
 " Basic settings
 set scrolloff=10
 set incsearch
@@ -20,6 +31,46 @@ Plug 'terryma/vim-multiple-cursors'
 let mapleader = ' '
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_DefaultDelay = 100
+
+" ===================================================================
+" IMPORTANT: Preserve These Native IntelliJ Shortcuts
+" ===================================================================
+" These shortcuts are NOT remapped - use them directly!
+"
+" Navigation & Search:
+"   Cmd+B           - Go to Declaration (FASTEST - use this!)
+"   Cmd+Shift+B     - Go to Type Declaration
+"   Cmd+Option+B    - Go to Implementation
+"   Option+F7       - Find Usages
+"   Cmd+[, Cmd+]    - Navigate Back/Forward
+"   Double Shift    - Search Everywhere (universal search!)
+"   Cmd+E           - Recent Files
+"   Cmd+Shift+E     - Recent Edited Files
+"
+" Quick Fixes & Refactoring:
+"   Option+Enter    - Show Intention Actions (auto-import, quick fixes) ⭐
+"   Ctrl+T          - Refactor This (context-aware refactoring menu) ⭐
+"   Shift+F6        - Rename Element
+"   Cmd+Option+L    - Reformat Code (industry standard)
+"   Ctrl+Option+O   - Optimize Imports
+"
+" Code Intelligence:
+"   Cmd+P           - Parameter Info
+"   F1              - Quick Documentation
+"   Cmd+F12         - File Structure Popup
+"   Ctrl+Space      - Basic Completion
+"   Ctrl+Shift+Space - Smart Type Completion (TypeScript)
+"
+" Errors & Debugging:
+"   F2, Shift+F2    - Next/Previous Error (faster than <leader>en/ep)
+"   Cmd+F8          - Toggle Breakpoint
+"   Ctrl+D          - Debug
+"   Ctrl+R          - Run
+"
+" Discovery:
+"   Cmd+Shift+A     - Find Action (command palette) ⭐
+"
+" ===================================================================
 
 
 map <C-e> <Action>(ActivateProjectToolWindow)
@@ -44,20 +95,70 @@ map <leader>sa <Action>(GotoAction)
 map <leader>sd <Action>(ShowErrorDescription)
 map <leader>sr <Action>(RecentFiles)
 
-" LSP-like features
+" ===================================================================
+" LSP/Code Intelligence - Three-Layer Approach
+" ===================================================================
+" Layer 1 (Fast): Cmd+B, Cmd+Shift+B, Cmd+Option+B (native shortcuts)
+" Layer 2 (Medium): gd, gr, gi, gh (Vim-style - 2 keystrokes)
+" Layer 3 (Discoverable): <leader>g* (leader-key - appears in Which-Key)
+
+" Vim-style navigation shortcuts (2 keystrokes - FAST!)
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gr <Action>(ShowUsages)
+nmap gh <Action>(QuickJavaDoc)
+
+" Leader-key navigation (3 keystrokes - DISCOVERABLE via Which-Key)
 map <leader>gd <Action>(GotoDeclaration)
 map <leader>gy <Action>(GotoTypeDeclaration)
 map <leader>gi <Action>(GotoImplementation)
 map <leader>gt <Action>(GotoTest)
-map <leader>rn <Action>(RenameElement)
+map <leader>gr <Action>(ShowUsages)
 
-" Code actions and refactoring
+" Rename (multiple options for flexibility)
+map <leader>rn <Action>(RenameElement)
+" Note: Shift+F6 is native shortcut (faster)
+
+" ===================================================================
+" Code Actions & Refactoring
+" ===================================================================
+" Note: Option+Enter (native) for intention actions - THE most important!
+" Note: Ctrl+T (native) for Refactor This menu - shows ALL refactorings!
+
+" Intention actions and quick fixes
 map <leader>ca <Action>(ShowIntentionActions)
+" Note: Option+Enter is native and faster - preserve it!
+
+" Refactor This - context-aware refactoring menu
+map <leader>rt <Action>(RefactoringMenu)
+" Note: Ctrl+T is native - shows all available refactorings in context
+
+" Surround with (wrap with if, try-catch, etc.)
 map <leader>sw <Action>(SurroundWith)
+
+" Generate menu (constructors, getters, setters, toString, etc.)
 map <S-space> <Action>(Generate)
+map <leader>ge <Action>(Generate)
+" Note: Cmd+N is native shortcut in editor context
+
+" Extract refactorings
 map <leader>rm <Action>(ExtractMethod)
 map <leader>rv <Action>(IntroduceVariable)
 map <leader>rf <Action>(IntroduceField)
+map <leader>rp <Action>(IntroduceParameter)
+
+" Inline refactoring (reverse of extract)
+map <leader>ri <Action>(Inline)
+
+" Change signature (modify function parameters)
+map <leader>rs <Action>(ChangeSignature)
+
+" Move refactoring (move functions/classes between files)
+map <leader>mov <Action>(Move)
+
+" Safe delete (checks usages before deleting)
+map <leader>del <Action>(SafeDelete)
 
 " Errors navigation
 map <leader>en <Action>(GotoNextError)
@@ -69,9 +170,40 @@ map <leader>qa <Action>(CloseAllEditors)
 map <leader>nf <Action>(NewFile)
 map <leader>nd <Action>(NewDir)
 
-" Code formatting
+" ===================================================================
+" Code Intelligence & Documentation
+" ===================================================================
+
+" Quick documentation (like Vim's K)
+map <leader>K <Action>(QuickJavaDoc)
+" Note: F1 is native shortcut
+
+" Parameter information
+map <leader>p <Action>(ParameterInfo)
+" Note: Cmd+P is native shortcut
+
+" File structure popup (quick symbol overview)
+map <leader>so <Action>(FileStructurePopup)
+" Note: Cmd+F12 is native shortcut
+
+" Type info at cursor
+map <leader>ti <Action>(ExpressionTypeInfo)
+
+" ===================================================================
+" Code Formatting & Optimization
+" ===================================================================
+
+" Reformat code
 map <leader>f <Action>(ReformatCode)
+" Note: Cmd+Option+L is native and industry standard - preserve it!
+
+" Optimize imports (remove unused, organize)
 map <leader>oi <Action>(OptimizeImports)
+" Note: Ctrl+Option+O is native shortcut
+
+" Complete current statement (add semicolons, braces, etc.)
+imap <C-CR> <Action>(CompleteStatement)
+" Note: Cmd+Shift+Enter is native shortcut
 
 " Movement and text manipulation
 vmap <S-j> <Action>(MoveLineDown)
@@ -93,11 +225,46 @@ xmap <leader><C-g> <Plug>AllWholeOccurrences
 nmap <leader>g<C-g> <Plug>AllOccurrences
 xmap <leader>g<C-g> <Plug>AllOccurrences
 
-" Which Key descriptions
+" ===================================================================
+" TypeScript-Specific Actions
+" ===================================================================
+
+" Implement/Override Methods
+map <leader>im <Action>(ImplementMethods)
+map <leader>om <Action>(OverrideMethods)
+
+" ===================================================================
+" Which-Key Menu Descriptions
+" ===================================================================
 let g:WhichKeyDesc_split = "<leader>w [W]indow operations"
 let g:WhichKeyDesc_search = "<leader>s [S]earch operations"
-let g:WhichKeyDesc_goto = "<leader>g [G]oto operations"
+let g:WhichKeyDesc_goto = "<leader>g [G]oto / LSP operations"
 let g:WhichKeyDesc_refactor = "<leader>r [R]efactor operations"
-let g:WhichKeyDesc_code = "<leader>c [C]ode operations"
+let g:WhichKeyDesc_code = "<leader>c [C]ode actions"
 let g:WhichKeyDesc_new = "<leader>n [N]ew file operations"
-let g:WhichKeyDesc_close = "<leader>q [Q]uit operations"
+let g:WhichKeyDesc_close = "<leader>q [Q]uit / close operations"
+let g:WhichKeyDesc_doc = "<leader>K Quick [D]ocumentation"
+let g:WhichKeyDesc_param = "<leader>p [P]arameter info"
+let g:WhichKeyDesc_structure = "<leader>so [S]ymbol [O]utline"
+let g:WhichKeyDesc_generate = "<leader>ge [Ge]nerate code"
+
+" ===================================================================
+" SUMMARY: Three-Layer Shortcut System
+" ===================================================================
+" Choose the appropriate layer based on your current workflow:
+"
+" 🏎️  FAST LAYER (Native - 1 keystroke):
+"     Cmd+B, Option+Enter, Cmd+Option+L, Double Shift, Ctrl+T
+"     Use when: Typing fast, maximum speed needed
+"
+" ⚡ MEDIUM LAYER (Vim-style - 2 keystrokes):
+"     gd, gr, gi, gh
+"     Use when: Vim muscle memory, balanced speed/discoverability
+"
+" 🧭 DISCOVERABLE LAYER (Leader-key - 3 keystrokes):
+"     <leader>gd, <leader>sf, <leader>ca
+"     Use when: Exploring, learning, Which-Key menu helpful
+"
+" TIP: Start with leader-key for discoverability, graduate to Vim-style
+"      for speed, and use native shortcuts for maximum performance.
+" ===================================================================
