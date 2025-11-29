@@ -66,7 +66,13 @@ nav:
       - AeroSpace: tools/aerospace.md
       - yazi: tools/yazi.md
       - Cursor: tools/cursor.md
-      - IdeaVim: tools/ideavim.md
+      - IntelliJ IDEA:
+          - Mastery Path: tools/intellij-mastery-path.md
+          - Complete Keybindings: tools/intellij-keybindings.md
+          - Quick Reference: tools/intellij-quick-ref.md
+          - IdeaVim Basics: tools/ideavim.md
+          - Improvements Analysis: tools/intellij-improvements.md
+          - Implementation Summary: tools/intellij-improvements-summary.md
       - zsh: tools/zsh.md
   - Keyboard:
       - Glove80: keyboard/glove80.md

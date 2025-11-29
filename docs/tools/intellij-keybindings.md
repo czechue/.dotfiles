@@ -701,7 +701,7 @@ If you do something **>5 times per day**, find its keyboard shortcut:
 - **[IdeaVim](./ideavim.md)** - IdeaVim-specific shortcuts and configuration
 - **[Neovim](./neovim.md)** - Neovim keybindings (for comparison and consistency)
 - **[Cursor](./cursor.md)** - Cursor IDE keybindings (vim-mode enabled)
-- **[Tmux](./ tmux.md)** - Terminal multiplexer shortcuts
+- **[Tmux](./tmux.md)** - Terminal multiplexer shortcuts
 
 ---
 
