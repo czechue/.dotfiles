@@ -5,6 +5,10 @@ Vim emulation plugin for IntelliJ IDEA with custom keybindings matching Neovim p
 **Configuration**: `ideavim/.ideavimrc`
 **Leader Key**: ++space++
 
+> **📚 Complete Reference**: This page covers IdeaVim (Vim mode) shortcuts only. For comprehensive IntelliJ IDEA documentation including native IDE shortcuts, TypeScript workflows, and learning path, see:
+> - **[Complete IntelliJ Keybindings](./intellij-keybindings.md)** - Full reference with TypeScript focus
+> - **[Quick Reference Card](./intellij-quick-ref.md)** - Top 30 essential shortcuts (printable)
+
 ## Window Navigation
 
 <div class="shortcuts-table" markdown>
@@ -103,3 +107,5 @@ Vim emulation plugin for IntelliJ IDEA with custom keybindings matching Neovim p
 
 - **Config**: `ideavim/.ideavimrc`
 - **Plugins**: EasyMotion, Surround, Multiple Cursors, Commentary, Which-Key
+- **Complete Guide**: [IntelliJ Keybindings (TypeScript-Focused)](./intellij-keybindings.md)
+- **Quick Ref**: [30 Essential Shortcuts](./intellij-quick-ref.md)

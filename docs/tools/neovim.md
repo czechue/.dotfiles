@@ -60,6 +60,115 @@ Leader key: ++space++
 
 </div>
 
+## Neo-tree (File Explorer)
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++ctrl+e++ | Toggle Neo-tree | File Explorer |
+
+</div>
+
+### Navigation
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++question++ | Show help | Neo-tree |
+| ++less++ | Switch to previous source | Neo-tree |
+| ++greater++ | Switch to next source | Neo-tree |
+| ++backspace++ | Navigate up one directory level | Neo-tree |
+| ++period++ | Set current folder as root | Neo-tree |
+| ++space++ | Toggle node (expand/collapse) | Neo-tree |
+| ++enter++ | Open file/folder | Neo-tree |
+| ++shift+c++ | Close node | Neo-tree |
+| ++z++ | Close all nodes | Neo-tree |
+| ++shift+p++ | Toggle preview mode | Neo-tree |
+| ++l++ | Focus preview window | Neo-tree |
+| ++esc++ | Exit preview mode | Neo-tree |
+
+</div>
+
+### Opening Files
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++shift+s++ | Open in horizontal split | Neo-tree |
+| ++s++ | Open in vertical split | Neo-tree |
+| ++t++ | Open in new tab | Neo-tree |
+| ++w++ | Open with window picker | Neo-tree |
+
+</div>
+
+### File Operations
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++a++ | Add file or directory (end with / for directory) | Neo-tree |
+| ++shift+a++ | Add directory | Neo-tree |
+| ++d++ | Delete file or directory | Neo-tree |
+| ++r++ | Rename file or directory | Neo-tree |
+| ++b++ | Rename basename (without extension) | Neo-tree |
+| ++c++ | Copy file or directory | Neo-tree |
+| ++m++ | Move file or directory | Neo-tree |
+| ++i++ | Show file details | Neo-tree |
+
+</div>
+
+### Clipboard Operations
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++y++ | Copy to clipboard | Neo-tree |
+| ++x++ | Cut to clipboard | Neo-tree |
+| ++p++ | Paste from clipboard | Neo-tree |
+| ++ctrl+r++ | Clear clipboard | Neo-tree |
+
+</div>
+
+### View & Filtering
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++shift+h++ | Toggle hidden files | Neo-tree |
+| ++shift+r++ | Refresh tree | Neo-tree |
+| ++o++ | Sort by... (show menu) | Neo-tree |
+| ++o+c++ | Sort by created date | Neo-tree |
+| ++o+d++ | Sort by diagnostics | Neo-tree |
+| ++o+g++ | Sort by git status | Neo-tree |
+| ++o+m++ | Sort by modified date | Neo-tree |
+| ++o+n++ | Sort by name | Neo-tree |
+| ++o+s++ | Sort by size | Neo-tree |
+| ++o+t++ | Sort by type | Neo-tree |
+| ++slash++ | Fuzzy finder (filter files) | Neo-tree |
+| ++shift+d++ | Fuzzy finder (directories only) | Neo-tree |
+| ++hash++ | Fuzzy sorter | Neo-tree |
+| ++f++ | Filter on submit | Neo-tree |
+| ++ctrl+x++ | Clear filter | Neo-tree |
+
+</div>
+
+### Git Navigation
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++bracket-left+g++ | Jump to previous git modified file | Neo-tree |
+| ++bracket-right+g++ | Jump to next git modified file | Neo-tree |
+
+</div>
+
 ## Custom Plugins
 
 ### LazyGit

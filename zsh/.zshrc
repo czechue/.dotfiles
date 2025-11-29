@@ -200,3 +200,7 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+ # Increase file descriptor limit
+  ulimit -n 10240
+
