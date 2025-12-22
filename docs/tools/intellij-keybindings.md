@@ -108,7 +108,7 @@ IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as
 | ++space+r+s++ | Change signature | `ChangeSignature` | NEW |
 | ++space+mov++ | Move refactoring | `Move` | NEW |
 | ++space+del++ | Safe delete (checks usages) | `SafeDelete` | NEW |
-| ++space+s+w++ | Surround with | `SurroundWith` | Wrap code |
+| ++space+s+w++ | Surround with | `SurroundWith` | Wrap code (see vim-surround below for faster method) |
 | ++shift+space++ | Generate menu | `Generate` | Constructors, getters, etc. |
 | ++space+g+e++ | Generate menu (alias) | `Generate` | Same as above |
 | ++space+i+m++ | Implement methods | `ImplementMethods` | NEW - TypeScript |
@@ -126,6 +126,42 @@ IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as
 | ++space+e+p++ | Go to previous error | `GotoPreviousError` | Errors |
 
 </div>
+
+### Editor Font Size / Zoom
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | IntelliJ Action | Notes |
+|----------|--------|-----------------|-------|
+| ++cmd+equal++ or ++cmd+plus++ | Increase font size (zoom in) | `EditorIncreaseFontSize` | Fast ⚡ |
+| ++cmd+minus++ | Decrease font size (zoom out) | `EditorDecreaseFontSize` | Fast ⚡ NEW! |
+| ++space+z+i++ | Zoom in (alternative) | `EditorIncreaseFontSize` | Discoverable |
+| ++space+z+o++ | Zoom out (alternative) | `EditorDecreaseFontSize` | Discoverable |
+| ++space+z+r++ | Reset font size | `EditorResetFontSize` | Discoverable |
+
+</div>
+
+### Code Folding
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | IntelliJ Action | Notes |
+|----------|--------|-----------------|-------|
+| ++space+z+c++ | Collapse region (fold code) | `CollapseRegion` | NEW! |
+| ++space+z+e++ | Expand region (unfold code) | `ExpandRegion` | NEW! |
+| ++space+z+shift+c++ | Collapse all regions | `CollapseAllRegions` | NEW! |
+| ++space+z+shift+e++ | Expand all regions | `ExpandAllRegions` | NEW! |
+
+</div>
+
+!!! warning "Behavior Changed: Cmd+/- Now Control Zoom (Not Folding)"
+    **Previous** (standard IntelliJ): ++cmd+minus++ = fold, ++cmd+plus++ = unfold
+
+    **New** (optimized): ++cmd+minus++ = zoom out, ++cmd+plus++ = zoom in
+
+    **Why?** Cmd+/- for zoom matches browser behavior and is more intuitive. Code folding moved to ++space+z+c/e++ (less frequent operation).
+
+    **Migration**: If you used Cmd+/- for folding, use ++space+z+c++ / ++space+z+e++ instead.
 
 ### File Operations
 
@@ -164,6 +200,43 @@ IdeaVim custom mappings from `ideavim/.ideavimrc`. All mappings use **Space** as
 | ++ctrl+enter++ (insert mode) | Complete statement | `CompleteStatement` | Also: ++cmd+shift+enter++ (native) - adds semicolons, braces |
 
 </div>
+
+### vim-surround - Fast Text Wrapping ⚡
+
+The `vim-surround` plugin provides powerful commands for adding, changing, and deleting surrounding characters. **Much faster than Visual mode!**
+
+#### Core Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `ys{motion}{char}` | **Add** surround | `ysiw"` on `hello` → `"hello"` |
+| `cs{old}{new}` | **Change** surround | `cs"'` on `"hello"` → `'hello'` |
+| `ds{char}` | **Delete** surround | `ds"` on `"hello"` → `hello` |
+| `S{char}` (Visual) | Surround selection | Select + `S"` → `"text"` |
+
+#### TypeScript Quick Reference
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Before | After | Use Case |
+|----------|--------|-------|----------|
+| `ysiw"` | `className` | `"className"` | JSX attributes |
+| `ysiw{` | `user` | `{user}` | Object shorthand |
+| `cs'` ` | `'text'` | `` `text` `` | Template literals |
+| `cs({` | `(a, b)` | `{ a, b }` | Destructuring |
+| `ds"` | `"text"` | `text` | Remove quotes |
+| `yss"` | `return value` | `"return value"` | Wrap line |
+
+</div>
+
+!!! tip "Faster than `Space+S+W`"
+    - ❌ Slow: `Space+S+W` (IntelliJ Surround With menu - 3 keys + menu navigation)
+    - ✅ Fast: `ysiw"` (4 keys, no menu, repeatable with `.`)
+
+!!! tip "Dot Repeat for Multiple Words"
+    After `ysiw"`, navigate with `w` and repeat with `.` to wrap multiple words quickly.
+
+**See [IdeaVim Basics](./ideavim.md#vim-surround-text-manipulation) for complete examples and workflows.**
 
 ### Text Manipulation
 

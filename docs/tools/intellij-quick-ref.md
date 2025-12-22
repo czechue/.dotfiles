@@ -70,7 +70,7 @@ Your config now supports **three speed tiers** - use the right one for your flow
 | ++shift+f6++ | Rename symbol | ⭐⭐⭐⭐ Most common refactoring |
 | ++cmd+option+l++ | Reformat code | ⭐⭐⭐⭐ Industry standard |
 
-### New Additions
+### Common Refactorings
 | Shortcut | Action | Use Case |
 |----------|--------|----------|
 | ++space+rt++ | Refactor This menu | Alternative to Ctrl+T |
@@ -81,6 +81,34 @@ Your config now supports **three speed tiers** - use the right one for your flow
 | ++cmd+option+m++ | Extract method | Refactor to function |
 | ++cmd+option+o++ | Optimize imports | Remove unused imports |
 | ++cmd+slash++ | Toggle comment | Comment/uncomment code |
+
+### vim-surround - Fast Text Wrapping ⚡
+
+!!! tip "Faster than Visual Mode Selection!"
+    Use `ysiw{char}` instead of selecting text first - no mode switching required!
+
+| Command | Example | Before → After | Use Case |
+|---------|---------|----------------|----------|
+| `ysiw"` | Cursor on word | `className` → `"className"` | JSX attributes |
+| `ysiw{` | Cursor on word | `user` → `{user}` | Object shorthand |
+| `cs'"` | Change quotes | `'text'` → `"text"` | Quote conversion |
+| `cs'` ` | To template literal | `'Hello'` → `` `Hello` `` | Template strings |
+| `ds"` | Delete quotes | `"text"` → `text` | Remove wrapping |
+| `dst` | Delete HTML tag | `<div>text</div>` → `text` | Remove tags |
+
+**Common Pattern**: `ysiw"` (4 keys) + `.` (repeat) is faster than `viw` + `S"` (mode switch)
+
+### Zoom / Font Size & Code Folding
+
+| Shortcut | Action | Notes |
+|----------|--------|-------|
+| ++cmd+plus++ or ++cmd+equal++ | Zoom in | ⚡ NEW! Now controls zoom (not folding) |
+| ++cmd+minus++ | Zoom out | ⚡ NEW! Now controls zoom (not folding) |
+| ++space+z+i/o/r++ | Zoom in/out/reset | Discoverable alternatives |
+| ++space+z+c/e++ | Collapse/Expand code | NEW! Code folding moved here |
+
+!!! tip "Behavior Changed"
+    **Cmd+/-** now controls **zoom** (matches browser shortcuts). For **code folding**, use **Space+Z+C/E**.
 
 ---
 

@@ -15,7 +15,6 @@ This is a personal dotfiles repository for managing development tool configurati
 - **zsh/**: Zsh shell with zoxide and yazi wrapper
 - **ideavim/**: IntelliJ IDEA Vim emulation
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
-- **claude/**: Claude Code CLI global configuration (CLAUDE.md, settings.json, MCP servers)
 - **bin/**: Utility scripts (`tmux-sessionizer` for project switching with fzf)
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
@@ -40,22 +39,6 @@ ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/Us
 ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 ```
 
-### Claude Code Configuration
-
-Claude Code uses a special sync workflow for MCP servers:
-
-```bash
-# Initial setup:
-ln -sf ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
-ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json
-
-# After editing claude/mcp-servers.json:
-~/.dotfiles/claude/sync-mcp.sh
-# Restart Claude Code to load new MCP servers
-```
-
-**Why sync script?** The `~/.claude.json` file contains both MCP config AND runtime state (history, cache). We can't symlink the entire file without causing git conflicts. The sync script merges MCP servers from dotfiles into `~/.claude.json` while preserving runtime state. See `claude/README.md` for details.
-
 ### Reloading Configurations
 
 ```bash
@@ -76,9 +59,6 @@ source ~/.zshrc  # or open new terminal
 
 # Cursor
 # Settings reload automatically, full restart recommended
-
-# Claude Code
-# Restart CLI after config changes
 ```
 
 ## Architecture Patterns
@@ -102,10 +82,6 @@ The repository supports personal vs work contexts via `.dotfiles-personal/` and 
 ### Modular Tool Structure
 
 Each tool has its own directory. Adding/removing tools doesn't affect others. No monolithic installation scripts - maintain explicit symlinks for clarity and control.
-
-### MCP Server Configuration
-
-Configured servers: `context7`, `mcp-sequentialthinking-tools`, `mcp-omnisearch` (Tavily, Brave, Perplexity, Jina AI, Firecrawl). API keys in `claude/mcp-servers.json` are gitignored. Use `mcp-servers.json.template` for tracking structure.
 
 ## Neovim-Specific Details
 
