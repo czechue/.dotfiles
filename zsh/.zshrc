@@ -204,3 +204,6 @@ function y() {
  # Increase file descriptor limit
   ulimit -n 10240
 
+# PAI / Claude Code Aliases
+source ~/.claude/zshrc-aliases
+

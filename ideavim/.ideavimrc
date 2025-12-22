@@ -137,6 +137,30 @@ map <leader>rt <Action>(RefactoringMenu)
 " Surround with (wrap with if, try-catch, etc.)
 map <leader>sw <Action>(SurroundWith)
 
+" ===================================================================
+" vim-surround shortcuts (already working!)
+" ===================================================================
+" Note: vim-surround works natively! Commands available:
+"   ys{motion}{char} - surround (e.g., ysiw" surrounds word with quotes)
+"   cs{old}{new}     - change surround (e.g., cs"' changes " to ')
+"   ds{char}         - delete surround (e.g., ds" removes quotes)
+"   S{char}          - in Visual mode, surround selection
+"
+" Common patterns for quick reference:
+"   ysiw"  - surround word with "quotes"
+"   ysiw)  - surround word with (parentheses)
+"   ysiw}  - surround word with {braces}
+"   ysiw]  - surround word with [brackets]
+"   cs"'   - change "double" to 'single' quotes
+"   ds"    - delete surrounding "quotes"
+"   dst    - delete surrounding HTML <tag>
+"
+" TypeScript-specific: Quick surround for template literals
+" (Optional) Map common TypeScript surrounds if needed:
+" nmap <leader>s` ysiw`
+" nmap <leader>s" ysiw"
+" nmap <leader>s' ysiw'
+
 " Generate menu (constructors, getters, setters, toString, etc.)
 map <S-space> <Action>(Generate)
 map <leader>ge <Action>(Generate)
@@ -234,6 +258,32 @@ map <leader>im <Action>(ImplementMethods)
 map <leader>om <Action>(OverrideMethods)
 
 " ===================================================================
+" Editor Font Size / Zoom
+" ===================================================================
+" Override default IntelliJ behavior:
+"   Default: Cmd+- → CollapseRegion, Cmd++ → ExpandRegion (code folding)
+"   New:     Cmd+- → Decrease font, Cmd++ → Increase font (zoom)
+"
+" We override code folding shortcuts for consistency with zoom expectations.
+" Use leader-key for code folding instead: <leader>zc (collapse), <leader>ze (expand)
+"
+" Zoom shortcuts (overriding code folding):
+map <D-=> <Action>(EditorIncreaseFontSize)
+map <D-+> <Action>(EditorIncreaseFontSize)
+map <D--> <Action>(EditorDecreaseFontSize)
+
+" Alternative leader-key zoom (if you want both):
+map <leader>zi <Action>(EditorIncreaseFontSize)
+map <leader>zo <Action>(EditorDecreaseFontSize)
+map <leader>zr <Action>(EditorResetFontSize)
+
+" Code folding alternatives (since we remapped Cmd+/- to zoom):
+map <leader>zc <Action>(CollapseRegion)
+map <leader>ze <Action>(ExpandRegion)
+map <leader>zC <Action>(CollapseAllRegions)
+map <leader>zE <Action>(ExpandAllRegions)
+
+" ===================================================================
 " Which-Key Menu Descriptions
 " ===================================================================
 let g:WhichKeyDesc_split = "<leader>w [W]indow operations"
@@ -247,6 +297,14 @@ let g:WhichKeyDesc_doc = "<leader>K Quick [D]ocumentation"
 let g:WhichKeyDesc_param = "<leader>p [P]arameter info"
 let g:WhichKeyDesc_structure = "<leader>so [S]ymbol [O]utline"
 let g:WhichKeyDesc_generate = "<leader>ge [Ge]nerate code"
+let g:WhichKeyDesc_zoom = "<leader>z [Z]oom / font size / folding"
+let g:WhichKeyDesc_zoom_in = "<leader>zi [Z]oom [I]n (increase font)"
+let g:WhichKeyDesc_zoom_out = "<leader>zo [Z]oom [O]ut (decrease font)"
+let g:WhichKeyDesc_zoom_reset = "<leader>zr [Z]oom [R]eset"
+let g:WhichKeyDesc_fold_collapse = "<leader>zc [C]ollapse region (fold code)"
+let g:WhichKeyDesc_fold_expand = "<leader>ze [E]xpand region (unfold code)"
+let g:WhichKeyDesc_fold_collapse_all = "<leader>zC [C]ollapse all regions"
+let g:WhichKeyDesc_fold_expand_all = "<leader>zE [E]xpand all regions"
 
 " ===================================================================
 " SUMMARY: Three-Layer Shortcut System
@@ -255,6 +313,7 @@ let g:WhichKeyDesc_generate = "<leader>ge [Ge]nerate code"
 "
 " 🏎️  FAST LAYER (Native - 1 keystroke):
 "     Cmd+B, Option+Enter, Cmd+Option+L, Double Shift, Ctrl+T
+"     Cmd+= or Cmd++ (zoom in), Cmd+- (zoom out) ⚡ NEW!
 "     Use when: Typing fast, maximum speed needed
 "
 " ⚡ MEDIUM LAYER (Vim-style - 2 keystrokes):
@@ -263,7 +322,13 @@ let g:WhichKeyDesc_generate = "<leader>ge [Ge]nerate code"
 "
 " 🧭 DISCOVERABLE LAYER (Leader-key - 3 keystrokes):
 "     <leader>gd, <leader>sf, <leader>ca
+"     <leader>zi/zo/zr (zoom), <leader>zc/ze (code folding)
 "     Use when: Exploring, learning, Which-Key menu helpful
+"
+" 📝 ZOOM vs CODE FOLDING (Changed!):
+"     Cmd+- (zoom out) ⚡ NEW - overrides default CollapseRegion
+"     Cmd++ (zoom in) ⚡ NEW - overrides default ExpandRegion
+"     <leader>zc (collapse code), <leader>ze (expand code) - use these for folding
 "
 " TIP: Start with leader-key for discoverability, graduate to Vim-style
 "      for speed, and use native shortcuts for maximum performance.

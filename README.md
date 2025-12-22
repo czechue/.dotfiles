@@ -11,7 +11,6 @@ This repository contains configurations for:
 - **Terminal**: tmux with TPM plugins
 - **Editors**: Neovim (Kickstart-based), IdeaVim, Cursor IDE
 - **Tools**: yazi file manager, AeroSpace window manager (macOS)
-- **AI**: Claude Code CLI with MCP servers
 - **Version Management**: Mise for Node.js, Ruby, Python, Go, and more
 
 ## Quick Start (macOS)
@@ -110,44 +109,25 @@ This repository contains configurations for:
    ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
    ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 
-   # Claude Code CLI
-   mkdir -p ~/.claude
-   ln -sf ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
-   ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json
-
    # Make bin scripts executable
    chmod +x ~/.dotfiles/bin/tmux-sessionizer
    ```
 
-9. **Setup Claude Code MCP servers** (optional)
-
-   Create `~/.dotfiles/claude/mcp-servers.json` with your API keys:
-   ```bash
-   cp ~/.dotfiles/claude/mcp-servers.json.template ~/.dotfiles/claude/mcp-servers.json
-   # Edit the file and add your API keys
-   nano ~/.dotfiles/claude/mcp-servers.json
-   ```
-
-   Then sync:
-   ```bash
-   ~/.dotfiles/claude/sync-mcp.sh
-   ```
-
-10. **Install yazi DuckDB plugin**
+9. **Install yazi DuckDB plugin**
     ```bash
     ya pack -a wylie102/duckdb
     ```
 
-11. **Restart your shell**
+10. **Restart your shell**
     ```bash
     exec zsh
     ```
 
-12. **Install tmux plugins**
+11. **Install tmux plugins**
 
     Open tmux and press `Ctrl+b` then `I` (capital I) to install plugins.
 
-13. **Launch Neovim for first-time setup**
+12. **Launch Neovim for first-time setup**
     ```bash
     nvim
     ```
@@ -165,7 +145,6 @@ This repository contains configurations for:
 .dotfiles/
 ├── aerospace/          # AeroSpace window manager (macOS)
 ├── bin/                # Utility scripts (tmux-sessionizer)
-├── claude/             # Claude Code CLI configuration
 ├── cursor/             # Cursor IDE settings
 ├── ideavim/            # IntelliJ IDEA Vim plugin
 ├── nvim/               # Neovim configuration
@@ -209,11 +188,6 @@ This repository contains configurations for:
 - CSV/Parquet/JSON data file preview
 - Catppuccin Mocha theme
 - fzf and zoxide integration
-
-### Claude Code CLI
-- Global instructions in CLAUDE.md
-- MCP servers for web search, documentation, and reasoning
-- Special sync workflow for configuration
 
 ## Important Commands
 
@@ -279,13 +253,6 @@ s  # search by name (fd)
 S  # search by content (ripgrep)
 ```
 
-### Claude Code MCP
-```bash
-# Sync MCP servers after updating config
-~/.dotfiles/claude/sync-mcp.sh
-# Then restart Claude Code
-```
-
 ## Updating Configurations
 
 1. **Pull latest changes**
@@ -303,9 +270,6 @@ S  # search by content (ripgrep)
    # Ctrl+b r
 
    # Neovim - restart or :source %
-
-   # Claude Code MCP
-   ~/.dotfiles/claude/sync-mcp.sh
    ```
 
 ## Platform Support
@@ -355,18 +319,6 @@ echo $PATH | grep mise
 
 # Reinstall activation
 echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
-```
-
-### Claude Code MCP servers not working
-```bash
-# Verify Node.js is installed
-node --version
-
-# Check MCP config
-cat ~/.claude.json | jq '.mcpServers'
-
-# Re-sync
-~/.dotfiles/claude/sync-mcp.sh
 ```
 
 ## Updating Documentation
