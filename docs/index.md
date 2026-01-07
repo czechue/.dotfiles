@@ -62,6 +62,14 @@ Welcome to the comprehensive keyboard shortcuts documentation for my personal de
 
     [:octicons-arrow-right-24: View shortcuts](tools/zsh.md)
 
+-   :material-robot: __Gas Town__
+
+    ---
+
+    Multi-agent orchestrator for Claude Code with Beads
+
+    [:octicons-arrow-right-24: View shortcuts](tools/gas-town.md)
+
 -   :material-keyboard-variant: __Glove80__
 
     ---
