@@ -74,6 +74,7 @@ nav:
           - Improvements Analysis: tools/intellij-improvements.md
           - Implementation Summary: tools/intellij-improvements-summary.md
       - zsh: tools/zsh.md
+      - Gas Town: tools/gas-town.md
   - Keyboard:
       - Glove80: keyboard/glove80.md
       - Symbol Layer: keyboard/glove80-symbol.md
