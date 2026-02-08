@@ -742,9 +742,27 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#new-additions" class="md-nav__link">
+  <a href="#common-refactorings" class="md-nav__link">
     <span class="md-ellipsis">
-      New Additions
+      Common Refactorings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim-surround-fast-text-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      vim-surround - Fast Text Wrapping ⚡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zoom-font-size-code-folding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zoom / Font Size &amp; Code Folding
     </span>
   </a>
   
@@ -961,6 +979,48 @@
   
   <span class="md-ellipsis">
     zsh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fabric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fabric
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gas-town/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gas Town
   </span>
   
 
@@ -1214,9 +1274,27 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#new-additions" class="md-nav__link">
+  <a href="#common-refactorings" class="md-nav__link">
     <span class="md-ellipsis">
-      New Additions
+      Common Refactorings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim-surround-fast-text-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      vim-surround - Fast Text Wrapping ⚡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zoom-font-size-code-folding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zoom / Font Size &amp; Code Folding
     </span>
   </a>
   
@@ -1541,7 +1619,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="new-additions">New Additions</h3>
+<h3 id="common-refactorings">Common Refactorings</h3>
 <table>
 <thead>
 <tr>
@@ -1593,6 +1671,96 @@
 </tr>
 </tbody>
 </table>
+<h3 id="vim-surround-fast-text-wrapping">vim-surround - Fast Text Wrapping ⚡</h3>
+<div class="admonition tip">
+<p class="admonition-title">Faster than Visual Mode Selection!</p>
+<p>Use <code>ysiw{char}</code> instead of selecting text first - no mode switching required!</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Example</th>
+<th>Before → After</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ysiw"</code></td>
+<td>Cursor on word</td>
+<td><code>className</code> → <code>"className"</code></td>
+<td>JSX attributes</td>
+</tr>
+<tr>
+<td><code>ysiw{</code></td>
+<td>Cursor on word</td>
+<td><code>user</code> → <code>{user}</code></td>
+<td>Object shorthand</td>
+</tr>
+<tr>
+<td><code>cs'"</code></td>
+<td>Change quotes</td>
+<td><code>'text'</code> → <code>"text"</code></td>
+<td>Quote conversion</td>
+</tr>
+<tr>
+<td><code>cs'</code> <code>| To template literal |</code>'Hello'<code>→ ``</code>Hello` ``</td>
+<td>Template strings</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ds"</code></td>
+<td>Delete quotes</td>
+<td><code>"text"</code> → <code>text</code></td>
+<td>Remove wrapping</td>
+</tr>
+<tr>
+<td><code>dst</code></td>
+<td>Delete HTML tag</td>
+<td><code>&lt;div&gt;text&lt;/div&gt;</code> → <code>text</code></td>
+<td>Remove tags</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common Pattern</strong>: <code>ysiw"</code> (4 keys) + <code>.</code> (repeat) is faster than <code>viw</code> + <code>S"</code> (mode switch)</p>
+<h3 id="zoom-font-size-code-folding">Zoom / Font Size &amp; Code Folding</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-plus">+</kbd></span> or <span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-equal">=</kbd></span></td>
+<td>Zoom in</td>
+<td>⚡ NEW! Now controls zoom (not folding)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-minus">-</kbd></span></td>
+<td>Zoom out</td>
+<td>⚡ NEW! Now controls zoom (not folding)</td>
+</tr>
+<tr>
+<td>++space+z+i/o/r++</td>
+<td>Zoom in/out/reset</td>
+<td>Discoverable alternatives</td>
+</tr>
+<tr>
+<td>++space+z+c/e++</td>
+<td>Collapse/Expand code</td>
+<td>NEW! Code folding moved here</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Behavior Changed</p>
+<p><strong>Cmd+/-</strong> now controls <strong>zoom</strong> (matches browser shortcuts). For <strong>code folding</strong>, use <strong>Space+Z+C/E</strong>.</p>
+</div>
 <hr />
 <h2 id="debugging">🐛 Debugging</h2>
 <table>
