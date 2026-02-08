@@ -492,6 +492,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flash-fast-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flash (Fast Navigation)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#surround-minisurround" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surround (mini.surround)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#telescope-search" class="md-nav__link">
     <span class="md-ellipsis">
       Telescope (Search)
@@ -1162,6 +1180,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flash-fast-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flash (Fast Navigation)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#surround-minisurround" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surround (mini.surround)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#telescope-search" class="md-nav__link">
     <span class="md-ellipsis">
       Telescope (Search)
@@ -1382,6 +1418,16 @@
 <td>Visual Mode</td>
 </tr>
 <tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Scroll half-page down (centered)</td>
+<td>Normal Mode</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-u">U</kbd></span></td>
+<td>Scroll half-page up (centered)</td>
+<td>Normal Mode</td>
+</tr>
+<tr>
 <td><span class="keys"><kbd class="key-escape">Esc</kbd></span></td>
 <td>Clear search highlighting</td>
 <td>Normal Mode</td>
@@ -1389,6 +1435,110 @@
 </tbody>
 </table>
 </div>
+<h2 id="flash-fast-navigation">Flash (Fast Navigation)</h2>
+<p>Type <code>s</code> then a few characters — matching locations get labeled. Press the label to jump instantly. Works across visible windows.</p>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-s">S</kbd></span></td>
+<td>Flash jump — type chars, pick a label to jump</td>
+<td>Normal, Visual, Operator</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-s">S</kbd></span></td>
+<td>Flash treesitter — select syntax nodes by label</td>
+<td>Normal, Visual, Operator</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-r">R</kbd></span></td>
+<td>Remote flash — apply operator at a remote location</td>
+<td>Operator-pending</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-r">R</kbd></span></td>
+<td>Treesitter search — treesitter-aware remote select</td>
+<td>Operator-pending, Visual</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-s">S</kbd></span></td>
+<td>Toggle flash labels on/off during <code>/</code> or <code>?</code> search</td>
+<td>Command-line</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common workflows:</strong></p>
+<ul>
+<li><strong>Jump to a word</strong>: <code>s</code> → type first 2-3 chars → press highlighted label</li>
+<li><strong>Select a function</strong>: <code>S</code> → pick the treesitter node label</li>
+<li><strong>Delete remote word</strong>: <code>d</code> <code>r</code> → jump to target → <code>iw</code> (deletes that word)</li>
+<li><strong>Flash in search</strong>: <code>/</code> → type pattern → <code>Ctrl-s</code> to toggle labels on matches</li>
+</ul>
+<h2 id="surround-minisurround">Surround (mini.surround)</h2>
+<p>All surround keymaps use the <code>gs</code> prefix. Type the trigger, then the text object / motion, then the surrounding character.</p>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-a">A</kbd></span></td>
+<td>Add surrounding (e.g. <code>gsaiw"</code> wraps word in quotes)</td>
+<td>Normal, Visual</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Delete surrounding (e.g. <code>gsd"</code> removes quotes)</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-r">R</kbd></span></td>
+<td>Replace surrounding (e.g. <code>gsr"'</code> changes <code>"</code> to <code>'</code>)</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-f">F</kbd></span></td>
+<td>Find surrounding (move to next)</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-f">F</kbd></span></td>
+<td>Find surrounding (move to previous)</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-h">H</kbd></span></td>
+<td>Highlight surrounding</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-g">G</kbd><span>+</span><kbd class="key-s">S</kbd><span>+</span><kbd class="key-n">N</kbd></span></td>
+<td>Update <code>n</code> lines (search range for surround)</td>
+<td>Normal</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Common workflows:</strong></p>
+<ul>
+<li><strong>Wrap word in parens</strong>: <code>gsaiw)</code> — add surrounding, inner word, <code>)</code></li>
+<li><strong>Wrap selection in quotes</strong>: select text → <code>gsa"</code></li>
+<li><strong>Change <code>"</code> to <code>'</code></strong>: cursor inside quotes → <code>gsr"'</code></li>
+<li><strong>Delete brackets</strong>: cursor inside brackets → <code>gsd)</code></li>
+</ul>
 <h2 id="telescope-search">Telescope (Search)</h2>
 <p>Leader key: <span class="keys"><kbd class="key-space">Space</kbd></span></p>
 <div class="shortcuts-table">
