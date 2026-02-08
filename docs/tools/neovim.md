@@ -20,9 +20,59 @@ Neovim configuration based on Kickstart.nvim with lazy.nvim plugin manager, LSP 
 | ++ctrl+l++ | Move focus to right window | Window Navigation |
 | ++shift+j++ | Move line down | Visual Mode |
 | ++shift+k++ | Move line up | Visual Mode |
+| ++ctrl+d++ | Scroll half-page down (centered) | Normal Mode |
+| ++ctrl+u++ | Scroll half-page up (centered) | Normal Mode |
 | ++esc++ | Clear search highlighting | Normal Mode |
 
 </div>
+
+## Flash (Fast Navigation)
+
+Type `s` then a few characters — matching locations get labeled. Press the label to jump instantly. Works across visible windows.
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++s++ | Flash jump — type chars, pick a label to jump | Normal, Visual, Operator |
+| ++shift+s++ | Flash treesitter — select syntax nodes by label | Normal, Visual, Operator |
+| ++r++ | Remote flash — apply operator at a remote location | Operator-pending |
+| ++shift+r++ | Treesitter search — treesitter-aware remote select | Operator-pending, Visual |
+| ++ctrl+s++ | Toggle flash labels on/off during `/` or `?` search | Command-line |
+
+</div>
+
+**Common workflows:**
+
+- **Jump to a word**: `s` → type first 2-3 chars → press highlighted label
+- **Select a function**: `S` → pick the treesitter node label
+- **Delete remote word**: `d` `r` → jump to target → `iw` (deletes that word)
+- **Flash in search**: `/` → type pattern → `Ctrl-s` to toggle labels on matches
+
+## Surround (mini.surround)
+
+All surround keymaps use the `gs` prefix. Type the trigger, then the text object / motion, then the surrounding character.
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++g+s+a++ | Add surrounding (e.g. `gsaiw"` wraps word in quotes) | Normal, Visual |
+| ++g+s+d++ | Delete surrounding (e.g. `gsd"` removes quotes) | Normal |
+| ++g+s+r++ | Replace surrounding (e.g. `gsr"'` changes `"` to `'`) | Normal |
+| ++g+s+f++ | Find surrounding (move to next) | Normal |
+| ++g+s+shift+f++ | Find surrounding (move to previous) | Normal |
+| ++g+s+h++ | Highlight surrounding | Normal |
+| ++g+s+n++ | Update `n` lines (search range for surround) | Normal |
+
+</div>
+
+**Common workflows:**
+
+- **Wrap word in parens**: `gsaiw)` — add surrounding, inner word, `)`
+- **Wrap selection in quotes**: select text → `gsa"`
+- **Change `"` to `'`**: cursor inside quotes → `gsr"'`
+- **Delete brackets**: cursor inside brackets → `gsd)`
 
 ## Telescope (Search)
 

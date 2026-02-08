@@ -157,6 +157,11 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Write files in-place (overwrite) instead of rename-and-replace.
+-- This preserves the file's inode, which is needed for file watchers
+-- (e.g., tsup/chokidar) to detect changes correctly.
+vim.opt.backupcopy = 'yes'
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -171,6 +176,18 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true })
 
 vim.keymap.set('n', '<leader>x', ':!chmod +x %<CR>', { noremap = true })
 -- nadawanie plikom chmoda
+
+-- Copy current file's absolute path to clipboard
+vim.keymap.set('n', '<leader>cp', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+  vim.notify('Copied: ' .. vim.fn.expand('%:p'), vim.log.levels.INFO)
+end, { desc = '[C]opy file [P]ath (absolute)' })
+
+-- Copy current file's relative path to clipboard
+vim.keymap.set('n', '<leader>cr', function()
+  vim.fn.setreg('+', vim.fn.expand('%:.'))
+  vim.notify('Copied: ' .. vim.fn.expand('%:.'), vim.log.levels.INFO)
+end, { desc = '[C]opy file path [R]elative' })
 
 -- search from Documents
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
@@ -191,6 +208,10 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+
+-- Keep cursor centered when scrolling
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down (centered)' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up (centered)' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -784,10 +805,7 @@ require('lazy').setup({
         ts_ls = {
           cmd = { 'typescript-language-server', '--stdio' },
           filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-          root_dir = function(fname)
-            local util = require('lspconfig.util')
-            return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')(fname)
-          end,
+          root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
           on_attach = function(client, bufnr)
             -- Auto-import on save: add missing imports and remove unused ones
             vim.api.nvim_create_autocmd('BufWritePre', {
@@ -826,10 +844,7 @@ require('lazy').setup({
           -- Auto-detects package manager (npm/yarn/pnpm) from lock files
           cmd = { 'vscode-eslint-language-server', '--stdio' },
           filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-          root_dir = function(fname)
-            local util = require('lspconfig.util')
-            return util.root_pattern('.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc', 'eslint.config.js', 'package.json', '.git')(fname)
-          end,
+          root_markers = { '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.eslintrc', 'eslint.config.js', 'package.json', '.git' },
           settings = {
             validate = 'on',
             run = 'onType', -- Run ESLint as you type
@@ -894,19 +909,18 @@ require('lazy').setup({
         ensure_installed = vim.tbl_keys(servers or {}),
       }
 
-      -- Configure each LSP server
-      -- Using lspconfig.setup() - while it shows a deprecation warning,
-      -- it's currently the most stable way to configure LSP servers.
-      -- The warning is about the framework pattern, not about functionality.
-      -- Will migrate to pure vim.lsp.config() when nvim-lspconfig v3.0 is released
-      -- with proper migration documentation.
+      -- Configure each LSP server using the new vim.lsp.config API (Neovim 0.11+)
+      -- This replaces the deprecated require('lspconfig')[server_name].setup() pattern
       for server_name, server_config in pairs(servers) do
         -- Merge capabilities
         server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
 
-        -- Setup LSP server (works reliably despite deprecation warning)
-        require('lspconfig')[server_name].setup(server_config)
+        -- Define the LSP configuration using native vim.lsp.config
+        vim.lsp.config(server_name, server_config)
       end
+
+      -- Enable all configured LSP servers
+      vim.lsp.enable(vim.tbl_keys(servers))
     end,
   },
 
@@ -1142,10 +1156,20 @@ require('lazy').setup({
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      -- - gsaiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - gsd'   - [S]urround [D]elete [']quotes
+      -- - gsr)'  - [S]urround [R]eplace [)] [']
+      require('mini.surround').setup({
+        mappings = {
+          add = 'gsa',
+          delete = 'gsd',
+          find = 'gsf',
+          find_left = 'gsF',
+          highlight = 'gsh',
+          replace = 'gsr',
+          update_n_lines = 'gsn',
+        },
+      })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
