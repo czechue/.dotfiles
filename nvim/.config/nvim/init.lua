@@ -403,7 +403,7 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -501,6 +501,22 @@ require('lazy').setup({
                   end)
                 end
               end,
+            },
+          },
+          path_display = {
+            'filename_first',
+          },
+          layout_strategy = 'flex',
+          layout_config = {
+            horizontal = {
+              preview_width = 0.4,
+            },
+            vertical = {
+              preview_height = 0.4,
+            },
+            width = 0.90,
+            flex = {
+              flip_columns = 140,
             },
           },
           file_ignore_patterns = { '^.git/', 'node_modules/' },
@@ -980,6 +996,13 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      formatters = {
+        prettier = {
+          -- Skip .prettierignore for editor formatting — ignore files are for batch ops,
+          -- not single-file saves (fixes monorepos with root-level workspace ignores)
+          prepend_args = { '--ignore-path', '/dev/null' },
+        },
       },
     },
   },
