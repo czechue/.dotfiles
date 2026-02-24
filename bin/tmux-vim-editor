@@ -1,0 +1,20 @@
+#!/bin/bash
+# tmux-vim-editor - Opens vim in a tmux popup for external editor support
+# Used by EDITOR/VISUAL for tools like git commit, Claude Code Ctrl+G, etc.
+
+FILE="$1"
+
+# If no file provided, create a temp file
+if [ -z "$FILE" ]; then
+    FILE=$(mktemp /tmp/editor.XXXXXX)
+fi
+
+# Check if we're inside tmux
+if [ -n "$TMUX" ]; then
+    # Open nvim in a popup overlay (80% width, 80% height)
+    # -E = close popup when command exits
+    tmux display-popup -E -w 80% -h 80% "nvim '$FILE'"
+else
+    # Not in tmux - fall back to regular nvim
+    nvim "$FILE"
+fi
