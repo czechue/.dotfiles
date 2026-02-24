@@ -122,6 +122,26 @@ return {
     },
   },
 
+  -- Smear cursor - animated cursor trail showing movement direction
+  {
+    'sphamba/smear-cursor.nvim',
+    opts = {},
+  },
+
+  -- Yazi file manager integration
+  {
+    'mikavilpas/yazi.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>e', '<cmd>Yazi<cr>', desc = 'Yazi: current file' },
+      { '<leader>E', '<cmd>Yazi cwd<cr>', desc = 'Yazi: working directory' },
+    },
+    opts = {
+      open_for_directories = false, -- keep neo-tree for directories
+    },
+  },
+
   -- AI Autocompletion (Codeium) - toggleable with <leader>tc
   {
     'Exafunction/codeium.nvim',

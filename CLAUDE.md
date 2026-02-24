@@ -93,6 +93,60 @@ Each tool has its own directory. Adding/removing tools doesn't affect others. No
 - **Configuration structure**: Single-file `init.lua` with modular plugins in `lua/kickstart/plugins/` and `lua/custom/plugins/`
 - **Required dependencies**: git, make, unzip, C compiler, ripgrep, clipboard tool, Nerd Font (optional)
 
+## Claude Code & PAI Integration
+
+This dotfiles repository is integrated with Claude Code and PAI (Personal AI Infrastructure) for AI-assisted development workflows.
+
+### Claude Code Aliases
+
+Defined in `~/.claude/zshrc-aliases` (sourced from `.zshrc`):
+
+```bash
+# Launch Claude Code with latest version, skip permissions
+alias cl="bun install -g @anthropic-ai/claude-code; claude --dangerously-skip-permissions"
+
+# Launch Claude Code with resume, skip permissions
+alias clr="bun install -g @anthropic-ai/claude-code; claude --dangerously-skip-permissions --resume"
+
+# Launch Claude Code with resume (with permissions prompt)
+alias clsr="bun install -g @anthropic-ai/claude-code; claude --resume"
+
+# Claude Code usage reporting
+alias ccusage="bunx ccusage"
+alias ccu="bunx ccusage"
+```
+
+### MCP Server Configuration
+
+Claude Code is configured with MCP servers in `~/.claude.json`:
+
+- **context7**: Documentation lookup for libraries (via Upstash)
+- **mcp-sequentialthinking-tools**: Extended thinking/reasoning capabilities
+- **mcp-omnisearch**: Multi-source web search (Tavily, Brave, Perplexity, Jina AI, Firecrawl)
+
+**To disable MCP servers temporarily:**
+```bash
+# Option 1: Use --disable-mcp flag
+claude --disable-mcp
+
+# Option 2: Rename mcpServers key in ~/.claude.json
+# Change "mcpServers" to "mcpServersDisabled"
+```
+
+### PAI Directory Structure
+
+- **PAI_DIR**: `~/.claude` → symlinked to `~/personal/Personal_AI_Infrastructure/.claude`
+- Contains skills, tools, configuration, and session history
+- Auto-loads CORE skill at session start with identity, preferences, and workflows
+- Uses startup hook for automatic context loading
+
+### Integration Points
+
+- **Zsh**: Sources PAI aliases via `~/.claude/zshrc-aliases`
+- **Git**: Multi-context workflow (personal vs work) managed via separate git configs
+- **Package managers**: Prefers bun for JS/TS, uv for Python (per PAI conventions)
+- **Session history**: Automatically captured in `${PAI_DIR}/History/`
+
 ## Development Guidelines
 
 - Follow existing patterns within each tool's configuration
@@ -100,3 +154,4 @@ Each tool has its own directory. Adding/removing tools doesn't affect others. No
 - When adding keybindings, check for conflicts with AeroSpace window manager
 - Configuration files may contain Polish comments from original author
 - Use conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`
+- When working with Claude Code, reference PAI CORE skill for standards and workflows
