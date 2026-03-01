@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/michallester/.oh-my-zsh/custom/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # Amazon Q pre block. Keep at the top of this file.
 # [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
@@ -106,11 +113,9 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Uses tmux-vim-editor for seamless tmux/vim integration (popup in tmux)
+export EDITOR="$HOME/bin/tmux-vim-editor"
+export VISUAL="$HOME/bin/tmux-vim-editor"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -169,6 +174,10 @@ function zvm_after_init() {
   bindkey -s '^F' "tmux-sessionizer\n"
 }
 eval "$(~/.local/bin/mise activate zsh)"
+
+# Bun - add to PATH after mise to ensure it takes precedence over /usr/local/bin
+export PATH="$HOME/.bun/bin:$PATH"
+
 # Killport alias
 
 # Killport function
@@ -191,6 +200,9 @@ killport() {
 # zoxide - smarter cd command
 eval "$(zoxide init zsh)"
 
+# direnv
+eval "$(direnv hook zsh)"
+
 # yazi wrapper - cd on exit
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -205,5 +217,46 @@ function y() {
   ulimit -n 10240
 
 # PAI / Claude Code Aliases
-source ~/.claude/zshrc-aliases
+source ~/personal/pai/.claude/zshrc-aliases
 
+# Clean Claude - bypasses PAI customizations
+alias claude-clean='CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
+alias claude-storefront='cd ~/fourthwall/storefront-apps && CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
+
+export PATH="$HOME/go/bin:$PATH"
+# Fabric AI tool
+export PATH="$HOME/go/bin:$PATH"
+
+# Fabric: Force English language to avoid Polish translation errors
+alias fabric='fabric -g en'
+
+# Fabric CLI productivity aliases
+# Quick summarize from clipboard
+alias fs='pbpaste | fabric -g en --stream --pattern summarize'
+
+# Quick wisdom extraction
+alias fw='pbpaste | fabric -g en --stream --pattern extract_wisdom'
+
+# Analyze claims
+alias fc='pbpaste | fabric -g en --stream --pattern analyze_claims'
+
+# YouTube helper
+yt() {
+    fabric -g en -y "$1" --transcript | fabric -g en --pattern summarize
+}
+
+# Web scrape and summarize
+ws() {
+    fabric -g en -u "$1" --pattern summarize
+}
+
+# Initialize zsh completions
+autoload -U compinit && compinit
+export PAI_DIR="/Users/michallester/personal/pai"
+
+# Source secrets (API keys, tokens) - not tracked in git
+[ -f ~/.dotfiles/zsh/.zshrc.secrets ] && source ~/.dotfiles/zsh/.zshrc.secrets
+alias gemini="NODE_NO_WARNINGS=1 gemini"
+
+# bun completions
+[ -s "/Users/michallester/.bun/_bun" ] && source "/Users/michallester/.bun/_bun"
