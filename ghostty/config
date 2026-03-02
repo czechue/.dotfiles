@@ -1,0 +1,51 @@
+# Theme
+theme = Catppuccin Mocha
+
+# Font
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+font-thicken = true
+
+# Window
+macos-titlebar-style = hidden
+window-padding-x = 4
+window-padding-y = 4
+window-save-state = always
+confirm-close-surface = always
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Input
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+
+# Shell integration
+shell-integration = zsh
+shell-integration-features = cursor,sudo,no-title
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+
+# Links -- bypass tmux mouse capture so Cmd+click works
+mouse-shift-capture = always
+
+# Quick terminal (quake-style dropdown)
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+# Disable native tabs/splits -- tmux handles multiplexing
+keybind = cmd+d=unbind
+keybind = cmd+shift+d=unbind
+keybind = cmd+t=unbind
+keybind = cmd+one=unbind
+keybind = cmd+two=unbind
+keybind = cmd+three=unbind
+keybind = cmd+four=unbind
+keybind = cmd+five=unbind
+keybind = cmd+six=unbind
+keybind = cmd+seven=unbind
+keybind = cmd+eight=unbind
+keybind = cmd+nine=unbind

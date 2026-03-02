@@ -15,6 +15,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **zsh/**: Zsh shell with zoxide and yazi wrapper
 - **ideavim/**: IntelliJ IDEA Vim emulation
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
+- **ghostty/**: Ghostty terminal emulator configuration (Catppuccin Mocha, tmux-only multiplexing)
 - **bin/**: Utility scripts (`tmux-sessionizer` for project switching with fzf)
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
@@ -37,6 +38,7 @@ ln -s ~/.dotfiles/aerospace/.config/aerospace/aerospace.toml ~/.config/aerospace
 ln -sf ~/.dotfiles/yazi ~/.config/yazi
 ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
 ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
+ln -sf ~/.dotfiles/ghostty/config ~/.config/ghostty/config
 ```
 
 ### Reloading Configurations
@@ -59,6 +61,9 @@ source ~/.zshrc  # or open new terminal
 
 # Cursor
 # Settings reload automatically, full restart recommended
+
+# Ghostty
+# Restart Ghostty (config reloads on restart)
 ```
 
 ## Architecture Patterns
