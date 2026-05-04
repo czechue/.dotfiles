@@ -5,10 +5,14 @@
 # visible regardless of how the tree is expanded.
 #
 # Status options written:
-#   @claude_status      icon + elapsed (e.g. "⚡ working (12s)")
-#   @claude_summary     1-line context: user prompt while working,
-#                       last assistant reply on Stop, message on Notification
-#   @claude_started_at  unix timestamp set on UserPromptSubmit, cleared on Stop
+#   @claude_status         icon + elapsed (e.g. "⚡ working (00:12)")
+#   @claude_summary        1-line context: user prompt while working,
+#                          last assistant reply on Stop / Notification
+#   @claude_started_at     unix ts: set on UserPromptSubmit, cleared on Stop
+#   @claude_waiting_since  unix ts: set on Notification, cleared on next prompt
+#
+# Live elapsed times are refreshed by tmux-claude-refresh-status, which the
+# tmux binding for `prefix + s` calls right before opening choose-tree.
 #
 # Invoked by Claude Code hooks with one of:
 #   UserPromptSubmit | PreToolUse | Stop | Notification
@@ -28,10 +32,10 @@ read -r session window <<<"$(tmux display-message -p -t "$TMUX_PANE" '#{session_
 
 format_elapsed() {
     local elapsed="$1"
-    if [ "$elapsed" -ge 60 ]; then
-        printf '%dm %ds' $((elapsed / 60)) $((elapsed % 60))
+    if [ "$elapsed" -ge 3600 ]; then
+        printf '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
     else
-        printf '%ds' "$elapsed"
+        printf '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
     fi
 }
 
@@ -58,9 +62,10 @@ case "$event" in
     UserPromptSubmit)
         started_at=$(date +%s)
         prompt=$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null)
-        set_opt "@claude_started_at" "$started_at"
-        set_opt "@claude_status"     '#[fg=yellow]⚡ working#[default] (0s)'
-        set_opt "@claude_summary"    "$(sanitize_summary "$prompt")"
+        set_opt "@claude_started_at"    "$started_at"
+        set_opt "@claude_waiting_since" ""
+        set_opt "@claude_status"        '#[fg=yellow]⚡ working#[default] (00:00)'
+        set_opt "@claude_summary"       "$(sanitize_summary "$prompt")"
         ;;
     PreToolUse)
         existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
@@ -70,9 +75,10 @@ case "$event" in
         fi
         ;;
     Notification)
-        set_opt "@claude_started_at" ""
-        set_opt "@claude_status"     '#[fg=red,bold]⏸ waiting!#[default]'
-        set_opt "@claude_summary"    "$(sanitize_summary "$(last_assistant_text)")"
+        set_opt "@claude_started_at"    ""
+        set_opt "@claude_waiting_since" "$(date +%s)"
+        set_opt "@claude_status"        '#[fg=red,bold]⏸ waiting!#[default] (00:00)'
+        set_opt "@claude_summary"       "$(sanitize_summary "$(last_assistant_text)")"
         ;;
     Stop)
         existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
@@ -81,8 +87,9 @@ case "$event" in
             elapsed=$(( $(date +%s) - existing ))
             suffix=" ($(format_elapsed "$elapsed"))"
         fi
-        set_opt "@claude_started_at" ""
-        set_opt "@claude_status"     "#[fg=green,bold]✅ done#[default]${suffix}"
-        set_opt "@claude_summary"    "$(sanitize_summary "$(last_assistant_text)")"
+        set_opt "@claude_started_at"    ""
+        set_opt "@claude_waiting_since" ""
+        set_opt "@claude_status"        "#[fg=green,bold]✅ done#[default]${suffix}"
+        set_opt "@claude_summary"       "$(sanitize_summary "$(last_assistant_text)")"
         ;;
 esac
