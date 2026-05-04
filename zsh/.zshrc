@@ -18,6 +18,7 @@ alias air='$(go env GOPATH)/bin/air'
 alias vim='nvim'
 
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 bindkey -s '^F' "tmux-sessionizer\n"
 

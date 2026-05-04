@@ -30,9 +30,6 @@ clipboard-read = allow
 clipboard-write = allow
 copy-on-select = clipboard
 
-# Links -- bypass tmux mouse capture so Cmd+click works
-mouse-shift-capture = always
-
 # Quick terminal (quake-style dropdown)
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 
