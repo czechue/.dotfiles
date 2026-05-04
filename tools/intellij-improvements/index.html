@@ -2119,11 +2119,11 @@
 <h2 id="inconsistencies-found">🔍 Inconsistencies Found</h2>
 <h3 id="1-navigation-shortcuts-speed-vs-consistency-trade-off">1. <strong>Navigation Shortcuts - Speed vs Consistency Trade-off</strong></h3>
 <h4 id="current-setup-ideavim">Current Setup (IdeaVim)</h4>
-<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gy <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTest<span class="p">)</span>
-</code></pre></div>
+<p><code>vim
+map &lt;leader&gt;gd &lt;Action&gt;(GotoDeclaration)
+map &lt;leader&gt;gy &lt;Action&gt;(GotoTypeDeclaration)
+map &lt;leader&gt;gi &lt;Action&gt;(GotoImplementation)
+map &lt;leader&gt;gt &lt;Action&gt;(GotoTest)</code></p>
 <h4 id="intellij-native-macos">IntelliJ Native (macOS)</h4>
 <ul>
 <li><code>Cmd+B</code> → Go to Declaration (<strong>most frequently used</strong>)</li>
@@ -2213,9 +2213,9 @@ map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gt <span class="
 <hr />
 <h3 id="3-code-formatting-non-standard-mapping">3. <strong>Code Formatting - Non-Standard Mapping</strong></h3>
 <h4 id="current-setup">Current Setup</h4>
-<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">f</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ReformatCode<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>oi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>OptimizeImports<span class="p">)</span>
-</code></pre></div>
+<p><code>vim
+map &lt;leader&gt;f &lt;Action&gt;(ReformatCode)
+map &lt;leader&gt;oi &lt;Action&gt;(OptimizeImports)</code></p>
 <h4 id="intellij-native">IntelliJ Native</h4>
 <ul>
 <li><code>Cmd+Option+L</code> → Reformat Code (<strong>industry standard</strong>)</li>
@@ -2232,11 +2232,11 @@ map <span class="p">&lt;</span>leader<span class="p">&gt;</span>oi <span class="
 <hr />
 <h3 id="4-refactoring-missing-refactor-this-menu">4. <strong>Refactoring - Missing "Refactor This" Menu</strong></h3>
 <h4 id="current-setup_1">Current Setup</h4>
-<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rm <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ExtractMethod<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">rv</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceVariable<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rf <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceField<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rn <span class="p">&lt;</span>Action<span class="p">&gt;(</span>RenameElement<span class="p">)</span>
-</code></pre></div>
+<p><code>vim
+map &lt;leader&gt;rm &lt;Action&gt;(ExtractMethod)
+map &lt;leader&gt;rv &lt;Action&gt;(IntroduceVariable)
+map &lt;leader&gt;rf &lt;Action&gt;(IntroduceField)
+map &lt;leader&gt;rn &lt;Action&gt;(RenameElement)</code></p>
 <h4 id="intellij-native_1">IntelliJ Native</h4>
 <ul>
 <li><code>Ctrl+T</code> → <strong>Refactor This</strong> (context-aware menu with ALL refactorings)</li>
@@ -2256,9 +2256,9 @@ map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rn <span class="
 <hr />
 <h3 id="5-generate-menu-conflict">5. <strong>Generate Menu Conflict</strong></h3>
 <h4 id="current-setup_2">Current Setup</h4>
-<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>S<span class="p">-</span>space<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Generate<span class="p">)</span>  <span class="c">&quot; ✅ Good!</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">nf</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>NewFile<span class="p">)</span>  <span class="c">&quot; ⚠️ Conflicts with native Cmd+N</span>
-</code></pre></div>
+<p><code>vim
+map &lt;S-space&gt; &lt;Action&gt;(Generate)  " ✅ Good!
+map &lt;leader&gt;nf &lt;Action&gt;(NewFile)  " ⚠️ Conflicts with native Cmd+N</code></p>
 <h4 id="intellij-native_2">IntelliJ Native</h4>
 <ul>
 <li><code>Cmd+N</code> → Generate (constructors, getters, setters, toString, etc.)</li>
@@ -2275,13 +2275,13 @@ map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb"
 <hr />
 <h3 id="6-ctrll-conflict-window-navigation-vs-tabby">6. <strong>Ctrl+L Conflict - Window Navigation vs Tabby</strong></h3>
 <h4 id="current-setup-custom-keymap">Current Setup (Custom Keymap)</h4>
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;action</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Tabby.Chat.ToggleChatToolWindow&quot;</span><span class="nt">&gt;</span>
-<span class="w">  </span><span class="nt">&lt;keyboard-shortcut</span><span class="w"> </span><span class="na">first-keystroke=</span><span class="s">&quot;ctrl l&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-</code></pre></div>
+<p><code>xml
+&lt;action id="Tabby.Chat.ToggleChatToolWindow"&gt;
+  &lt;keyboard-shortcut first-keystroke="ctrl l" /&gt;
+&lt;/action&gt;</code></p>
 <h4 id="ideavim-mapping">IdeaVim Mapping</h4>
-<div class="highlight"><pre><span></span><code>map <span class="p">&lt;</span>C<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">w</span><span class="p">&gt;</span><span class="k">l</span>  <span class="c">&quot; Move to right window</span>
-</code></pre></div>
+<p><code>vim
+map &lt;C-l&gt; &lt;C-w&gt;l  " Move to right window</code></p>
 <h4 id="issue_4">Issue</h4>
 <p><strong>Conflict</strong>: <code>Ctrl+L</code> mapped to both:
 1. Window navigation (Vim mode) - Move to right pane
@@ -2370,56 +2370,49 @@ map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb"
 <hr />
 <h3 id="proposal-1-add-missing-critical-shortcuts-priority-high">Proposal 1: <strong>Add Missing Critical Shortcuts</strong> (PRIORITY: HIGH)</h3>
 <p>Add these essential shortcuts that are currently missing:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
-<span class="c">&quot; CRITICAL ADDITIONS - TypeScript Development</span>
-<span class="c">&quot; ===================================================================</span>
-
-<span class="c">&quot; Show intention actions and quick fixes (THE most important for TS!)</span>
-<span class="c">&quot; Already have: map &lt;leader&gt;ca &lt;Action&gt;(ShowIntentionActions)</span>
-<span class="c">&quot; Native Option+Enter also works - preserve it!</span>
-
-<span class="c">&quot; Parameter info while typing (critical for TypeScript)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>K <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>        <span class="c">&quot; Quick documentation (like Vim K)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">p</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ParameterInfo<span class="p">)</span>       <span class="c">&quot; Parameter hints</span>
-
-<span class="c">&quot; Refactor This - context-aware refactoring menu (most powerful)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Refactorin gMenu<span class="p">)</span>
-
-<span class="c">&quot; File structure popup (quick symbol navigation within file)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">so</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>FileStructurePopup<span class="p">)</span>  <span class="c">&quot; Symbol outline</span>
-
-<span class="c">&quot; Complete current statement (add semicolons, braces)</span>
-imap <span class="p">&lt;</span>C<span class="p">-</span>CR<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>CompleteStatement<span class="p">)</span>
-
-<span class="c">&quot; Type-matching completion (smart TypeScript types)</span>
-<span class="c">&quot; Native Ctrl+Shift+Space works, but add alias:</span>
-imap <span class="p">&lt;</span>C<span class="p">-</span>Space<span class="p">&gt;&lt;</span>C<span class="p">-</span>Space<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>SmartTypeCompletion<span class="p">)</span>
-</code></pre></div>
+<p>```vim
+" ===================================================================
+" CRITICAL ADDITIONS - TypeScript Development
+" ===================================================================</p>
+<p>" Show intention actions and quick fixes (THE most important for TS!)
+" Already have: map <leader>ca <Action>(ShowIntentionActions)
+" Native Option+Enter also works - preserve it!</p>
+<p>" Parameter info while typing (critical for TypeScript)
+map <leader>K <Action>(QuickJavaDoc)        " Quick documentation (like Vim K)
+map <leader>p <Action>(ParameterInfo)       " Parameter hints</p>
+<p>" Refactor This - context-aware refactoring menu (most powerful)
+map <leader>rt <Action>(Refactorin gMenu)</p>
+<p>" File structure popup (quick symbol navigation within file)
+map <leader>so <Action>(FileStructurePopup)  " Symbol outline</p>
+<p>" Complete current statement (add semicolons, braces)
+imap <C-CR> <Action>(CompleteStatement)</p>
+<p>" Type-matching completion (smart TypeScript types)
+" Native Ctrl+Shift+Space works, but add alias:
+imap <C-Space><C-Space> <Action>(SmartTypeCompletion)
+```</p>
 <p><strong>Rationale</strong>: These shortcuts fill critical gaps in TypeScript workflows without disrupting your existing mappings.</p>
 <hr />
 <h3 id="proposal-2-dual-mappings-for-navigation-priority-medium">Proposal 2: <strong>Dual Mappings for Navigation</strong> (PRIORITY: MEDIUM)</h3>
 <p>Support <strong>both</strong> native IntelliJ shortcuts AND your leader-key mappings for flexibility:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
-<span class="c">&quot; DUAL NAVIGATION - Best of Both Worlds</span>
-<span class="c">&quot; ===================================================================</span>
-
-<span class="c">&quot; Your leader-key mappings (keep for consistency)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gy <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>gt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTest<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">gr</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowUsages<span class="p">)</span>          <span class="c">&quot; NEW: Find usages</span>
-
-<span class="c">&quot; ALSO add Vim-style alternatives (faster than leader-key)</span>
-nmap <span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>            <span class="c">&quot; Vim-style &#39;go to definition&#39;</span>
-nmap gD <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>        <span class="c">&quot; Vim-style &#39;go to type&#39;</span>
-nmap gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>         <span class="c">&quot; Already Vim standard</span>
-nmap <span class="k">gr</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowUsages<span class="p">)</span>                 <span class="c">&quot; Vim-style &#39;go to references&#39;</span>
-nmap gh <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>               <span class="c">&quot; Hover documentation</span>
-
-<span class="c">&quot; PRESERVE native shortcuts (don&#39;t override these!)</span>
-<span class="c">&quot; Cmd+B, Cmd+Shift+B, Cmd+Option+B, Cmd+Shift+T work automatically</span>
-</code></pre></div>
+<p>```vim
+" ===================================================================
+" DUAL NAVIGATION - Best of Both Worlds
+" ===================================================================</p>
+<p>" Your leader-key mappings (keep for consistency)
+map <leader>gd <Action>(GotoDeclaration)
+map <leader>gy <Action>(GotoTypeDeclaration)
+map <leader>gi <Action>(GotoImplementation)
+map <leader>gt <Action>(GotoTest)
+map <leader>gr <Action>(ShowUsages)          " NEW: Find usages</p>
+<p>" ALSO add Vim-style alternatives (faster than leader-key)
+nmap gd <Action>(GotoDeclaration)            " Vim-style 'go to definition'
+nmap gD <Action>(GotoTypeDeclaration)        " Vim-style 'go to type'
+nmap gi <Action>(GotoImplementation)         " Already Vim standard
+nmap gr <Action>(ShowUsages)                 " Vim-style 'go to references'
+nmap gh <Action>(QuickJavaDoc)               " Hover documentation</p>
+<p>" PRESERVE native shortcuts (don't override these!)
+" Cmd+B, Cmd+Shift+B, Cmd+Option+B, Cmd+Shift+T work automatically
+```</p>
 <p><strong>Rationale</strong>:
 - Vim-style <code>gd</code>, <code>gr</code>, <code>gi</code> are faster than leader sequences (2 keys vs 3)
 - Matches Neovim LSP conventions (<code>gd</code> is standard for go-to-definition)
@@ -2428,122 +2421,115 @@ nmap gh <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDo
 <hr />
 <h3 id="proposal-3-document-native-shortcuts-to-preserve-priority-high">Proposal 3: <strong>Document Native Shortcuts to Preserve</strong> (PRIORITY: HIGH)</h3>
 <p>Add a section to your <code>.ideavimrc</code> documenting critical native shortcuts to preserve:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
-<span class="c">&quot; IMPORTANT: Preserve These Native IntelliJ Shortcuts</span>
-<span class="c">&quot; ===================================================================</span>
-<span class="c">&quot; These shortcuts are NOT remapped - use them directly!</span>
-<span class="c">&quot;</span>
-<span class="c">&quot; Navigation &amp; Search:</span>
-<span class="c">&quot;   Cmd+B           - Go to Declaration (FASTEST - use this!)</span>
-<span class="c">&quot;   Cmd+Shift+B     - Go to Type Declaration</span>
-<span class="c">&quot;   Cmd+Option+B    - Go to Implementation</span>
-<span class="c">&quot;   Option+F7       - Find Usages</span>
-<span class="c">&quot;   Cmd+[, Cmd+]    - Navigate Back/Forward</span>
-<span class="c">&quot;   Double Shift    - Search Everywhere (universal search!)</span>
-<span class="c">&quot;   Cmd+E           - Recent Files</span>
-<span class="c">&quot;   Cmd+Shift+E     - Recent Edited Files</span>
-<span class="c">&quot;</span>
-<span class="c">&quot; Quick Fixes &amp; Refactoring:</span>
-<span class="c">&quot;   Option+Enter    - Show Intention Actions (auto-import, quick fixes)</span>
-<span class="c">&quot;   Ctrl+T          - Refactor This (context-aware refactoring menu)</span>
-<span class="c">&quot;   Shift+F6        - Rename Element</span>
-<span class="c">&quot;   Cmd+Option+L    - Reformat Code (industry standard)</span>
-<span class="c">&quot;   Ctrl+Option+O   - Optimize Imports</span>
-<span class="c">&quot;</span>
-<span class="c">&quot; Code Intelligence:</span>
-<span class="c">&quot;   Cmd+P           - Parameter Info</span>
-<span class="c">&quot;   F1              - Quick Documentation</span>
-<span class="c">&quot;   Cmd+F12         - File Structure Popup</span>
-<span class="c">&quot;   Ctrl+Shift+Space - Smart Type Completion</span>
-<span class="c">&quot;</span>
-<span class="c">&quot; Errors &amp; Debugging:</span>
-<span class="c">&quot;   F2, Shift+F2    - Next/Previous Error (faster than &lt;leader&gt;en/ep)</span>
-<span class="c">&quot;   Cmd+F8          - Toggle Breakpoint</span>
-<span class="c">&quot;   Ctrl+D          - Debug</span>
-<span class="c">&quot;   Ctrl+R          - Run</span>
-<span class="c">&quot;</span>
-<span class="c">&quot; Discovery:</span>
-<span class="c">&quot;   Cmd+Shift+A     - Find Action (command palette)</span>
-<span class="c">&quot;   Cmd+Shift+P     - Command Palette (alternative)</span>
-<span class="c">&quot;</span>
-<span class="c">&quot; ===================================================================</span>
-</code></pre></div>
+<p><code>vim
+" ===================================================================
+" IMPORTANT: Preserve These Native IntelliJ Shortcuts
+" ===================================================================
+" These shortcuts are NOT remapped - use them directly!
+"
+" Navigation &amp; Search:
+"   Cmd+B           - Go to Declaration (FASTEST - use this!)
+"   Cmd+Shift+B     - Go to Type Declaration
+"   Cmd+Option+B    - Go to Implementation
+"   Option+F7       - Find Usages
+"   Cmd+[, Cmd+]    - Navigate Back/Forward
+"   Double Shift    - Search Everywhere (universal search!)
+"   Cmd+E           - Recent Files
+"   Cmd+Shift+E     - Recent Edited Files
+"
+" Quick Fixes &amp; Refactoring:
+"   Option+Enter    - Show Intention Actions (auto-import, quick fixes)
+"   Ctrl+T          - Refactor This (context-aware refactoring menu)
+"   Shift+F6        - Rename Element
+"   Cmd+Option+L    - Reformat Code (industry standard)
+"   Ctrl+Option+O   - Optimize Imports
+"
+" Code Intelligence:
+"   Cmd+P           - Parameter Info
+"   F1              - Quick Documentation
+"   Cmd+F12         - File Structure Popup
+"   Ctrl+Shift+Space - Smart Type Completion
+"
+" Errors &amp; Debugging:
+"   F2, Shift+F2    - Next/Previous Error (faster than &lt;leader&gt;en/ep)
+"   Cmd+F8          - Toggle Breakpoint
+"   Ctrl+D          - Debug
+"   Ctrl+R          - Run
+"
+" Discovery:
+"   Cmd+Shift+A     - Find Action (command palette)
+"   Cmd+Shift+P     - Command Palette (alternative)
+"
+" ===================================================================</code></p>
 <p><strong>Rationale</strong>: Documenting preserved shortcuts helps you remember to use them and aids team collaboration.</p>
 <hr />
 <h3 id="proposal-4-resolve-ctrll-conflict-priority-low">Proposal 4: <strong>Resolve Ctrl+L Conflict</strong> (PRIORITY: LOW)</h3>
 <p><strong>Option A</strong>: Keep current setup (works due to context separation)
-<div class="highlight"><pre><span></span><code><span class="c">&quot; Current: Ctrl+L for window navigation (Vim mode)</span>
-<span class="c">&quot; Current: Ctrl+L for Tabby Chat (non-editor contexts)</span>
-<span class="c">&quot; Status: Works but confusing</span>
-</code></pre></div></p>
+<code>vim
+" Current: Ctrl+L for window navigation (Vim mode)
+" Current: Ctrl+L for Tabby Chat (non-editor contexts)
+" Status: Works but confusing</code></p>
 <p><strong>Option B</strong>: Remap Tabby Chat to different key (recommended)
-<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- In keymaps/macOS copy.xml, change from ctrl l to: --&gt;</span>
-<span class="nt">&lt;action</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Tabby.Chat.ToggleChatToolWindow&quot;</span><span class="nt">&gt;</span>
-<span class="w">  </span><span class="nt">&lt;keyboard-shortcut</span><span class="w"> </span><span class="na">first-keystroke=</span><span class="s">&quot;ctrl semicolon&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="cm">&lt;!-- or --&gt;</span>
-<span class="w">  </span><span class="nt">&lt;keyboard-shortcut</span><span class="w"> </span><span class="na">first-keystroke=</span><span class="s">&quot;meta alt l&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-</code></pre></div></p>
+```xml</p>
+<!-- In keymaps/macOS copy.xml, change from ctrl l to: -->
+<p><action id="Tabby.Chat.ToggleChatToolWindow">
+  <keyboard-shortcut first-keystroke="ctrl semicolon" />
+  <!-- or --></p>
+<p><keyboard-shortcut first-keystroke="meta alt l" />
+</action>
+```</p>
 <p><strong>Rationale</strong>: <code>Ctrl+;</code> or <code>Cmd+Option+L</code> would be less confusing and more discoverable.</p>
 <hr />
 <h3 id="proposal-5-add-typescript-specific-actions-priority-medium">Proposal 5: <strong>Add TypeScript-Specific Actions</strong> (PRIORITY: MEDIUM)</h3>
 <p>Add shortcuts for TypeScript-specific refactorings and actions:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
-<span class="c">&quot; TYPESCRIPT-SPECIFIC ACTIONS</span>
-<span class="c">&quot; ===================================================================</span>
-
-<span class="c">&quot; Generate (constructors, getters, etc.)</span>
-<span class="c">&quot; Already have: map &lt;S-space&gt; &lt;Action&gt;(Generate)</span>
-<span class="c">&quot; Add alias:</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>ge <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Generate<span class="p">)</span>
-
-<span class="c">&quot; Implement/Override Methods</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">im</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ImplementMethods<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>om <span class="p">&lt;</span>Action<span class="p">&gt;(</span>OverrideMethods<span class="p">)</span>
-
-<span class="c">&quot; Introduce Parameter (common in TypeScript refactoring)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rp <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceParameter<span class="p">)</span>
-
-<span class="c">&quot; Inline variable/method (reverse of extract)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">ri</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Inline<span class="p">)</span>
-
-<span class="c">&quot; Change signature (useful for refactoring function signatures)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">rs</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ChangeSignature<span class="p">)</span>
-
-<span class="c">&quot; Move refactoring (move functions between files)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>mov <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Move<span class="p">)</span>
-
-<span class="c">&quot; Safe delete (checks usages before deleting)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">del</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>SafeDelete<span class="p">)</span>
-</code></pre></div>
+<p>```vim
+" ===================================================================
+" TYPESCRIPT-SPECIFIC ACTIONS
+" ===================================================================</p>
+<p>" Generate (constructors, getters, etc.)
+" Already have: map <S-space> <Action>(Generate)
+" Add alias:
+map <leader>ge <Action>(Generate)</p>
+<p>" Implement/Override Methods
+map <leader>im <Action>(ImplementMethods)
+map <leader>om <Action>(OverrideMethods)</p>
+<p>" Introduce Parameter (common in TypeScript refactoring)
+map <leader>rp <Action>(IntroduceParameter)</p>
+<p>" Inline variable/method (reverse of extract)
+map <leader>ri <Action>(Inline)</p>
+<p>" Change signature (useful for refactoring function signatures)
+map <leader>rs <Action>(ChangeSignature)</p>
+<p>" Move refactoring (move functions between files)
+map <leader>mov <Action>(Move)</p>
+<p>" Safe delete (checks usages before deleting)
+map <leader>del <Action>(SafeDelete)
+```</p>
 <p><strong>Rationale</strong>: These are common TypeScript refactorings that complement your existing mappings.</p>
 <hr />
 <h3 id="proposal-6-add-http-client-shortcuts-priority-low">Proposal 6: <strong>Add HTTP Client Shortcuts</strong> (PRIORITY: LOW)</h3>
 <p>Since you're using the HTTP Client for API testing:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; ===================================================================</span>
-<span class="c">&quot; HTTP CLIENT (API Testing)</span>
-<span class="c">&quot; ===================================================================</span>
-
-<span class="c">&quot; Execute HTTP request (in .http files)</span>
-<span class="c">&quot; Native Ctrl+Enter works, but add for discoverability:</span>
-<span class="c">&quot; map &lt;leader&gt;hr &lt;Action&gt;(Execution.Http)</span>
-
-<span class="c">&quot; Note: Ctrl+Enter is standard and works well in .http files</span>
-</code></pre></div>
+<p>```vim
+" ===================================================================
+" HTTP CLIENT (API Testing)
+" ===================================================================</p>
+<p>" Execute HTTP request (in .http files)
+" Native Ctrl+Enter works, but add for discoverability:
+" map <leader>hr <Action>(Execution.Http)</p>
+<p>" Note: Ctrl+Enter is standard and works well in .http files
+```</p>
 <p><strong>Rationale</strong>: <code>Ctrl+Enter</code> is already standard and works well. No change needed unless you want a discoverable alias.</p>
 <hr />
 <h3 id="proposal-7-error-navigation-enhancement-priority-low">Proposal 7: <strong>Error Navigation Enhancement</strong> (PRIORITY: LOW)</h3>
 <p>Keep your existing error navigation but add native shortcuts as aliases:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; Errors navigation (keep current)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">en</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoNextError<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">ep</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoPreviousError<span class="p">)</span>
-
-<span class="c">&quot; ALSO support native F2/Shift+F2 for speed</span>
-<span class="c">&quot; (These work automatically, just document them)</span>
-
-<span class="c">&quot; Show error description (already have &lt;leader&gt;sd)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">ed</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowErrorDescription<span class="p">)</span>
-</code></pre></div>
+<p>```vim
+" Errors navigation (keep current)
+map <leader>en <Action>(GotoNextError)
+map <leader>ep <Action>(GotoPreviousError)</p>
+<p>" ALSO support native F2/Shift+F2 for speed
+" (These work automatically, just document them)</p>
+<p>" Show error description (already have <leader>sd)
+map <leader>ed <Action>(ShowErrorDescription)
+```</p>
 <p><strong>Rationale</strong>: <code>F2</code>/<code>Shift+F2</code> are faster (1 key vs 3), but your mappings are more discoverable via Which-Key.</p>
 <hr />
 <h2 id="recommended-implementation-plan">📋 Recommended Implementation Plan</h2>

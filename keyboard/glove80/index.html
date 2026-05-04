@@ -921,35 +921,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#2-regenerate-visualizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Regenerate Visualizations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-deploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Deploy
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
   
 </li>
       
@@ -1111,35 +1084,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#2-regenerate-visualizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Regenerate Visualizations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-deploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Deploy
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
   
 </li>
       
@@ -1218,32 +1164,30 @@
 <h2 id="customization">Customization</h2>
 <p>To modify your Glove80 layout:</p>
 <h3 id="1-edit-the-keymap">1. Edit the Keymap</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Edit simplified keymap</span>
-vim<span class="w"> </span>glove80/glove80-simple.keymap
-</code></pre></div>
+<p>```bash</p>
+<h1 id="edit-simplified-keymap">Edit simplified keymap</h1>
+<p>vim glove80/glove80-simple.keymap
+```</p>
 <h3 id="2-regenerate-visualizations">2. Regenerate Visualizations</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Parse keymap to YAML</span>
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>parse<span class="w"> </span>-z<span class="w"> </span>glove80/glove80-simple.keymap<span class="w"> </span>-o<span class="w"> </span>glove80/parsed.yaml
-
-<span class="c1"># Fix layout name</span>
-sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="s1">&#39;s/glove80-simple/glove80/&#39;</span><span class="w"> </span>glove80/parsed.yaml
-
-<span class="c1"># Generate individual layer SVGs</span>
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>QWERTY<span class="w"> </span>-o<span class="w"> </span>glove80/qwerty.svg
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>Symbol<span class="w"> </span>-o<span class="w"> </span>glove80/symbol.svg
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>Number<span class="w"> </span>-o<span class="w"> </span>glove80/number.svg
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>Cursor<span class="w"> </span>-o<span class="w"> </span>glove80/cursor.svg
-
-<span class="c1"># Copy to docs</span>
-cp<span class="w"> </span>glove80/<span class="o">{</span>qwerty,symbol,number,cursor<span class="o">}</span>.svg<span class="w"> </span>docs/keyboard/
-
-<span class="c1"># Preview</span>
-mkdocs<span class="w"> </span>serve
-</code></pre></div>
+<p>```bash</p>
+<h1 id="parse-keymap-to-yaml">Parse keymap to YAML</h1>
+<p>python -m keymap_drawer -c glove80/config.yaml parse -z glove80/glove80-simple.keymap -o glove80/parsed.yaml</p>
+<h1 id="fix-layout-name">Fix layout name</h1>
+<p>sed -i '' 's/glove80-simple/glove80/' glove80/parsed.yaml</p>
+<h1 id="generate-individual-layer-svgs">Generate individual layer SVGs</h1>
+<p>python -m keymap_drawer -c glove80/config.yaml draw glove80/parsed.yaml -s QWERTY -o glove80/qwerty.svg
+python -m keymap_drawer -c glove80/config.yaml draw glove80/parsed.yaml -s Symbol -o glove80/symbol.svg
+python -m keymap_drawer -c glove80/config.yaml draw glove80/parsed.yaml -s Number -o glove80/number.svg
+python -m keymap_drawer -c glove80/config.yaml draw glove80/parsed.yaml -s Cursor -o glove80/cursor.svg</p>
+<h1 id="copy-to-docs">Copy to docs</h1>
+<p>cp glove80/{qwerty,symbol,number,cursor}.svg docs/keyboard/</p>
+<h1 id="preview">Preview</h1>
+<p>mkdocs serve
+```</p>
 <h3 id="3-deploy">3. Deploy</h3>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update glove80 visualization&quot;</span>
-git<span class="w"> </span>push<span class="w">  </span><span class="c1"># Triggers GitHub Actions deployment</span>
-</code></pre></div>
+<p><code>bash
+git add . &amp;&amp; git commit -m "docs: update glove80 visualization"
+git push  # Triggers GitHub Actions deployment</code></p>
 <hr />
 <h2 id="references">References</h2>
 <ul>

@@ -1587,47 +1587,43 @@
 <h2 id="what-was-implemented">🎉 What Was Implemented</h2>
 <h3 id="phase-1-critical-missing-shortcuts">Phase 1: Critical Missing Shortcuts ✅</h3>
 <p>Added essential TypeScript development shortcuts that were missing:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; Quick documentation (like Vim&#39;s K)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>K <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>
-
-<span class="c">&quot; Parameter information</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">p</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ParameterInfo<span class="p">)</span>
-
-<span class="c">&quot; Refactor This - context-aware refactoring menu</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rt <span class="p">&lt;</span>Action<span class="p">&gt;(</span>RefactoringMenu<span class="p">)</span>
-
-<span class="c">&quot; File structure popup (quick symbol overview)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">so</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>FileStructurePopup<span class="p">)</span>
-
-<span class="c">&quot; Type info at cursor</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>ti <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ExpressionTypeInfo<span class="p">)</span>
-
-<span class="c">&quot; Complete current statement (add semicolons, braces)</span>
-imap <span class="p">&lt;</span>C<span class="p">-</span>CR<span class="p">&gt;</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>CompleteStatement<span class="p">)</span>
-</code></pre></div>
+<p>```vim
+" Quick documentation (like Vim's K)
+map <leader>K <Action>(QuickJavaDoc)</p>
+<p>" Parameter information
+map <leader>p <Action>(ParameterInfo)</p>
+<p>" Refactor This - context-aware refactoring menu
+map <leader>rt <Action>(RefactoringMenu)</p>
+<p>" File structure popup (quick symbol overview)
+map <leader>so <Action>(FileStructurePopup)</p>
+<p>" Type info at cursor
+map <leader>ti <Action>(ExpressionTypeInfo)</p>
+<p>" Complete current statement (add semicolons, braces)
+imap <C-CR> <Action>(CompleteStatement)
+```</p>
 <h3 id="phase-2-vim-style-navigation-shortcuts">Phase 2: Vim-Style Navigation Shortcuts ✅</h3>
 <p>Added fast 2-keystroke Vim-style navigation:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; Vim-style navigation shortcuts (2 keystrokes - FAST!)</span>
-nmap <span class="nb">gd</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoDeclaration<span class="p">)</span>
-nmap gD <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoTypeDeclaration<span class="p">)</span>
-nmap gi <span class="p">&lt;</span>Action<span class="p">&gt;(</span>GotoImplementation<span class="p">)</span>
-nmap <span class="k">gr</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ShowUsages<span class="p">)</span>
-nmap gh <span class="p">&lt;</span>Action<span class="p">&gt;(</span>QuickJavaDoc<span class="p">)</span>
-</code></pre></div>
+<p><code>vim
+" Vim-style navigation shortcuts (2 keystrokes - FAST!)
+nmap gd &lt;Action&gt;(GotoDeclaration)
+nmap gD &lt;Action&gt;(GotoTypeDeclaration)
+nmap gi &lt;Action&gt;(GotoImplementation)
+nmap gr &lt;Action&gt;(ShowUsages)
+nmap gh &lt;Action&gt;(QuickJavaDoc)</code></p>
 <h3 id="phase-3-typescript-specific-refactorings">Phase 3: TypeScript-Specific Refactorings ✅</h3>
 <p>Added common TypeScript refactoring shortcuts:</p>
-<div class="highlight"><pre><span></span><code><span class="c">&quot; Additional refactorings</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>rp <span class="p">&lt;</span>Action<span class="p">&gt;(</span>IntroduceParameter<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">ri</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Inline<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">rs</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ChangeSignature<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>mov <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Move<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">del</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>SafeDelete<span class="p">)</span>
-
-<span class="c">&quot; TypeScript-specific</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="nb">im</span> <span class="p">&lt;</span>Action<span class="p">&gt;(</span>ImplementMethods<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>om <span class="p">&lt;</span>Action<span class="p">&gt;(</span>OverrideMethods<span class="p">)</span>
-map <span class="p">&lt;</span>leader<span class="p">&gt;</span>ge <span class="p">&lt;</span>Action<span class="p">&gt;(</span>Generate<span class="p">)</span>
-</code></pre></div>
+<p>```vim
+" Additional refactorings
+map <leader>rp <Action>(IntroduceParameter)
+map <leader>ri <Action>(Inline)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>mov <Action>(Move)
+map <leader>del <Action>(SafeDelete)</p>
+<p>" TypeScript-specific
+map <leader>im <Action>(ImplementMethods)
+map <leader>om <Action>(OverrideMethods)
+map <leader>ge <Action>(Generate)
+```</p>
 <h3 id="phase-4-comprehensive-documentation">Phase 4: Comprehensive Documentation ✅</h3>
 <p>Added detailed documentation at the top of <code>.ideavimrc</code>:</p>
 <ul>
