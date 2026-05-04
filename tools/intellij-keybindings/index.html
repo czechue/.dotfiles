@@ -1108,6 +1108,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-all-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-new-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create new user
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#week-4-advanced-productivity" class="md-nav__link">
     <span class="md-ellipsis">
       Week 4: Advanced &amp; Productivity
@@ -2047,6 +2065,24 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-new-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create new user
+    </span>
+  </a>
   
 </li>
         
@@ -3631,20 +3667,19 @@
 <p><strong>HTTP Client Tutorial</strong>:
 1. Create a file named <code>api-requests.http</code> in your project
 2. Write requests like:
-   <div class="highlight"><pre><span></span><code><span class="err">### Get users</span>
-<span class="err">GET https://api.example.com/users</span>
-<span class="err">Content-Type: application/json</span>
-
-<span class="err">### Create user</span>
-<span class="err">POST https://api.example.com/users</span>
-<span class="err">Content-Type: application/json</span>
-
-<span class="err">{</span>
-<span class="err">  &quot;name&quot;: &quot;John Doe&quot;,</span>
-<span class="err">  &quot;email&quot;: &quot;john@example.com&quot;</span>
-<span class="err">}</span>
-</code></pre></div>
-3. Press <code>Ctrl+Enter</code> on any request to execute
+   ```http
+   ### Get users
+   GET https://api.example.com/users
+   Content-Type: application/json</p>
+<p>### Create user
+   POST https://api.example.com/users
+   Content-Type: application/json</p>
+<p>{
+     "name": "John Doe",
+     "email": "john@example.com"
+   }
+   <code>``
+3. Press</code>Ctrl+Enter` on any request to execute
 4. View response in separate panel</p>
 <p><strong>Alternative to Postman</strong>: HTTP Client files can be version controlled, shared with team, and include environment variables.</p>
 <h3 id="eslint-prettier-integration">ESLint &amp; Prettier Integration</h3>
@@ -3919,19 +3954,18 @@
 <p><strong>Setup</strong>:
 1. Create <code>api-requests.http</code> in project root
 2. Write HTTP requests:
-<div class="highlight"><pre><span></span><code><span class="err">### Get all users</span>
-<span class="err">GET http://localhost:3000/api/users</span>
-<span class="err">Content-Type: application/json</span>
-
-<span class="err">### Create new user</span>
-<span class="err">POST http://localhost:3000/api/users</span>
-<span class="err">Content-Type: application/json</span>
-
-<span class="err">{</span>
-<span class="err">  &quot;name&quot;: &quot;Test User&quot;,</span>
-<span class="err">  &quot;email&quot;: &quot;test@example.com&quot;</span>
-<span class="err">}</span>
-</code></pre></div></p>
+```http</p>
+<h3 id="get-all-users">Get all users</h3>
+<p>GET http://localhost:3000/api/users
+Content-Type: application/json</p>
+<h3 id="create-new-user">Create new user</h3>
+<p>POST http://localhost:3000/api/users
+Content-Type: application/json</p>
+<p>{
+  "name": "Test User",
+  "email": "test@example.com"
+}
+```</p>
 <ol>
 <li>Press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> on any request to execute</li>
 <li>View response in separate panel with syntax highlighting</li>
@@ -3979,16 +4013,16 @@
 </ul>
 <h4 id="track-your-progress">Track Your Progress</h4>
 <p>Keep a note (physical or digital) of <strong>3 new shortcuts you learned each week</strong>:
-<div class="highlight"><pre><span></span><code>Week 1:
+```
+Week 1:
 - Cmd+Shift+A (Find Action) - game changer!
 - Shift+Shift (Search everywhere)
-- Option+Enter (Show context actions)
-
-Week 2:
+- Option+Enter (Show context actions)</p>
+<p>Week 2:
 - Cmd+Option+V (Extract variable)
 - Shift+F6 (Rename)
 - Option+F7 (Find usages)
-</code></pre></div></p>
+```</p>
 <h4 id="focus-on-pain-points">Focus on Pain Points</h4>
 <p>If you do something <strong>&gt;5 times per day</strong>, find its keyboard shortcut:
 - Opening files? → <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-shift">Shift</kbd></span>

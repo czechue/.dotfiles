@@ -979,53 +979,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#github-pages-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      GitHub Pages Settings
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#repository-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Repository Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#updating-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Updating Documentation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#license" class="md-nav__link">
-    <span class="md-ellipsis">
-      License
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contact" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contact
-    </span>
-  </a>
   
 </li>
       
@@ -1109,53 +1064,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#github-pages-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      GitHub Pages Settings
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#repository-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Repository Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#updating-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Updating Documentation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#license" class="md-nav__link">
-    <span class="md-ellipsis">
-      License
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contact" class="md-nav__link">
-    <span class="md-ellipsis">
-      Contact
-    </span>
-  </a>
   
 </li>
       
@@ -1209,19 +1119,19 @@
 </ol>
 <h3 id="manual-deployment">Manual Deployment</h3>
 <p>You can also deploy manually from your local machine:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-
-<span class="c1"># Build and deploy</span>
-mkdocs<span class="w"> </span>gh-deploy
-</code></pre></div>
+<p>```bash</p>
+<h1 id="install-dependencies">Install dependencies</h1>
+<p>pip install -r requirements.txt</p>
+<h1 id="build-and-deploy">Build and deploy</h1>
+<p>mkdocs gh-deploy
+```</p>
 <h3 id="github-pages-settings">GitHub Pages Settings</h3>
 <p>In the repository settings, GitHub Pages should be configured to:
 - <strong>Source</strong>: Deploy from <code>gh-pages</code> branch
 - <strong>Folder</strong>: <code>/</code> (root)
 - <strong>Custom domain</strong>: None (using default GitHub Pages URL)</p>
 <h2 id="repository-structure">Repository Structure</h2>
-<div class="highlight"><pre><span></span><code>.dotfiles/
+<p><code>.dotfiles/
 ├── docs/              # Documentation source (this site)
 ├── nvim/             # Neovim configuration
 ├── tmux/             # tmux configuration
@@ -1229,8 +1139,7 @@ mkdocs<span class="w"> </span>gh-deploy
 ├── yazi/             # yazi configuration
 ├── cursor/           # Cursor IDE settings
 ├── ideavim/          # IdeaVim configuration
-└── zsh/              # zsh configuration
-</code></pre></div>
+└── zsh/              # zsh configuration</code></p>
 <h2 id="updating-documentation">Updating Documentation</h2>
 <p>Documentation is maintained manually and can be updated by:</p>
 <ol>
