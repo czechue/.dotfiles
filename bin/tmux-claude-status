@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#
+# Claude Code lifecycle hook -> stores running status as tmux options that
+# choose-tree reads. Sets both window and session options so the indicator is
+# visible regardless of how the tree is expanded.
+#
+# Elapsed time is recomputed on every hook event (PreToolUse fires on each
+# tool call, so the timer refreshes a few times per second during active work).
+#
+# Invoked by Claude Code hooks with one of:
+#   UserPromptSubmit | PreToolUse | Stop | Notification
+
+set -u
+
+event="${1:-}"
+
+# Drain stdin (Claude passes JSON via stdin; we don't need it).
+cat >/dev/null 2>&1 || true
+
+[ -n "${TMUX:-}" ] || exit 0
+[ -n "${TMUX_PANE:-}" ] || exit 0
+
+# Resolve the actual pane's session/window — never trust the active client,
+# which may be focused on a different session than the one running claude.
+read -r session window <<<"$(tmux display-message -p -t "$TMUX_PANE" '#{session_name} #{window_id}' 2>/dev/null)"
+[ -n "$session" ] && [ -n "$window" ] || exit 0
+
+format_elapsed() {
+    local elapsed="$1"
+    if [ "$elapsed" -ge 60 ]; then
+        printf '%dm %ds' $((elapsed / 60)) $((elapsed % 60))
+    else
+        printf '%ds' "$elapsed"
+    fi
+}
+
+set_opt() {
+    local key="$1" value="$2"
+    tmux set-option -w -t "$window"  "$key" "$value" 2>/dev/null || true
+    tmux set-option    -t "$session" "$key" "$value" 2>/dev/null || true
+}
+
+case "$event" in
+    UserPromptSubmit)
+        started_at=$(date +%s)
+        set_opt "@claude_started_at" "$started_at"
+        set_opt "@claude_status" '#[fg=yellow]⚡ working#[default] (0s)'
+        ;;
+    PreToolUse)
+        # Re-use the start time set by UserPromptSubmit; PreToolUse fires per tool call.
+        existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
+        if [ -n "$existing" ]; then
+            elapsed=$(( $(date +%s) - existing ))
+            set_opt "@claude_status" "#[fg=yellow]⚡ working#[default] ($(format_elapsed "$elapsed"))"
+        fi
+        ;;
+    Notification)
+        set_opt "@claude_started_at" ""
+        set_opt "@claude_status" '#[fg=red,bold]⏸ waiting!#[default]'
+        ;;
+    Stop)
+        existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
+        suffix=""
+        if [ -n "$existing" ]; then
+            elapsed=$(( $(date +%s) - existing ))
+            suffix=" ($(format_elapsed "$elapsed"))"
+        fi
+        set_opt "@claude_started_at" ""
+        set_opt "@claude_status" "#[fg=green,bold]✅ done#[default]${suffix}"
+        ;;
+esac
