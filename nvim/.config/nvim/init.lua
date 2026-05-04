@@ -804,6 +804,16 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        ruby_lsp = {
+          cmd = { 'ruby-lsp' },
+          filetypes = { 'ruby', 'eruby' },
+          root_markers = { 'Gemfile', '.ruby-version', '.ruby-lsp', '.git' },
+          init_options = {
+            formatter = 'rubocop',
+            linters = { 'rubocop' },
+          },
+        },
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -991,6 +1001,8 @@ require('lazy').setup({
         typescript = { 'prettier' },
         javascriptreact = { 'prettier' },
         typescriptreact = { 'prettier' },
+        ruby = { 'rubocop' },
+        eruby = { 'erb_format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
