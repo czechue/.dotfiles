@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#
+# Recompute live elapsed time on @claude_status for every tmux session.
+# Tmux's format strings have no "current time" variable, so we precompute
+# the timer here and stamp it into the option right before choose-tree
+# reads it.
+#
+# Reads @claude_started_at (working) and @claude_waiting_since (waiting).
+# Skips sessions where neither is set (done / never-touched / not claude).
+
+set -u
+
+now=$(date +%s)
+
+format_elapsed() {
+    local elapsed="$1"
+    if [ "$elapsed" -ge 3600 ]; then
+        printf '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
+    else
+        printf '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
+    fi
+}
+
+# Pipe-separated (tab IFS collapses adjacent empty fields in bash read).
+while IFS='|' read -r session started_at waiting_since; do
+    [ -n "$session" ] || continue
+    if [ -n "$started_at" ]; then
+        elapsed=$((now - started_at))
+        tmux set-option -t "$session" "@claude_status" \
+            "#[fg=yellow]⚡ working#[default] ($(format_elapsed "$elapsed"))" 2>/dev/null
+    elif [ -n "$waiting_since" ]; then
+        elapsed=$((now - waiting_since))
+        tmux set-option -t "$session" "@claude_status" \
+            "#[fg=red,bold]⏸ waiting!#[default] ($(format_elapsed "$elapsed"))" 2>/dev/null
+    fi
+done < <(tmux list-sessions -F '#{session_name}|#{@claude_started_at}|#{@claude_waiting_since}' 2>/dev/null)
