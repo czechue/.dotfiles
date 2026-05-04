@@ -4,8 +4,11 @@
 # choose-tree reads. Sets both window and session options so the indicator is
 # visible regardless of how the tree is expanded.
 #
-# Elapsed time is recomputed on every hook event (PreToolUse fires on each
-# tool call, so the timer refreshes a few times per second during active work).
+# Status options written:
+#   @claude_status      icon + elapsed (e.g. "⚡ working (12s)")
+#   @claude_summary     1-line context: user prompt while working,
+#                       last assistant reply on Stop, message on Notification
+#   @claude_started_at  unix timestamp set on UserPromptSubmit, cleared on Stop
 #
 # Invoked by Claude Code hooks with one of:
 #   UserPromptSubmit | PreToolUse | Stop | Notification
@@ -14,14 +17,12 @@ set -u
 
 event="${1:-}"
 
-# Drain stdin (Claude passes JSON via stdin; we don't need it).
-cat >/dev/null 2>&1 || true
+# Capture the JSON payload Claude sends on stdin (different shape per event).
+input="$(cat 2>/dev/null || true)"
 
 [ -n "${TMUX:-}" ] || exit 0
 [ -n "${TMUX_PANE:-}" ] || exit 0
 
-# Resolve the actual pane's session/window — never trust the active client,
-# which may be focused on a different session than the one running claude.
 read -r session window <<<"$(tmux display-message -p -t "$TMUX_PANE" '#{session_name} #{window_id}' 2>/dev/null)"
 [ -n "$session" ] && [ -n "$window" ] || exit 0
 
@@ -34,20 +35,34 @@ format_elapsed() {
     fi
 }
 
+# Collapse whitespace, escape '#' for tmux format, truncate to fit a status row.
+sanitize_summary() {
+    printf '%s' "$1" | tr '\n\t' '  ' | tr -s ' ' | sed -E 's/^ +//; s/ +$//; s/#/##/g' | cut -c1-80
+}
+
 set_opt() {
     local key="$1" value="$2"
     tmux set-option -w -t "$window"  "$key" "$value" 2>/dev/null || true
     tmux set-option    -t "$session" "$key" "$value" 2>/dev/null || true
 }
 
+last_assistant_text() {
+    local transcript
+    transcript=$(printf '%s' "$input" | jq -r '.transcript_path // empty' 2>/dev/null)
+    [ -n "$transcript" ] && [ -r "$transcript" ] || return 0
+    tail -n 80 "$transcript" 2>/dev/null \
+        | jq -rs '[.[] | select(.type == "assistant") | .message.content[]? | select(.type == "text") | .text] | last // empty' 2>/dev/null
+}
+
 case "$event" in
     UserPromptSubmit)
         started_at=$(date +%s)
+        prompt=$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null)
         set_opt "@claude_started_at" "$started_at"
-        set_opt "@claude_status" '#[fg=yellow]⚡ working#[default] (0s)'
+        set_opt "@claude_status"     '#[fg=yellow]⚡ working#[default] (0s)'
+        set_opt "@claude_summary"    "$(sanitize_summary "$prompt")"
         ;;
     PreToolUse)
-        # Re-use the start time set by UserPromptSubmit; PreToolUse fires per tool call.
         existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
         if [ -n "$existing" ]; then
             elapsed=$(( $(date +%s) - existing ))
@@ -56,7 +71,8 @@ case "$event" in
         ;;
     Notification)
         set_opt "@claude_started_at" ""
-        set_opt "@claude_status" '#[fg=red,bold]⏸ waiting!#[default]'
+        set_opt "@claude_status"     '#[fg=red,bold]⏸ waiting!#[default]'
+        set_opt "@claude_summary"    "$(sanitize_summary "$(last_assistant_text)")"
         ;;
     Stop)
         existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
@@ -66,6 +82,7 @@ case "$event" in
             suffix=" ($(format_elapsed "$elapsed"))"
         fi
         set_opt "@claude_started_at" ""
-        set_opt "@claude_status" "#[fg=green,bold]✅ done#[default]${suffix}"
+        set_opt "@claude_status"     "#[fg=green,bold]✅ done#[default]${suffix}"
+        set_opt "@claude_summary"    "$(sanitize_summary "$(last_assistant_text)")"
         ;;
 esac
