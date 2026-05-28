@@ -12,7 +12,8 @@ in two interchangeable views:
 
 Both views read the same per-session state, populated by Claude Code
 lifecycle hooks. A separate binding (`prefix T`) lets you stamp each session
-with a manual title that the picker surfaces as its own column.
+with a manual title that both views surface — as an inline blue label in
+choose-tree, and as its own column in the fzf picker.
 
 ## Files
 
@@ -113,25 +114,29 @@ filtered to sessions where Claude is waiting on input:
 ```
 bind s run-shell "~/.dotfiles/bin/tmux-claude-refresh-status" \; \
     choose-tree -Zs -O time \
-        -F "#{?session_attached,#[fg=cyan]●#[default],·} #{@claude_status}#{?@claude_summary,  #{=60:@claude_summary},}"
+        -F "#{?@claude_title,#[fg=blue]#{@claude_title}#[default]  ,}#{?session_attached,#[fg=cyan]●#[default],·} #{@claude_status}#{?@claude_summary,  #{=60:@claude_summary},}"
 
 bind S run-shell "~/.dotfiles/bin/tmux-claude-refresh-status" \; \
     choose-tree -Zs -O time \
         -f "#{m:*waiting*,#{@claude_status}}" \
-        -F "#{?session_attached,#[fg=cyan]●#[default],·} #{@claude_status}#{?@claude_summary,  #{=60:@claude_summary},}"
+        -F "#{?@claude_title,#[fg=blue]#{@claude_title}#[default]  ,}#{?session_attached,#[fg=cyan]●#[default],·} #{@claude_status}#{?@claude_summary,  #{=60:@claude_summary},}"
 ```
 
 Row layout (after tmux's `session-name:` tree label, which `-F` can't replace):
 
 ```
-●/·  ⏸ waiting! (01:23)        last prompt or reply truncated to 60 chars
-└─┬┘ └────────┬────────┘└─┬┘   └────────────────────┬────────────────────┘
-  │           │           │                          │
-  │           │           padding (variable)         summary
-  │           status (22 cells visible)
-  attached marker
+Auth refactor  ●  ⏸ waiting! (01:23)        last prompt or reply truncated to 60 chars
+└─────┬─────┘ └┬┘ └────────┬────────┘└─┬┘   └────────────────────┬────────────────────┘
+      │        │           │           │                          │
+      │        │           │           padding (variable)         summary
+      │        │           status (22 cells visible)
+      │        attached marker (● cyan / · dim)
+      manual title (blue, conditional — omitted entirely if @claude_title is empty)
 ```
 
+- `@claude_title` is rendered in blue and only takes space when set; sessions
+  without a title start straight at the marker. Variable width across rows —
+  same fundamental cross-row alignment limit as choose-tree itself.
 - `●` (cyan) marks the attached session, `·` marks detached.
 - `-O time` sorts by last activity → freshly active sessions float to the top.
 - `-f "#{m:*waiting*,#{@claude_status}}"` (only on `bind S`) filters to rows
@@ -209,9 +214,15 @@ independent of any later tweaks to the choose-tree format.
 
 ## Session titles (`prefix T`)
 
-A manual label attached to each session, surfaced by the picker as its own
-column. Useful when several sessions share a directory pattern and you want
-to remember what each is for ("Auth refactor", "Disputes copy", "MVP demo").
+A manual label attached to each session, surfaced by both views:
+
+- **choose-tree** (`prefix s` / `prefix S`): inline blue label right after
+  the session name (variable width, omitted if no title is set).
+- **fzf picker** (`prefix C-s`): its own column between the session name and
+  the marker; the column collapses entirely if no session has a title yet.
+
+Useful when several sessions share a directory pattern and you want to
+remember what each is for ("Auth refactor", "Disputes copy", "MVP demo").
 
 ```
 bind T command-prompt -I "#{@claude_title}" -p "Session title: " \
