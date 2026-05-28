@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 #
-# Recompute live elapsed time on @claude_status for every claude window.
-# Tmux's format strings have no "current time" variable, so we precompute
-# the timer here and stamp it into the option right before choose-tree
-# reads it.
+# Recompute live elapsed time and age-based color tier on @claude_status for
+# every claude window. Tmux's format strings have no "current time" variable,
+# so we precompute the timer here and stamp it into the option right before
+# choose-tree reads it.
+#
+# Color tiers for waiting (drives pre-attentive triage in the session list):
+#   < 5 min    red,bold,reverse  ⏸ waiting!   — fresh, needs you now
+#   < 1 hour   red,bold          ⏸ waiting!   — recent, still active
+#   < 24 h     yellow            ⏸ waiting    — stale, probably drifted
+#   24h–48h    colour240 (dim)   ⏸ waiting    — dying, likely forgotten
+#                                              (darker than the prior colour244
+#                                              so it visibly contrasts yellow)
+#   >= 48 h    (cleared)                       — zombie; hooks never fired Stop
 #
 # Iterates windows (not sessions): tmux's session-format resolution walks
 # through the session's active window for user options, so a stale window
@@ -26,14 +35,45 @@ format_elapsed() {
     fi
 }
 
+build_status() {
+    local style="$1" icon="$2" label="$3" elapsed_secs="$4"
+    local elapsed_fmt content pad
+    elapsed_fmt=$(format_elapsed "$elapsed_secs")
+    content="${icon} ${label} (${elapsed_fmt})"
+    pad=$((22 - ${#content}))
+    [ "$pad" -lt 0 ] && pad=0
+    printf '#[%s]%s#[default]%*s' "$style" "$content" "$pad" ''
+}
+
+clear_zombie() {
+    local sess="$1" win="$2"
+    tmux set-option -w -t "$win"  "@claude_status"        "" 2>/dev/null
+    tmux set-option -w -t "$win"  "@claude_waiting_since" "" 2>/dev/null
+    tmux set-option -w -t "$win"  "@claude_summary"       "" 2>/dev/null
+    tmux set-option    -t "$sess" "@claude_status"        "" 2>/dev/null
+    tmux set-option    -t "$sess" "@claude_waiting_since" "" 2>/dev/null
+    tmux set-option    -t "$sess" "@claude_summary"       "" 2>/dev/null
+}
+
 while IFS='|' read -r session window_id started_at waiting_since; do
     [ -n "$session" ] && [ -n "$window_id" ] || continue
     if [ -n "$started_at" ]; then
         elapsed=$((now - started_at))
-        status="#[fg=yellow]⚡ working#[default] ($(format_elapsed "$elapsed"))"
+        status=$(build_status 'fg=yellow' '⚡' 'working' "$elapsed")
     elif [ -n "$waiting_since" ]; then
         elapsed=$((now - waiting_since))
-        status="#[fg=red,bold]⏸ waiting!#[default] ($(format_elapsed "$elapsed"))"
+        if   [ "$elapsed" -ge 172800 ]; then
+            clear_zombie "$session" "$window_id"
+            continue
+        elif [ "$elapsed" -lt 300 ];   then
+            status=$(build_status 'fg=red,bold,reverse' '⏸' 'waiting!' "$elapsed")
+        elif [ "$elapsed" -lt 3600 ];  then
+            status=$(build_status 'fg=red,bold'         '⏸' 'waiting!' "$elapsed")
+        elif [ "$elapsed" -lt 86400 ]; then
+            status=$(build_status 'fg=yellow'           '⏸' 'waiting'  "$elapsed")
+        else
+            status=$(build_status 'fg=colour240'        '⏸' 'waiting'  "$elapsed")
+        fi
     else
         continue
     fi

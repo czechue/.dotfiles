@@ -5,14 +5,17 @@
 # visible regardless of how the tree is expanded.
 #
 # Status options written:
-#   @claude_status         icon + elapsed (e.g. "⚡ working (00:12)")
+#   @claude_status         icon + label + elapsed, padded to fixed-width
+#                          columns so choose-tree rows align (~20 cells:
+#                          icon(1) + space + label(8) + space + (elapsed(7)))
 #   @claude_summary        1-line context: user prompt while working,
 #                          last assistant reply on Stop / Notification
 #   @claude_started_at     unix ts: set on UserPromptSubmit, cleared on Stop
 #   @claude_waiting_since  unix ts: set on Notification, cleared on next prompt
 #
-# Live elapsed times are refreshed by tmux-claude-refresh-status, which the
-# tmux binding for `prefix + s` calls right before opening choose-tree.
+# Live elapsed times and age-based color tiers are recomputed by
+# tmux-claude-refresh-status, which the `prefix + s` binding calls right
+# before opening choose-tree.
 #
 # Invoked by Claude Code hooks with one of:
 #   UserPromptSubmit | PreToolUse | Stop | Notification
@@ -37,6 +40,22 @@ format_elapsed() {
     else
         printf '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
     fi
+}
+
+# Build a fixed-width styled status string. Padding goes AFTER the closing
+# paren (not inside the elapsed slot) so we get e.g. "⏸ waiting! (01:23)   "
+# instead of "⏸ waiting! (01:23  )" — natural trailing whitespace, not weird
+# gaps inside the parens. ${#content} counts codepoints, not display cells —
+# fine here because every status uses exactly one icon, so any cell-width skew
+# is identical across rows.
+build_status() {
+    local style="$1" icon="$2" label="$3" elapsed_secs="$4"
+    local elapsed_fmt content pad
+    elapsed_fmt=$(format_elapsed "$elapsed_secs")
+    content="${icon} ${label} (${elapsed_fmt})"
+    pad=$((22 - ${#content}))
+    [ "$pad" -lt 0 ] && pad=0
+    printf '#[%s]%s#[default]%*s' "$style" "$content" "$pad" ''
 }
 
 # Collapse whitespace, escape '#' for tmux format, truncate to fit a status row.
@@ -64,32 +83,33 @@ case "$event" in
         prompt=$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null)
         set_opt "@claude_started_at"    "$started_at"
         set_opt "@claude_waiting_since" ""
-        set_opt "@claude_status"        '#[fg=yellow]⚡ working#[default] (00:00)'
+        set_opt "@claude_status"        "$(build_status 'fg=yellow' '⚡' 'working' 0)"
         set_opt "@claude_summary"       "$(sanitize_summary "$prompt")"
         ;;
     PreToolUse)
         existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
         if [ -n "$existing" ]; then
             elapsed=$(( $(date +%s) - existing ))
-            set_opt "@claude_status" "#[fg=yellow]⚡ working#[default] ($(format_elapsed "$elapsed"))"
+            set_opt "@claude_status" "$(build_status 'fg=yellow' '⚡' 'working' "$elapsed")"
         fi
         ;;
     Notification)
         set_opt "@claude_started_at"    ""
         set_opt "@claude_waiting_since" "$(date +%s)"
-        set_opt "@claude_status"        '#[fg=red,bold]⏸ waiting!#[default] (00:00)'
+        # Just transitioned to waiting — strongest visual signal (reverse).
+        # tmux-claude-refresh-status will downgrade the style as the wait ages.
+        set_opt "@claude_status"        "$(build_status 'fg=red,bold,reverse' '⏸' 'waiting!' 0)"
         set_opt "@claude_summary"       "$(sanitize_summary "$(last_assistant_text)")"
         ;;
     Stop)
         existing=$(tmux show-option -wqv -t "$window" "@claude_started_at" 2>/dev/null)
-        suffix=""
+        elapsed=0
         if [ -n "$existing" ]; then
             elapsed=$(( $(date +%s) - existing ))
-            suffix=" ($(format_elapsed "$elapsed"))"
         fi
         set_opt "@claude_started_at"    ""
         set_opt "@claude_waiting_since" ""
-        set_opt "@claude_status"        "#[fg=green,bold]✅ done#[default]${suffix}"
+        set_opt "@claude_status"        "$(build_status 'fg=green,bold' '✅' 'done' "$elapsed")"
         set_opt "@claude_summary"       "$(sanitize_summary "$(last_assistant_text)")"
         ;;
 esac
