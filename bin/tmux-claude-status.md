@@ -1,30 +1,53 @@
 # tmux-claude-status
 
-Shows live Claude Code status (working / waiting / done) and last prompt or
-reply next to each session in `prefix + s` (`choose-tree`). Built from two
-scripts plus a tmux binding.
+Live Claude Code status (working / waiting / done), elapsed time, last
+prompt/reply, and an optional manual title shown next to each tmux session
+in two interchangeable views:
+
+- **`prefix s`** — built-in `choose-tree`. Zero extra deps, scans fast. Also
+  `prefix S` to filter to sessions where Claude is waiting on you.
+- **`prefix C-s`** — fzf-based picker (`bin/tmux-claude-picker`) in a popup
+  with true column alignment and a live preview pane showing the session's
+  claude output. Requires `fzf` on PATH.
+
+Both views read the same per-session state, populated by Claude Code
+lifecycle hooks. A separate binding (`prefix T`) lets you stamp each session
+with a manual title that the picker surfaces as its own column.
 
 ## Files
 
 - `bin/tmux-claude-status` — invoked from Claude Code lifecycle hooks; writes
   per-window/per-session tmux user options.
-- `bin/tmux-claude-refresh-status` — recomputes elapsed timers; called by the
-  `prefix + s` binding right before `choose-tree` opens.
-- `tmux/.tmux.conf` — the `bind s` line wires the two together.
+- `bin/tmux-claude-refresh-status` — recomputes elapsed timers and age-based
+  color tiers; clears zombie waiting entries (≥48h). Called synchronously by
+  both pickers right before they open.
+- `bin/tmux-claude-picker` — fzf-driven session picker. Reads the source-of-
+  truth options (`@claude_started_at`, `@claude_waiting_since`,
+  `@claude_summary`, `@claude_title`) and renders rows in ANSI directly, so
+  it doesn't depend on the tmux-format `@claude_status` string.
+- `tmux/.tmux.conf` — binds `s` / `S` (choose-tree), `C-s` (fzf picker), and
+  `T` (set manual session title).
 
-## Tmux user options written
+## Tmux user options
 
-All set on **both** the window the claude pane lives in *and* its session:
+Hook-driven options written by `tmux-claude-status` on **both** the window
+the claude pane lives in *and* its session:
 
 | Option                   | When set                                     | Cleared on   |
 |--------------------------|----------------------------------------------|--------------|
-| `@claude_status`         | every event — formatted icon + elapsed time  | never (overwritten on next event) |
+| `@claude_status`         | every event — formatted icon + elapsed time (tmux-format syntax, used only by `choose-tree`) | never (overwritten on next event) |
 | `@claude_summary`        | UserPromptSubmit (prompt) / Stop / Notification (last assistant text) | overwritten on next event |
 | `@claude_started_at`     | UserPromptSubmit (unix ts)                   | Stop, Notification |
 | `@claude_waiting_since`  | Notification (unix ts)                       | UserPromptSubmit, Stop |
 
+User-driven option set via `prefix T`:
+
+| Option           | When set                | Cleared on        |
+|------------------|-------------------------|-------------------|
+| `@claude_title`  | `prefix T` → enter text | `prefix T` → empty input |
+
 `@claude_summary` is sanitized: newlines/tabs collapsed, `#` doubled (tmux
-format escape), truncated to 80 chars.
+format escape), truncated to 80 chars. `@claude_title` is stored verbatim.
 
 ## Lifecycle hooks
 
@@ -82,9 +105,9 @@ value. `tmux-claude-status` writes to both levels; the refresh script must do
 the same, otherwise the status reverts to whatever the last hook wrote at the
 window level (e.g. `(00:00)` from `Notification`).
 
-## Display format
+## choose-tree view (`prefix s` / `prefix S`)
 
-`prefix + s` opens the full session list; `prefix + S` opens the same list
+`prefix s` opens the full session list; `prefix S` opens the same list
 filtered to sessions where Claude is waiting on input:
 
 ```
@@ -121,8 +144,91 @@ Row layout (after tmux's `session-name:` tree label, which `-F` can't replace):
 suppress it. Session names of different lengths therefore start the format
 output at different X positions, so columns don't line up across rows. The
 status block itself is fixed-width (22 cells) and color-coded so within-row
-scanning works fine — but for true grid alignment we'd need to replace
-`choose-tree` with a custom picker (see `tmux-claude-picker.TODO.md`).
+scanning works fine — but for true grid alignment use the fzf picker below.
+
+## fzf picker (`prefix C-s`)
+
+`bin/tmux-claude-picker` is an alternative session switcher that opens in a
+`display-popup` with a fully-controlled row layout and a live preview pane:
+
+```
+bind C-s display-popup -E -w 90% -h 80% '~/.dotfiles/bin/tmux-claude-picker'
+```
+
+Why have both? choose-tree wins on zero-deps and tmux-native integration;
+the picker wins on visual structure. Both are wired and the picker is
+additive — falling back to `prefix s` always works.
+
+### Row layout
+
+```
+            .dotfiles  Auth refactor    ●  ⚡ working (01:23)   Działa. Wyciąg...
+      storefront-apps  Disputes copy    ·  ⏸ waiting! (33:15)   Yes — `git worktree...`
+storefront-apps-home-…                  ·  ⏸ waiting (40h 20m)  /1_research-codebase...
+                 omni  Public chat MVP  ·  ⏸ waiting! (14:59)   ## How public conversations...
+└──────┬──────┘ └────────┬────────┘ ┬   └─────────┬─────────┘  └─────────┬──────────┘
+       │                 │          │             │                       │
+       │                 │          │             │                       summary (cut to 80ch)
+       │                 │          │             status (ANSI, 22 cells)
+       │                 │          attached marker (● cyan / · dim)
+       │                 manual title column (only shown if any session has @claude_title)
+       session name (right-aligned, padded to max width across rows, cap 50ch)
+```
+
+- Sessions sorted by `session_activity` (most recent first).
+- Title column is dynamic: if no session has a title, the column disappears
+  entirely (no dead whitespace).
+- Names longer than 50ch get an ellipsis (`…`).
+- Color tiers are the same as choose-tree, just emitted as ANSI escape
+  sequences instead of tmux format markers.
+
+### Preview pane
+
+`tmux capture-pane -e -p -t {window_id} -S -200` shows the last 200 lines of
+the session's claude window. If the session has multiple windows, the picker
+picks the one with `@claude_started_at` or `@claude_waiting_since` set
+(falling back to the active window if no claude state is present).
+
+### Keys
+
+| Key       | Action                       |
+|-----------|------------------------------|
+| `enter`   | `switch-client` to selection |
+| `esc`     | cancel; no switch            |
+| any text  | fzf fuzzy filter             |
+
+### Why ANSI instead of tmux format strings
+
+`fzf --ansi` honors raw escape sequences. `@claude_status` is written in
+tmux format syntax (`#[fg=red,bold]…#[default]`) so `choose-tree` can
+render it; that syntax means nothing to fzf. Rather than translating one to
+the other, the picker re-derives the styled string from the source-of-truth
+timestamps (`@claude_started_at`, `@claude_waiting_since`) using the same
+tier thresholds as `tmux-claude-refresh-status`. This keeps the picker
+independent of any later tweaks to the choose-tree format.
+
+## Session titles (`prefix T`)
+
+A manual label attached to each session, surfaced by the picker as its own
+column. Useful when several sessions share a directory pattern and you want
+to remember what each is for ("Auth refactor", "Disputes copy", "MVP demo").
+
+```
+bind T command-prompt -I "#{@claude_title}" -p "Session title: " \
+    "set-option -t '#{session_name}' @claude_title '%%'"
+```
+
+Flow:
+
+1. From inside any session, hit `prefix T`.
+2. The tmux command prompt opens in the status bar, **pre-filled with the
+   current title** (so it's edit, not retype).
+3. Type the new title and press enter; empty input clears it.
+
+Persistence: `@claude_title` is a tmux user option — it lives for the
+lifetime of the tmux server. Restarting tmux loses titles. If this becomes
+painful, add write-through to `~/.local/share/tmux-claude/titles` on set
+plus a load script on session-created hook. Deferred until needed.
 
 ## Adding the hooks (Claude Code side)
 
@@ -144,3 +250,16 @@ on stdin.
 - **Wrong session/window targeted**: `tmux display-message -p -t "$TMUX_PANE"`
   resolves the pane's session and window — verify the claude pane is the
   active one when the hook fires.
+- **`prefix C-s` does nothing / popup flashes and closes**: `fzf` not on
+  tmux server's PATH. Confirm with
+  `tmux display-popup -E "command -v fzf || echo missing"`. Either install
+  fzf where the tmux server sees it (`brew install fzf`) or restart the
+  tmux server after updating PATH (`tmux kill-server` then reopen).
+- **Title column not showing in picker**: at least one session needs
+  `@claude_title` set for the column to render. `tmux show-option -v -t
+  <session> @claude_title` to inspect a single session.
+- **Preview pane is wrong window**: the picker picks whichever window has
+  claude state set; if a session has no claude state it falls back to the
+  active window. Send any prompt to claude in the desired pane (which fires
+  `UserPromptSubmit` → stamps `@claude_started_at`) and the picker will
+  target that window on the next open.
