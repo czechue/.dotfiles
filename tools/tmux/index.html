@@ -540,6 +540,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#coding-agent-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coding Agent Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -1069,6 +1078,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#coding-agent-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coding Agent Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -1226,6 +1244,40 @@
 </tbody>
 </table>
 </div>
+<h2 id="coding-agent-integration">Coding Agent Integration</h2>
+<p>Helpers for working with terminal coding agents (Claude Code, Droid, etc.).</p>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-s">S</kbd></span></td>
+<td>Session list with live Claude Code status (working/waiting/done) and last prompt or reply</td>
+<td>Sessions</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-e">E</kbd></span></td>
+<td>Capture active pane (last 10k lines) into Neovim in a new window</td>
+<td>Transcripts / logs</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-o">O</kbd></span></td>
+<td>Send <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-o">O</kbd></span> through to the program in the pane (e.g. expand transcripts in Claude Code)</td>
+<td>Passthrough</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>prefix + e</code> writes the capture to <code>/tmp/tmux-capture</code> and opens it with <code>nvim</code>.
+<code>prefix + o</code> overrides tmux's default <code>select-next-pane</code>, which is redundant
+with the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-h">H</kbd></span>/<span class="keys"><kbd class="key-j">J</kbd></span>/<span class="keys"><kbd class="key-k">K</kbd></span>/<span class="keys"><kbd class="key-l">L</kbd></span> navigation.</p>
+<p>See <code>bin/tmux-claude-status.md</code> for the Claude Code status integration.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><strong>Config</strong>: <code>tmux/.tmux.conf</code></li>
