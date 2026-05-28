@@ -215,8 +215,13 @@ to remember what each is for ("Auth refactor", "Disputes copy", "MVP demo").
 
 ```
 bind T command-prompt -I "#{@claude_title}" -p "Session title: " \
-    "set-option -t '#{session_name}' @claude_title '%%'"
+    { set-option @claude_title "%%" }
 ```
+
+`set-option` without `-t` defaults to the current session — exactly what
+`prefix T` always operates on. (Don't try `-t '#{session_name}'`:
+`command-prompt`'s template is not format-expanded, so tmux takes the
+literal string as a target and errors with "No such session #{session_name}".)
 
 Flow:
 
