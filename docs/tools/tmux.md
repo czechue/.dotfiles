@@ -66,6 +66,26 @@ All commands require prefix (++ctrl+b++) first:
 
 </div>
 
+## Coding Agent Integration
+
+Helpers for working with terminal coding agents (Claude Code, Droid, etc.).
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++ctrl+b+s++ | Session list with live Claude Code status (working/waiting/done) and last prompt or reply | Sessions |
+| ++ctrl+b+e++ | Capture active pane (last 10k lines) into Neovim in a new window | Transcripts / logs |
+| ++ctrl+b+o++ | Send ++ctrl+o++ through to the program in the pane (e.g. expand transcripts in Claude Code) | Passthrough |
+
+</div>
+
+`prefix + e` writes the capture to `/tmp/tmux-capture` and opens it with `nvim`.
+`prefix + o` overrides tmux's default `select-next-pane`, which is redundant
+with the ++ctrl+b+h++/++j++/++k++/++l++ navigation.
+
+See `bin/tmux-claude-status.md` for the Claude Code status integration.
+
 ## References
 
 - **Config**: `tmux/.tmux.conf`
