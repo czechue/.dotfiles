@@ -26,57 +26,76 @@ set -u
 
 now=$(date +%s)
 
+# Helpers write into REPLY instead of stdout so callers can use them
+# without `$(...)` subshells (saves ~5-10ms per call; this script runs
+# build_status once per claude window and that adds up).
+
 format_elapsed() {
     local elapsed="$1"
     if [ "$elapsed" -ge 3600 ]; then
-        printf '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
+        printf -v REPLY '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
     else
-        printf '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
+        printf -v REPLY '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
     fi
 }
 
 build_status() {
     local style="$1" icon="$2" label="$3" elapsed_secs="$4"
-    local elapsed_fmt content pad
-    elapsed_fmt=$(format_elapsed "$elapsed_secs")
-    content="${icon} ${label} (${elapsed_fmt})"
+    local content pad
+    format_elapsed "$elapsed_secs"
+    content="${icon} ${label} (${REPLY})"
     pad=$((22 - ${#content}))
     [ "$pad" -lt 0 ] && pad=0
-    printf '#[%s]%s#[default]%*s' "$style" "$content" "$pad" ''
+    printf -v REPLY '#[%s]%s#[default]%*s' "$style" "$content" "$pad" ''
 }
 
-clear_zombie() {
-    local sess="$1" win="$2"
-    tmux set-option -w -t "$win"  "@claude_status"        "" 2>/dev/null
-    tmux set-option -w -t "$win"  "@claude_waiting_since" "" 2>/dev/null
-    tmux set-option -w -t "$win"  "@claude_summary"       "" 2>/dev/null
-    tmux set-option    -t "$sess" "@claude_status"        "" 2>/dev/null
-    tmux set-option    -t "$sess" "@claude_waiting_since" "" 2>/dev/null
-    tmux set-option    -t "$sess" "@claude_summary"       "" 2>/dev/null
-}
+# Batch all set-option writes into ONE tmux invocation. Each tmux roundtrip
+# costs ~15ms (client→server IPC), so iterating per-window with separate
+# `tmux set-option` calls was the bulk of the latency before opening
+# choose-tree / the fzf picker. tmux's command parser treats ";" as a command
+# separator within a single argv list, so we accumulate one giant argv and
+# dispatch it in one call.
+cmds=()
+queue_set() { cmds+=(set-option "$@" ";"); }
 
 while IFS='|' read -r session window_id started_at waiting_since; do
     [ -n "$session" ] && [ -n "$window_id" ] || continue
     if [ -n "$started_at" ]; then
         elapsed=$((now - started_at))
-        status=$(build_status 'fg=yellow' '⚡' 'working' "$elapsed")
+        build_status 'fg=yellow' '⚡' 'working' "$elapsed"
     elif [ -n "$waiting_since" ]; then
         elapsed=$((now - waiting_since))
         if   [ "$elapsed" -ge 172800 ]; then
-            clear_zombie "$session" "$window_id"
+            # Zombie: clear window- and session-level state.
+            queue_set -w -t "$window_id" "@claude_status"        ""
+            queue_set -w -t "$window_id" "@claude_waiting_since" ""
+            queue_set -w -t "$window_id" "@claude_summary"       ""
+            queue_set    -t "$session"   "@claude_status"        ""
+            queue_set    -t "$session"   "@claude_waiting_since" ""
+            queue_set    -t "$session"   "@claude_summary"       ""
             continue
         elif [ "$elapsed" -lt 300 ];   then
-            status=$(build_status 'fg=red,bold,reverse' '⏸' 'waiting!' "$elapsed")
+            build_status 'fg=red,bold,reverse' '⏸' 'waiting!' "$elapsed"
         elif [ "$elapsed" -lt 3600 ];  then
-            status=$(build_status 'fg=red,bold'         '⏸' 'waiting!' "$elapsed")
+            build_status 'fg=red,bold'         '⏸' 'waiting!' "$elapsed"
         elif [ "$elapsed" -lt 86400 ]; then
-            status=$(build_status 'fg=yellow'           '⏸' 'waiting'  "$elapsed")
+            build_status 'fg=yellow'           '⏸' 'waiting'  "$elapsed"
         else
-            status=$(build_status 'fg=colour240'        '⏸' 'waiting'  "$elapsed")
+            build_status 'fg=colour240'        '⏸' 'waiting'  "$elapsed"
         fi
     else
         continue
     fi
-    tmux set-option -w -t "$window_id" "@claude_status" "$status" 2>/dev/null
-    tmux set-option    -t "$session"   "@claude_status" "$status" 2>/dev/null
+    queue_set -w -t "$window_id" "@claude_status" "$REPLY"
+    queue_set    -t "$session"   "@claude_status" "$REPLY"
 done < <(tmux list-windows -a -F '#{session_name}|#{window_id}|#{@claude_started_at}|#{@claude_waiting_since}' 2>/dev/null)
+
+if (( ${#cmds[@]} > 0 )); then
+    # Drop trailing ";" — tmux errors on an empty trailing command. Computed
+    # index (not `unset 'cmds[-1]'`) for bash 3.2 compatibility, since tmux
+    # popups on macOS may resolve `env bash` to /bin/bash (3.2) instead of
+    # homebrew's 4+ build when PATH isn't passed through.
+    last=$((${#cmds[@]} - 1))
+    unset "cmds[$last]"
+    tmux "${cmds[@]}" 2>/dev/null
+fi

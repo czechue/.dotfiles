@@ -3,11 +3,13 @@
 # tmux-claude-picker — fzf-based session picker for Claude Code sessions.
 #
 # Alternative to `prefix s` choose-tree that gives:
-#   - True column alignment (right-padded session names → all subsequent
-#     columns line up across rows; choose-tree can't do this because it
-#     hard-codes a variable-width "session_name:" prefix)
-#   - Live preview pane showing the recent output of the session's claude
-#     window (or active window if no claude pane in the session)
+#   - True column alignment with status on the left, so "waiting!/working"
+#     is the first thing you read — folder names move to the middle and
+#     are truncated with a leading ellipsis ("…catalog-omni") so the
+#     distinctive suffix stays visible while shared prefixes drop off
+#   - Full-width rows with the live preview docked below (down,40%) —
+#     gives the list horizontal room and the preview still has 10+ lines
+#     for the claude transcript tail
 #   - Same age-tier coloring as choose-tree, rendered in ANSI so fzf can
 #     display it directly (independent of @claude_status's tmux-format syntax)
 #
@@ -34,12 +36,17 @@ RED_BOLD="${ESC}[31;1m"
 RED_BOLD_REV="${ESC}[31;1;7m"
 GREEN_BOLD="${ESC}[32;1m"
 
+# All `build_*` helpers write into REPLY (a bash convention for "function
+# returns a string") via `printf -v` instead of stdout, so callers can use
+# them without `$(...)` subshells. Each subshell costs ~5-10ms; with one per
+# session this used to add ~100ms to picker startup.
+
 format_elapsed() {
     local elapsed="$1"
     if [ "$elapsed" -ge 3600 ]; then
-        printf '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
+        printf -v REPLY '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
     else
-        printf '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
+        printf -v REPLY '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
     fi
 }
 
@@ -49,41 +56,34 @@ format_elapsed() {
 build_status() {
     local color="$1" icon="$2" label="$3" elapsed_secs="$4"
     local content pad
-    content="${icon} ${label} ($(format_elapsed "$elapsed_secs"))"
+    format_elapsed "$elapsed_secs"
+    content="${icon} ${label} (${REPLY})"
     pad=$((22 - ${#content}))
     [ "$pad" -lt 0 ] && pad=0
-    printf '%s%s%s%*s' "$color" "$content" "$RESET" "$pad" ''
+    printf -v REPLY '%s%s%s%*s' "$color" "$content" "$RESET" "$pad" ''
 }
 
-# Pick the window in $sess that has claude state; fall back to the active
-# window. Used so the preview pane shows the claude pane even if the user
-# left some other window active in that session.
-claude_window() {
-    local sess="$1" win
-    win=$(tmux list-windows -t "$sess" -F '#{window_id}|#{@claude_started_at}|#{@claude_waiting_since}' 2>/dev/null \
-        | awk -F'|' '$2 != "" || $3 != "" {print $1; exit}')
-    if [ -n "$win" ]; then
-        printf '%s' "$win"
-    else
-        tmux display-message -p -t "$sess" '#{window_id}' 2>/dev/null
-    fi
+# 22-cell placeholder for sessions with no claude state: a dim centered "-"
+# so the status column stays visually populated instead of leaving a void
+# on the left edge of the row.
+build_empty_status() {
+    printf -v REPLY '%s%*s-%*s%s' "$DIM" 10 '' 11 '' "$RESET"
 }
 
-# Determine the ANSI status string for a session. Tiers match
-# tmux-claude-refresh-status so the picker and choose-tree agree on what
-# "fresh / active / stale / dying" mean.
+# Determine the ANSI status string for a session from pre-fetched timestamps.
+# Tiers match tmux-claude-refresh-status so the picker and choose-tree agree
+# on what "fresh / active / stale / dying" mean. We pass timestamps + `now` in
+# instead of calling tmux per session — for ~10 sessions, the old per-session
+# show-option calls dominated picker latency (~800ms vs ~30ms batched).
 session_status() {
-    local sess="$1" started_at waiting_since now elapsed
-    started_at=$(tmux show-option -qv -t "$sess" "@claude_started_at" 2>/dev/null)
-    waiting_since=$(tmux show-option -qv -t "$sess" "@claude_waiting_since" 2>/dev/null)
-    now=$(date +%s)
+    local started_at="$1" waiting_since="$2" now="$3" elapsed
     if [ -n "$started_at" ]; then
         elapsed=$((now - started_at))
         build_status "$YELLOW" '⚡' 'working' "$elapsed"
     elif [ -n "$waiting_since" ]; then
         elapsed=$((now - waiting_since))
         if   [ "$elapsed" -ge 172800 ]; then
-            printf '%*s' 22 ''                                             # zombie → blank column
+            build_empty_status                                             # zombie → "-" placeholder
         elif [ "$elapsed" -lt 300 ];   then
             build_status "$RED_BOLD_REV" '⏸' 'waiting!' "$elapsed"
         elif [ "$elapsed" -lt 3600 ];  then
@@ -94,48 +94,105 @@ session_status() {
             build_status "$DIM"          '⏸' 'waiting'  "$elapsed"
         fi
     else
-        printf '%*s' 22 ''                                                 # no claude state → blank column
+        build_empty_status                                                 # no claude state → "-" placeholder
     fi
+    # result lives in REPLY (set by build_*)
 }
 
 main() {
-    # Refresh tier coloring + clear zombies upstream so our reads are fresh.
-    ~/.dotfiles/bin/tmux-claude-refresh-status 2>/dev/null
+    # NOTE: we do NOT call tmux-claude-refresh-status here. The picker
+    # computes status independently from raw @claude_started_at /
+    # @claude_waiting_since timestamps (in ANSI, not tmux-format), so it
+    # always shows fresh elapsed times without that side-effect script.
+    # Zombie windows are rendered as "-" inline via build_empty_status.
+    # Choose-tree (`prefix s`) still calls refresh-status because it
+    # reads the pre-rendered @claude_status option.
 
-    # Sessions sorted by last activity (newest first).
-    local sessions
-    sessions=$(tmux list-sessions -F '#{session_activity}|#{session_name}' 2>/dev/null | sort -rn)
-    [ -n "$sessions" ] || exit 0
+    # ONE tmux call: every session with all @claude_* fields we'll render.
+    # Separator is "|" — a non-whitespace ASCII char. The non-whitespace part
+    # matters because bash's `read` collapses runs of whitespace separators
+    # (two adjacent tabs swallow the empty field between them and shift the
+    # rest left). With "|", empty fields stay empty, which we need: @claude_
+    # started_at is empty for waiting-only sessions, and the collapse bug
+    # made the picker treat every waiting session as "working".
+    # We can't use a control char like \x1f (cleaner semantically) because
+    # tmux's format expansion escapes any byte outside 0x20-0x7E as literal
+    # "\nnn" — so \x1f arrives as a 4-char string and IFS can't see it.
+    # Pipe chars in @claude_summary / @claude_title are pre-substituted to "_"
+    # via tmux's #{s/\|/_/:VAR} regex op, so they can't collide with the
+    # separator. (Session names with "|" are rare enough we don't bother.)
+    # Sorted by activity descending so freshest sessions float to the top.
+    local raw
+    raw=$(tmux list-sessions -F '#{session_activity}|#{session_name}|#{@claude_started_at}|#{@claude_waiting_since}|#{s/\|/_/:@claude_summary}|#{s/\|/_/:@claude_title}' 2>/dev/null | sort -rn)
+    [ -n "$raw" ] || exit 0
 
-    # Pass 1: compute column widths for session name and (optional) manual
-    # title. Title column is rendered only if at least one session has one,
-    # so the picker degrades cleanly for users who haven't adopted the
-    # @claude_title flow yet.
-    local maxlen=0 maxlen_title=0 name title
-    while IFS='|' read -r _ name; do
-        (( ${#name} > maxlen )) && maxlen=${#name}
-        title=$(tmux show-option -qv -t "$name" "@claude_title" 2>/dev/null)
+    # NOTE on preview target: we use the session_name directly for capture-pane.
+    # `tmux capture-pane -t SESSION` resolves to the session's active pane, which
+    # is what the user sees on switch-client. An earlier version maintained a
+    # session → "first claude window" map via `declare -A` to prefer the claude
+    # pane over the active one — but `declare -A` requires bash 4+, and tmux
+    # popups on macOS resolve `env bash` to /bin/bash (3.2) when PATH doesn't
+    # include homebrew. Result: popup opened, picker errored on `declare -A`,
+    # closed instantly with no visible output. Sticking to session_name is
+    # bash-3.2-safe and "active pane" is a reasonable preview anyway.
+
+    # Fixed-width session-name column (always 24 cells, even when all names
+    # are short) so the picker's columns don't shift as the session list
+    # changes. Title column is variable-width up to 25 and is rendered only
+    # if at least one session has one, so the layout degrades cleanly when
+    # nobody uses @claude_title yet.
+    local maxlen=24 maxlen_title=0 sess title
+    while IFS='|' read -r _ sess _ _ _ title; do
         (( ${#title} > maxlen_title )) && maxlen_title=${#title}
-    done <<< "$sessions"
-    (( maxlen > 50 )) && maxlen=50
+    done <<< "$raw"
     (( maxlen_title > 25 )) && maxlen_title=25
 
-    local current_session
+    local current_session now
     current_session=$(tmux display-message -p '#{session_name}' 2>/dev/null)
+    now=$(date +%s)
 
     local rows
     rows=$(mktemp)
-    trap 'rm -f "$rows"' EXIT
+    # Expand $rows at trap-registration time, not at trap-fire time: the
+    # local var is out of scope when EXIT fires, and `set -u` would error
+    # on the unset reference. Double quotes around the trap body do that.
+    trap "rm -f '$rows'" EXIT
 
-    local activity status summary marker padded padded_title title_col win
-    while IFS='|' read -r activity name; do
-        status=$(session_status "$name")
-        summary=$(tmux show-option -qv -t "$name" "@claude_summary" 2>/dev/null)
-        summary=$(printf '%s' "$summary" | cut -c1-80)
+    local activity name started waiting summary status marker padded padded_title title_col start tail next visible
+    local pad_tail
+    while IFS='|' read -r activity name started waiting summary title; do
+        session_status "$started" "$waiting" "$now"; status=$REPLY
+        # Truncate / sanitize without subshells. Newlines (rare but possible
+        # in summary content) become spaces so they don't break our row.
+        summary="${summary//$'\n'/ }"
+        summary="${summary:0:80}"
+        # Leading-ellipsis truncation: keep the distinctive suffix of the
+        # session name (e.g. ".../storefront-apps-product-catalog-omni"
+        # → "…product-catalog-omni"). Common path prefixes drop off naturally.
+        # After cutting to the budget, advance past the first dash/underscore
+        # so the result starts at a clean word boundary instead of mid-syllable
+        # ("…ps-product-..." → "…product-..."). Skip the advance if it would
+        # leave fewer than 4 visible chars (rare; pathological names).
+        # Left-aligned now that the name column sits in the middle of the row.
+        # We pad with explicit spaces (not printf's %-Ns) because "…" is 3
+        # bytes / 1 display cell and printf would otherwise leave truncated
+        # rows one cell short of the column boundary.
         if (( ${#name} > maxlen )); then
-            padded="${name:0:$((maxlen-1))}…"
+            start=$((${#name} - (maxlen - 1)))
+            tail="${name:$start}"
+            next="${tail#*[-_.]}"
+            if [ "$next" != "$tail" ] && (( ${#next} >= 4 )); then
+                tail="$next"
+            fi
+            visible=$((1 + ${#tail}))
+            if (( visible < maxlen )); then
+                printf -v pad_tail "%*s" $((maxlen - visible)) ""
+                padded="…${tail}${pad_tail}"
+            else
+                padded="…${tail}"
+            fi
         else
-            padded=$(printf "%${maxlen}s" "$name")
+            printf -v padded "%-${maxlen}s" "$name"
         fi
         if [ "$name" = "$current_session" ]; then
             marker="${CYAN}●${RESET}"
@@ -145,31 +202,35 @@ main() {
         # Optional title column. Left-aligned (titles are phrases, not paths)
         # and only included when at least one session has a title — otherwise
         # the column collapses to nothing instead of leaving dead whitespace.
+        # $title comes from the batched list-sessions read above — no extra
+        # tmux call needed.
         if (( maxlen_title > 0 )); then
-            title=$(tmux show-option -qv -t "$name" "@claude_title" 2>/dev/null)
             if (( ${#title} > maxlen_title )); then
                 padded_title="${title:0:$((maxlen_title-1))}…"
             else
-                padded_title=$(printf "%-${maxlen_title}s" "$title")
+                printf -v padded_title "%-${maxlen_title}s" "$title"
             fi
             title_col="  ${padded_title}"
         else
             title_col=""
         fi
-        win=$(claude_window "$name")
-        # Tab-delimited fields: 1=session_name, 2=window_id, 3=display row.
-        # fzf shows field 3 only (--with-nth=3..) and uses field 2 for preview.
-        printf '%s\t%s\t%s%s  %s  %s  %s\n' "$name" "$win" "$padded" "$title_col" "$marker" "$status" "$summary" >> "$rows"
-    done <<< "$sessions"
+        # Tab-delimited fields: 1=session_name, 2=display row.
+        # fzf shows field 2 only (--with-nth=2..) and uses field 1 for both
+        # the preview target (capture-pane -t SESSION) and the final switch.
+        # Row layout: status (22 cells) | marker | name (≤24) | title (opt) | summary.
+        # Status sits on the left so the most actionable info (waiting!/working)
+        # hits the eye first — folder names move to the middle.
+        printf '%s\t%s  %s  %s%s  %s\n' "$name" "$status" "$marker" "$padded" "$title_col" "$summary" >> "$rows"
+    done <<< "$raw"
 
     local selected
     selected=$(fzf \
         --ansi \
         --no-sort \
         --delimiter=$'\t' \
-        --with-nth=3.. \
-        --preview="tmux capture-pane -e -p -t {2} -S -200" \
-        --preview-window='right,50%,wrap' \
+        --with-nth=2.. \
+        --preview="tmux capture-pane -e -p -t {1} -S -200" \
+        --preview-window='down,40%,wrap' \
         --header='enter: switch session | esc: cancel' \
         --prompt='claude session > ' \
         < "$rows")
