@@ -33,10 +33,13 @@ reads the JSON payload from stdin.
 
 | Event              | Status icon          | Side effect                          |
 |--------------------|----------------------|--------------------------------------|
-| `UserPromptSubmit` | `⚡ working (00:00)` | stamps `started_at`, stores prompt   |
-| `PreToolUse`       | `⚡ working (MM:SS)` | recomputes elapsed off `started_at`  |
-| `Notification`     | `⏸ waiting! (00:00)` | clears `started_at`, stamps `waiting_since`, stores last assistant text |
-| `Stop`             | `✅ done (MM:SS)`    | clears both timers, stores last assistant text |
+| `UserPromptSubmit` | `⚡ working (00:00)` (yellow) | stamps `started_at`, stores prompt |
+| `PreToolUse`       | `⚡ working (MM:SS)` (yellow) | recomputes elapsed off `started_at` |
+| `Notification`     | `⏸ waiting! (00:00)` (red,bold,reverse) | clears `started_at`, stamps `waiting_since`, stores last assistant text |
+| `Stop`             | `✅ done (MM:SS)` (green,bold) | clears both timers, stores last assistant text |
+
+Each status string is right-padded to ~22 visible cells (after `#[default]`)
+so rows align inside `choose-tree`.
 
 It bails early if `$TMUX` / `$TMUX_PANE` aren't set (script ran outside tmux).
 
@@ -53,6 +56,23 @@ overwrites `@claude_status` with the freshly formatted timer. The
 `prefix + s` binding runs it synchronously via `run-shell` *before*
 `choose-tree`, so the tree opens with current values.
 
+### Age-based color tiers for waiting
+
+The refresh script re-styles waiting entries by how long they've been waiting,
+so the eye triages them pre-attentively without reading the timer:
+
+| Age          | Style              | Label       | Meaning                          |
+|--------------|--------------------|-------------|----------------------------------|
+| `< 5 min`    | red,bold,reverse   | `waiting!`  | fresh — needs you now            |
+| `< 1 h`      | red,bold           | `waiting!`  | recent — still active            |
+| `< 24 h`     | yellow             | `waiting`   | stale — probably drifted         |
+| `24h–48h`    | colour240 (dim)    | `waiting`   | dying — likely forgotten         |
+| `≥ 48 h`     | (entry cleared)    | —           | zombie — hooks never fired Stop  |
+
+Zombies are wiped via `tmux set-option ""` on both window and session levels
+(plus `@claude_waiting_since` and `@claude_summary`) so they reduce to a
+single `·` row in the picker — no stale 297h waits cluttering triage.
+
 ### Why it iterates windows, not sessions
 
 Tmux resolves user options in session-format context (`choose-tree -s`,
@@ -64,16 +84,45 @@ window level (e.g. `(00:00)` from `Notification`).
 
 ## Display format
 
-`prefix + s` opens:
+`prefix + s` opens the full session list; `prefix + S` opens the same list
+filtered to sessions where Claude is waiting on input:
 
 ```
 bind s run-shell "~/.dotfiles/bin/tmux-claude-refresh-status" \; \
-    choose-tree -Zs -F "#{?session_attached,*,} #{session_name}  #{@claude_status}#{?@claude_summary, — #{@claude_summary},}"
+    choose-tree -Zs -O time \
+        -F "#{?session_attached,#[fg=cyan]●#[default],·} #{@claude_status}#{?@claude_summary,  #{=60:@claude_summary},}"
+
+bind S run-shell "~/.dotfiles/bin/tmux-claude-refresh-status" \; \
+    choose-tree -Zs -O time \
+        -f "#{m:*waiting*,#{@claude_status}}" \
+        -F "#{?session_attached,#[fg=cyan]●#[default],·} #{@claude_status}#{?@claude_summary,  #{=60:@claude_summary},}"
 ```
 
-Each row: `* session_name  ⚡ working (01:23) — last prompt or reply`.
+Row layout (after tmux's `session-name:` tree label, which `-F` can't replace):
 
-Elapsed format: `MM:SS` under an hour, `Xh Ym` beyond.
+```
+●/·  ⏸ waiting! (01:23)        last prompt or reply truncated to 60 chars
+└─┬┘ └────────┬────────┘└─┬┘   └────────────────────┬────────────────────┘
+  │           │           │                          │
+  │           │           padding (variable)         summary
+  │           status (22 cells visible)
+  attached marker
+```
+
+- `●` (cyan) marks the attached session, `·` marks detached.
+- `-O time` sorts by last activity → freshly active sessions float to the top.
+- `-f "#{m:*waiting*,#{@claude_status}}"` (only on `bind S`) filters to rows
+  whose `@claude_status` matches `*waiting*`.
+- Elapsed format: `MM:SS` under an hour, `Xh Ym` beyond.
+
+### Known limit: cross-row column alignment
+
+`choose-tree` prepends `session_name:` to every row and there is no flag to
+suppress it. Session names of different lengths therefore start the format
+output at different X positions, so columns don't line up across rows. The
+status block itself is fixed-width (22 cells) and color-coded so within-row
+scanning works fine — but for true grid alignment we'd need to replace
+`choose-tree` with a custom picker (see `tmux-claude-picker.TODO.md`).
 
 ## Adding the hooks (Claude Code side)
 
