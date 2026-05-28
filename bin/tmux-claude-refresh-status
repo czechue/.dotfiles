@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 #
-# Recompute live elapsed time on @claude_status for every tmux session.
+# Recompute live elapsed time on @claude_status for every claude window.
 # Tmux's format strings have no "current time" variable, so we precompute
 # the timer here and stamp it into the option right before choose-tree
 # reads it.
 #
+# Iterates windows (not sessions): tmux's session-format resolution walks
+# through the session's active window for user options, so a stale window
+# value would mask a freshly-written session value. We update both levels
+# to match how tmux-claude-status writes them.
+#
 # Reads @claude_started_at (working) and @claude_waiting_since (waiting).
-# Skips sessions where neither is set (done / never-touched / not claude).
+# Skips windows where neither is set (done / never-touched / not claude).
 
 set -u
 
@@ -21,16 +26,17 @@ format_elapsed() {
     fi
 }
 
-# Pipe-separated (tab IFS collapses adjacent empty fields in bash read).
-while IFS='|' read -r session started_at waiting_since; do
-    [ -n "$session" ] || continue
+while IFS='|' read -r session window_id started_at waiting_since; do
+    [ -n "$session" ] && [ -n "$window_id" ] || continue
     if [ -n "$started_at" ]; then
         elapsed=$((now - started_at))
-        tmux set-option -t "$session" "@claude_status" \
-            "#[fg=yellow]⚡ working#[default] ($(format_elapsed "$elapsed"))" 2>/dev/null
+        status="#[fg=yellow]⚡ working#[default] ($(format_elapsed "$elapsed"))"
     elif [ -n "$waiting_since" ]; then
         elapsed=$((now - waiting_since))
-        tmux set-option -t "$session" "@claude_status" \
-            "#[fg=red,bold]⏸ waiting!#[default] ($(format_elapsed "$elapsed"))" 2>/dev/null
+        status="#[fg=red,bold]⏸ waiting!#[default] ($(format_elapsed "$elapsed"))"
+    else
+        continue
     fi
-done < <(tmux list-sessions -F '#{session_name}|#{@claude_started_at}|#{@claude_waiting_since}' 2>/dev/null)
+    tmux set-option -w -t "$window_id" "@claude_status" "$status" 2>/dev/null
+    tmux set-option    -t "$session"   "@claude_status" "$status" 2>/dev/null
+done < <(tmux list-windows -a -F '#{session_name}|#{window_id}|#{@claude_started_at}|#{@claude_waiting_since}' 2>/dev/null)
