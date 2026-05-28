@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+#
+# tmux-claude-picker — fzf-based session picker for Claude Code sessions.
+#
+# Alternative to `prefix s` choose-tree that gives:
+#   - True column alignment (right-padded session names → all subsequent
+#     columns line up across rows; choose-tree can't do this because it
+#     hard-codes a variable-width "session_name:" prefix)
+#   - Live preview pane showing the recent output of the session's claude
+#     window (or active window if no claude pane in the session)
+#   - Same age-tier coloring as choose-tree, rendered in ANSI so fzf can
+#     display it directly (independent of @claude_status's tmux-format syntax)
+#
+# Reads the same source-of-truth tmux options that tmux-claude-status writes:
+#   @claude_started_at / @claude_waiting_since / @claude_summary
+# Does NOT read @claude_status — recomputes the styled string here in ANSI.
+# This means the picker keeps working even if the choose-tree status format
+# is changed independently.
+#
+# Wired into tmux via (additive, not replacing prefix s / prefix S):
+#   bind C-s display-popup -E -w 90% -h 80% '~/.dotfiles/bin/tmux-claude-picker'
+
+set -u
+
+[ -n "${TMUX:-}" ] || { echo "tmux-claude-picker: not running inside tmux" >&2; exit 1; }
+command -v fzf >/dev/null || { echo "tmux-claude-picker: fzf not in PATH" >&2; exit 1; }
+
+ESC=$'\033'
+RESET="${ESC}[0m"
+CYAN="${ESC}[36m"
+DIM="${ESC}[38;5;240m"
+YELLOW="${ESC}[33m"
+RED_BOLD="${ESC}[31;1m"
+RED_BOLD_REV="${ESC}[31;1;7m"
+GREEN_BOLD="${ESC}[32;1m"
+
+format_elapsed() {
+    local elapsed="$1"
+    if [ "$elapsed" -ge 3600 ]; then
+        printf '%dh %dm' $((elapsed / 3600)) $(((elapsed % 3600) / 60))
+    else
+        printf '%02d:%02d' $((elapsed / 60)) $((elapsed % 60))
+    fi
+}
+
+# Build an ANSI-colored, fixed-width (22 visible cells) status block.
+# Padding goes after the closing paren so trailing whitespace becomes the
+# column gutter, not weird gaps inside the parens.
+build_status() {
+    local color="$1" icon="$2" label="$3" elapsed_secs="$4"
+    local content pad
+    content="${icon} ${label} ($(format_elapsed "$elapsed_secs"))"
+    pad=$((22 - ${#content}))
+    [ "$pad" -lt 0 ] && pad=0
+    printf '%s%s%s%*s' "$color" "$content" "$RESET" "$pad" ''
+}
+
+# Pick the window in $sess that has claude state; fall back to the active
+# window. Used so the preview pane shows the claude pane even if the user
+# left some other window active in that session.
+claude_window() {
+    local sess="$1" win
+    win=$(tmux list-windows -t "$sess" -F '#{window_id}|#{@claude_started_at}|#{@claude_waiting_since}' 2>/dev/null \
+        | awk -F'|' '$2 != "" || $3 != "" {print $1; exit}')
+    if [ -n "$win" ]; then
+        printf '%s' "$win"
+    else
+        tmux display-message -p -t "$sess" '#{window_id}' 2>/dev/null
+    fi
+}
+
+# Determine the ANSI status string for a session. Tiers match
+# tmux-claude-refresh-status so the picker and choose-tree agree on what
+# "fresh / active / stale / dying" mean.
+session_status() {
+    local sess="$1" started_at waiting_since now elapsed
+    started_at=$(tmux show-option -qv -t "$sess" "@claude_started_at" 2>/dev/null)
+    waiting_since=$(tmux show-option -qv -t "$sess" "@claude_waiting_since" 2>/dev/null)
+    now=$(date +%s)
+    if [ -n "$started_at" ]; then
+        elapsed=$((now - started_at))
+        build_status "$YELLOW" '⚡' 'working' "$elapsed"
+    elif [ -n "$waiting_since" ]; then
+        elapsed=$((now - waiting_since))
+        if   [ "$elapsed" -ge 172800 ]; then
+            printf '%*s' 22 ''                                             # zombie → blank column
+        elif [ "$elapsed" -lt 300 ];   then
+            build_status "$RED_BOLD_REV" '⏸' 'waiting!' "$elapsed"
+        elif [ "$elapsed" -lt 3600 ];  then
+            build_status "$RED_BOLD"     '⏸' 'waiting!' "$elapsed"
+        elif [ "$elapsed" -lt 86400 ]; then
+            build_status "$YELLOW"       '⏸' 'waiting'  "$elapsed"
+        else
+            build_status "$DIM"          '⏸' 'waiting'  "$elapsed"
+        fi
+    else
+        printf '%*s' 22 ''                                                 # no claude state → blank column
+    fi
+}
+
+main() {
+    # Refresh tier coloring + clear zombies upstream so our reads are fresh.
+    ~/.dotfiles/bin/tmux-claude-refresh-status 2>/dev/null
+
+    # Sessions sorted by last activity (newest first).
+    local sessions
+    sessions=$(tmux list-sessions -F '#{session_activity}|#{session_name}' 2>/dev/null | sort -rn)
+    [ -n "$sessions" ] || exit 0
+
+    # Right-pad session names to the longest in the list (capped at 50ch so
+    # one absurdly named session doesn't eat the terminal).
+    local maxlen=0 name
+    while IFS='|' read -r _ name; do
+        (( ${#name} > maxlen )) && maxlen=${#name}
+    done <<< "$sessions"
+    (( maxlen > 50 )) && maxlen=50
+
+    local current_session
+    current_session=$(tmux display-message -p '#{session_name}' 2>/dev/null)
+
+    local rows
+    rows=$(mktemp)
+    trap 'rm -f "$rows"' EXIT
+
+    local activity status summary marker padded win
+    while IFS='|' read -r activity name; do
+        status=$(session_status "$name")
+        summary=$(tmux show-option -qv -t "$name" "@claude_summary" 2>/dev/null)
+        summary=$(printf '%s' "$summary" | cut -c1-80)
+        if (( ${#name} > maxlen )); then
+            padded="${name:0:$((maxlen-1))}…"
+        else
+            padded=$(printf "%${maxlen}s" "$name")
+        fi
+        if [ "$name" = "$current_session" ]; then
+            marker="${CYAN}●${RESET}"
+        else
+            marker="${DIM}·${RESET}"
+        fi
+        win=$(claude_window "$name")
+        # Tab-delimited fields: 1=session_name, 2=window_id, 3=display row.
+        # fzf shows field 3 only (--with-nth=3..) and uses field 2 for preview.
+        printf '%s\t%s\t%s  %s  %s  %s\n' "$name" "$win" "$padded" "$marker" "$status" "$summary" >> "$rows"
+    done <<< "$sessions"
+
+    local selected
+    selected=$(fzf \
+        --ansi \
+        --no-sort \
+        --delimiter=$'\t' \
+        --with-nth=3.. \
+        --preview="tmux capture-pane -e -p -t {2} -S -200" \
+        --preview-window='right,50%,wrap' \
+        --header='enter: switch session | esc: cancel' \
+        --prompt='claude session > ' \
+        < "$rows")
+
+    [ -n "$selected" ] || exit 0
+    local target="${selected%%$'\t'*}"
+    tmux switch-client -t "$target"
+}
+
+main "$@"
