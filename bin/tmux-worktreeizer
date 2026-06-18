@@ -1,0 +1,295 @@
+#!/usr/bin/env bash
+#
+# tmux-worktreeizer — fzf-driven git worktree launcher for the tmux/agentic
+# workflow. Sibling to tmux-sessionizer.
+#
+#   prefix W  →  display-popup runs this  →  pick/create a worktree  →  open a
+#               dedicated tmux session in it.
+#
+# Worktrees live as SIBLINGS of the repo:   ../<repo>-<branch-slug>
+# Sessions are named with tmux-sessionizer's convention (basename | tr . _) so
+# they appear in the prefix s / S / C-s claude pickers automatically, and the
+# branch name is stored as @claude_title for an inline label.
+#
+# Picker keys:
+#   enter           open / check out the highlighted worktree-or-branch,
+#                   OR (if the query matches nothing) create a new branch named
+#                   after the query
+#   ctrl-n          create a new branch from the query (prompts if query empty);
+#                   new branches fork from the repo's current HEAD
+#   ctrl-d          remove the highlighted worktree and kill its session
+#                   (refuses your current session; if the worktree is dirty it
+#                   prompts before force-removing — never forces silently)
+#
+# Bash 3.2 compatible (no associative arrays / mapfile) because it runs inside
+# a tmux popup, where `env bash` may resolve to macOS /bin/bash. No `set -e`:
+# fzf cancels (exit 130) and empty greps are handled with explicit checks.
+
+# --- shared tmux helpers (kept in sync with tmux-sessionizer) ----------------
+
+has_session() {
+    tmux list-sessions 2>/dev/null | grep -q "^$1:"
+}
+
+switch_to() {
+    if [[ -z ${TMUX:-} ]]; then
+        tmux attach-session -t "$1"
+    else
+        tmux switch-client -t "$1"
+    fi
+}
+
+# --- pure helpers (unit-tested by bin/tmux-worktree-test) --------------------
+
+# All three use bash parameter expansion (no dirname/basename/tr forks): they run
+# once per selected branch, but build_rows iterates hundreds of branches and the
+# forks added up to ~100s on a big repo.
+
+# Turn a branch name into a filesystem-safe slug ("feature/auth" -> "feature-auth").
+wt_slug() {
+    printf '%s' "${1//\//-}"
+}
+
+# Compute the sibling worktree path for a repo + branch.
+#   wt_path_for /home/u/repo feature/auth  ->  /home/u/repo-feature-auth
+wt_path_for() {
+    local main_root="$1" branch="$2"
+    printf '%s/%s-%s' "${main_root%/*}" "${main_root##*/}" "${branch//\//-}"
+}
+
+# Session name from a worktree path (matches tmux-sessionizer).
+wt_session_name() {
+    local b="${1##*/}"
+    printf '%s' "${b//./_}"
+}
+
+# Create a worktree. mode: existing (default) | new | remote.
+#   existing: check out an existing local branch
+#   new:      create a new branch off HEAD
+#   remote:   create a tracking branch off origin/<branch>
+wt_create() {
+    local main_root="$1" branch="$2" path="$3" mode="${4:-existing}"
+    case "$mode" in
+        new)    git -C "$main_root" worktree add -b "$branch" "$path" ;;
+        remote) git -C "$main_root" worktree add --track -b "$branch" "$path" "origin/$branch" ;;
+        *)      git -C "$main_root" worktree add "$path" "$branch" ;;
+    esac
+}
+
+# --- interactive glue --------------------------------------------------------
+
+pause() {
+    printf '\n[press any key]'
+    read -r -n1 _ 2>/dev/null || true
+}
+
+# Resolve the MAIN worktree root of the repo we're in (works even when invoked
+# from inside a linked worktree). Falls back to fzf-picking a repo when the
+# current directory isn't a git repository. Echoes the path, or returns 1.
+resolve_main_root() {
+    local root picked
+    if root=$(git rev-parse --show-toplevel 2>/dev/null); then
+        git -C "$root" worktree list --porcelain \
+            | awk '/^worktree /{sub(/^worktree /,""); print; exit}'
+        return 0
+    fi
+    picked=$(find ~ ~/personal ~/fourthwall ~/Library/CloudStorage/Dropbox \
+        -maxdepth 1 -mindepth 1 -type d 2>/dev/null | fzf --prompt='repo > ')
+    [[ -z $picked ]] && return 1
+    if ! git -C "$picked" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        printf 'Not a git repository: %s\n' "$picked"
+        pause
+        return 1
+    fi
+    git -C "$picked" worktree list --porcelain \
+        | awk '/^worktree /{sub(/^worktree /,""); print; exit}'
+    return 0
+}
+
+# Create-or-attach a session at a worktree path, tagging it with the branch.
+open_session() {
+    local path="$1" branch="$2" name
+    name=$(wt_session_name "$path")
+    if ! has_session "$name"; then
+        tmux new-session -ds "$name" -c "$path"
+        tmux set-option -t "$name" @claude_title "$branch"
+    fi
+    switch_to "$name"
+}
+
+remove_worktree() {
+    local main_root="$1" path="$2" name cur out ans
+    name=$(wt_session_name "$path")
+    cur=$(tmux display-message -p '#S' 2>/dev/null)
+    if [[ -n $cur && $name == "$cur" ]]; then
+        printf "Refusing to remove the worktree of your current session (%s).\n" "$name"
+        pause
+        return 1
+    fi
+    if ! out=$(git -C "$main_root" worktree remove "$path" 2>&1); then
+        # Dirty worktree: offer a forced removal behind an explicit confirmation
+        # rather than silently discarding work.
+        printf 'git worktree remove failed:\n%s\n\n' "$out"
+        read -r -p 'Force remove? This DISCARDS uncommitted/untracked changes [y/N] ' ans
+        if [[ $ans != [yY]* ]]; then
+            printf 'Aborted — worktree kept.\n'
+            pause
+            return 1
+        fi
+        if ! out=$(git -C "$main_root" worktree remove --force "$path" 2>&1); then
+            printf 'git worktree remove --force failed:\n%s\n' "$out"
+            pause
+            return 1
+        fi
+    fi
+    tmux kill-session -t "$name" 2>/dev/null
+    printf 'Removed worktree %s and session %s.\n' "$path" "$name"
+    pause
+}
+
+# Build the tab-separated fzf rows: KIND<TAB>BRANCH<TAB>PATH<TAB>DISPLAY
+# KIND ∈ wt (existing worktree) | br (local branch) | rem (remote branch)
+build_rows() {
+    local main_root="$1"
+    local porcelain local_branches checked_out local_set
+    local cur_path="" cur_branch="" line b r
+
+    porcelain=$(git -C "$main_root" worktree list --porcelain 2>/dev/null)
+    checked_out=$'\n'
+
+    _flush() {
+        [[ -z $cur_path ]] && return
+        local bb="${cur_branch:-(detached)}" tag=""
+        [[ $cur_path == "$main_root" ]] && tag=" (main)"
+        printf 'wt\t%s\t%s\t  %s%s   [%s]\n' "$bb" "$cur_path" "$bb" "$tag" "$cur_path"
+        [[ -n $cur_branch ]] && checked_out="$checked_out$cur_branch"$'\n'
+        cur_path=""; cur_branch=""
+    }
+
+    while IFS= read -r line; do
+        case "$line" in
+            "worktree "*)          _flush; cur_path="${line#worktree }" ;;
+            "branch refs/heads/"*) cur_branch="${line#branch refs/heads/}" ;;
+        esac
+    done <<<"$porcelain"
+    _flush
+
+    local_branches=$(git -C "$main_root" for-each-ref --format='%(refname:short)' refs/heads 2>/dev/null)
+    local_set=$'\n'"$local_branches"$'\n'
+
+    # br/rem rows leave PATH (field 3) empty — it's computed lazily for the ONE
+    # selected branch in main(). Membership tests use pure-builtin glob matches
+    # against newline-delimited sets (no per-branch grep fork). Both matter:
+    # storefront-apps has ~1600 branches, and forking here cost ~100s.
+    while IFS= read -r b; do
+        [[ -z $b ]] && continue
+        [[ $checked_out == *$'\n'"$b"$'\n'* ]] && continue
+        printf 'br\t%s\t\t  %s\n' "$b" "$b"
+    done <<<"$local_branches"
+
+    while IFS= read -r r; do
+        [[ -z $r || $r == "origin/HEAD" ]] && continue
+        b="${r#origin/}"
+        [[ $local_set == *$'\n'"$b"$'\n'* ]] && continue
+        printf 'rem\t%s\t\t  %s   (remote)\n' "$b" "$b"
+    done <<<"$(git -C "$main_root" for-each-ref --format='%(refname:short)' refs/remotes/origin 2>/dev/null)"
+}
+
+# Create a worktree for $branch in $mode, surfacing git errors, then open it.
+create_and_open() {
+    local main_root="$1" branch="$2" path="$3" mode="$4" out
+    if ! out=$(wt_create "$main_root" "$branch" "$path" "$mode" 2>&1); then
+        printf 'git worktree add failed:\n%s\n' "$out"
+        pause
+        return 1
+    fi
+    open_session "$path" "$branch"
+}
+
+diagnose() {
+    # Shown instead of an empty picker so a misbehaving session explains itself.
+    printf 'tmux-worktreeizer: nothing to show — diagnostics:\n'
+    printf '  pane cwd:      %s\n' "$PWD"
+    printf '  git:           %s (%s)\n' "$(command -v git || echo 'NOT FOUND')" "$(git --version 2>&1)"
+    printf '  fzf:           %s\n' "$(command -v fzf || echo 'NOT FOUND')"
+    printf '  show-toplevel: %s\n' "$(git rev-parse --show-toplevel 2>&1)"
+    printf '  main_root:     [%s]\n' "$1"
+    printf '  worktree list: %s\n' "$(git -C "$1" worktree list --porcelain 2>&1 | tr '\n' '|')"
+    pause
+}
+
+main() {
+    local main_root rows out query key row kind branch path name
+    main_root=$(resolve_main_root) || exit 0
+
+    # A valid repo always yields at least the main worktree row. Empty here means
+    # main_root failed to resolve (not a repo / git or fzf missing from the popup
+    # PATH / odd git) — surface it instead of opening an empty fzf.
+    if [[ -z $main_root ]] || ! git -C "$main_root" rev-parse --git-dir >/dev/null 2>&1; then
+        diagnose "$main_root"
+        exit 1
+    fi
+
+    rows=$(build_rows "$main_root")
+    if [[ -z $rows ]]; then
+        diagnose "$main_root"
+        exit 1
+    fi
+
+    out=$(printf '%s\n' "$rows" | fzf \
+        --delimiter=$'\t' --with-nth=4 \
+        --print-query --expect=ctrl-d,ctrl-n \
+        --prompt='worktree > ' \
+        --header='enter: open · ctrl-n: new branch · ctrl-d: remove worktree')
+
+    query=$(sed -n '1p' <<<"$out")
+    key=$(sed -n '2p' <<<"$out")
+    row=$(sed -n '3p' <<<"$out")
+
+    # ctrl-n: explicit new branch from the query (or a prompt).
+    if [[ $key == "ctrl-n" ]]; then
+        branch="$query"
+        if [[ -z $branch ]]; then
+            read -r -p 'New branch name: ' branch
+        fi
+        [[ -z $branch ]] && exit 0
+        path=$(wt_path_for "$main_root" "$branch")
+        create_and_open "$main_root" "$branch" "$path" new
+        exit 0
+    fi
+
+    if [[ -n $row ]]; then
+        IFS=$'\t' read -r kind branch path _ <<<"$row"
+        # br/rem rows carry no path (deferred for speed) — compute it now.
+        [[ -z $path ]] && path=$(wt_path_for "$main_root" "$branch")
+
+        if [[ $key == "ctrl-d" ]]; then
+            if [[ $kind == "wt" ]]; then
+                remove_worktree "$main_root" "$path"
+            else
+                printf 'No worktree to remove for "%s".\n' "$branch"
+                pause
+            fi
+            exit 0
+        fi
+
+        case "$kind" in
+            wt)  open_session "$path" "$branch" ;;
+            br)  create_and_open "$main_root" "$branch" "$path" existing ;;
+            rem) create_and_open "$main_root" "$branch" "$path" remote ;;
+        esac
+        exit 0
+    fi
+
+    # No row matched: enter on a typed query creates a new branch.
+    if [[ -n $query ]]; then
+        path=$(wt_path_for "$main_root" "$query")
+        create_and_open "$main_root" "$query" "$path" new
+    fi
+}
+
+# Only run when executed directly — sourcing (the test harness) just loads the
+# functions above.
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

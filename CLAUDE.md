@@ -16,7 +16,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **ideavim/**: IntelliJ IDEA Vim emulation
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
 - **ghostty/**: Ghostty terminal emulator configuration (Catppuccin Mocha, tmux-only multiplexing)
-- **bin/**: Utility scripts (`tmux-sessionizer` for project switching with fzf)
+- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`) and `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers)
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
 

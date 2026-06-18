@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+# Headless smoke test for tmux-worktreeizer's pure logic. Sources the script
+# (main() is sourcing-guarded, so it won't run) and exercises slug/path/session
+# computation plus real worktree creation in a throwaway repo. tmux & fzf are
+# NOT touched, so this is safe to run anywhere / in CI.
+#
+# Prints the number of FAILED assertions on the last line (0 = all passed),
+# which is what the autoresearch Verify command reads:
+#     bash bin/tmux-worktree-test | tail -1
+
+src="$(cd "$(dirname "$0")" && pwd)/tmux-worktreeizer"
+# shellcheck source=/dev/null
+source "$src"
+
+fails=0
+check() { # $1=desc  $2=expected  $3=actual
+    if [[ "$2" != "$3" ]]; then
+        printf 'FAIL: %s\n  expected: %s\n  actual:   %s\n' "$1" "$2" "$3"
+        fails=$((fails + 1))
+    else
+        printf 'ok: %s\n' "$1"
+    fi
+}
+yesno() { [[ -n $1 ]] && echo yes || echo no; }
+
+# --- pure computation --------------------------------------------------------
+check "slug strips slashes"        "feature-auth"            "$(wt_slug feature/auth)"
+check "slug leaves plain name"     "hotfix"                  "$(wt_slug hotfix)"
+check "path is sibling of repo"    "/home/u/repo-feature-auth" "$(wt_path_for /home/u/repo feature/auth)"
+check "path of plain branch"       "/home/u/repo-hotfix"     "$(wt_path_for /home/u/repo hotfix)"
+check "session name maps dots"     "_dotfiles-foo"           "$(wt_session_name /x/.dotfiles-foo)"
+check "session name plain"         "repo-feature-auth"       "$(wt_session_name /home/u/repo-feature-auth)"
+
+# --- real worktree creation --------------------------------------------------
+tmpd=$(mktemp -d)
+(
+    cd "$tmpd" || exit 1
+    git init -q main
+    cd main || exit 1
+    git -c user.email=t@example.com -c user.name=test commit -q --allow-empty -m init
+    git branch existing
+)
+main_root="$tmpd/main"
+
+# existing local branch
+p=$(wt_path_for "$main_root" existing)
+wt_create "$main_root" existing "$p" existing >/dev/null 2>&1
+check "existing-branch worktree dir created" "yes" "$(yesno "$([[ -d $p ]] && echo x)")"
+# Compare against the canonicalized path: git prints real paths, but mktemp on
+# macOS hands back a /var -> /private/var symlink.
+real_p=$(cd "$p" && pwd -P)
+check "git registers the worktree" "yes" \
+    "$(git -C "$main_root" worktree list --porcelain | grep -qxF "worktree $real_p" && echo yes || echo no)"
+check "existing branch checked out" "existing" "$(git -C "$p" rev-parse --abbrev-ref HEAD)"
+
+# new branch with a slash (slug in path, slash preserved in ref)
+p2=$(wt_path_for "$main_root" feature/new)
+wt_create "$main_root" feature/new "$p2" new >/dev/null 2>&1
+check "new-branch worktree dir created" "yes" "$(yesno "$([[ -d $p2 ]] && echo x)")"
+check "new-branch dir is slugged" "main-feature-new" "$(basename "$p2")"
+check "new branch ref keeps slash" "feature/new" "$(git -C "$p2" rev-parse --abbrev-ref HEAD)"
+
+rm -rf "$tmpd"
+
+printf '\n%s failure(s)\n' "$fails"
+echo "$fails"
