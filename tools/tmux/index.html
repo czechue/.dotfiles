@@ -549,6 +549,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#git-worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Worktrees
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -1087,6 +1096,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#git-worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Worktrees
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -1278,10 +1296,92 @@
 <code>prefix + o</code> overrides tmux's default <code>select-next-pane</code>, which is redundant
 with the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-h">H</kbd></span>/<span class="keys"><kbd class="key-j">J</kbd></span>/<span class="keys"><kbd class="key-k">K</kbd></span>/<span class="keys"><kbd class="key-l">L</kbd></span> navigation.</p>
 <p>See <code>bin/tmux-claude-status.md</code> for the Claude Code status integration.</p>
+<h2 id="git-worktrees">Git Worktrees</h2>
+<p>Spin up a git worktree in its own tmux session for parallel / agentic work —
+each worktree becomes a session that shows up in the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-s">S</kbd></span> Claude picker.
+Backed by <code>bin/tmux-worktreeizer</code>.</p>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-w">W</kbd></span></td>
+<td>Open the worktree launcher (fzf popup)</td>
+<td>Git Worktrees</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The popup lists existing worktrees, local branches, and <code>origin/*</code> branches.
+Inside the popup these are <strong>fzf</strong> keys, not the tmux prefix:</p>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-enter">Enter</kbd></span></td>
+<td>Open / check out the highlighted worktree or branch</td>
+<td>Worktree picker</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-n">N</kbd></span></td>
+<td>Create a new branch from the typed query (forks from current <code>HEAD</code>)</td>
+<td>Worktree picker</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Remove the highlighted worktree and kill its session</td>
+<td>Worktree picker</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>How it fits the workflow:</strong></p>
+<ul>
+<li>Worktrees are created as <strong>siblings</strong> of the repo: <code>../&lt;repo&gt;-&lt;branch&gt;</code> (a branch
+  like <code>feature/auth</code> is slugged to <code>feature-auth</code> for the directory name).</li>
+<li>The new session is named like <code>tmux-sessionizer</code> (<code>basename | tr . _</code>), so it
+  appears in the <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-s">S</kbd></span> / <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-s">S</kbd></span> Claude pickers automatically,
+  with the branch shown as a blue <code>@claude_title</code> label.</li>
+<li>Works from inside a linked worktree too (it walks up to the main worktree). Run
+  it outside any repo and it falls back to fuzzy-picking one.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Good to know</p>
+<ul>
+<li><strong>New branches fork from the current <code>HEAD</code></strong> — run <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-w">W</kbd></span> from
+  your default-branch session for the usual "fresh branch off main" behaviour.</li>
+<li><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-d">D</kbd></span> on a <strong>dirty</strong> worktree prompts before force-removing (it discards
+  uncommitted/untracked changes — explicit <code>y</code> required, never silent); it
+  never touches the worktree of the session you're currently in.</li>
+<li>Long worktree session names can overflow the name column in the
+  <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-s">S</kbd></span> tree view — see <code>tmux/TODO.md</code>.</li>
+</ul>
+</div>
+<p><strong>Typical flow:</strong></p>
+<ol>
+<li><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-f">F</kbd></span> into a repo session.</li>
+<li><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-w">W</kbd></span>, type a branch name, <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-n">N</kbd></span> → new worktree + session.</li>
+<li>Work in it / launch your coding agent there.</li>
+<li><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-s">S</kbd></span> to hop between worktree sessions by their branch labels.</li>
+<li><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-w">W</kbd></span> → <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-d">D</kbd></span> to tear a worktree down when finished.</li>
+</ol>
 <h2 id="references">References</h2>
 <ul>
 <li><strong>Config</strong>: <code>tmux/.tmux.conf</code></li>
-<li><strong>Scripts</strong>: <code>bin/tmux-sessionizer</code></li>
+<li><strong>Scripts</strong>: <code>bin/tmux-sessionizer</code>, <code>bin/tmux-worktreeizer</code></li>
 </ul>
 
 
