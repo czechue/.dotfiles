@@ -86,6 +86,7 @@ Available in: Neovim, Cursor, IdeaVim
 |------|----------|--------|
 | **Neovim** | ++space+g+g++ | LazyGit |
 | **tmux** | ++ctrl+b+shift+g++ | LazyGit popup |
+| **tmux** | ++ctrl+b+shift+w++ | Git worktree launcher (create / switch / remove in its own session) |
 | **Neovim** | ++space+g+w+s++ | Git worktree switch |
 | **Neovim** | ++space+g+w+c++ | Git worktree create |
 
@@ -136,6 +137,7 @@ Use the search box below to find shortcuts across all tools:
 | ++space+s+f++ | Go to file | IdeaVim | Search |
 | ++space+g+g++ | LazyGit | Neovim | Git |
 | ++ctrl+b+shift+g++ | LazyGit popup | tmux | Git |
+| ++ctrl+b+shift+w++ | Git worktree launcher | tmux | Git Worktrees |
 | ++ctrl+f++ | tmux-sessionizer | Multiple | Project Switching |
 | ++alt+1++ through ++alt+9++ | Switch workspace | AeroSpace | Workspace |
 | ++1++ through ++9++ | Switch tab | yazi | Tabs |

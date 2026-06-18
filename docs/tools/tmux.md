@@ -86,7 +86,61 @@ with the ++ctrl+b+h++/++j++/++k++/++l++ navigation.
 
 See `bin/tmux-claude-status.md` for the Claude Code status integration.
 
+## Git Worktrees
+
+Spin up a git worktree in its own tmux session for parallel / agentic work —
+each worktree becomes a session that shows up in the ++ctrl+b+s++ Claude picker.
+Backed by `bin/tmux-worktreeizer`.
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++ctrl+b+shift+w++ | Open the worktree launcher (fzf popup) | Git Worktrees |
+
+</div>
+
+The popup lists existing worktrees, local branches, and `origin/*` branches.
+Inside the popup these are **fzf** keys, not the tmux prefix:
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++enter++ | Open / check out the highlighted worktree or branch | Worktree picker |
+| ++ctrl+n++ | Create a new branch from the typed query (forks from current `HEAD`) | Worktree picker |
+| ++ctrl+d++ | Remove the highlighted worktree and kill its session | Worktree picker |
+
+</div>
+
+**How it fits the workflow:**
+
+- Worktrees are created as **siblings** of the repo: `../<repo>-<branch>` (a branch
+  like `feature/auth` is slugged to `feature-auth` for the directory name).
+- The new session is named like `tmux-sessionizer` (`basename | tr . _`), so it
+  appears in the ++ctrl+b+s++ / ++ctrl+b+shift+s++ Claude pickers automatically,
+  with the branch shown as a blue `@claude_title` label.
+- Works from inside a linked worktree too (it walks up to the main worktree). Run
+  it outside any repo and it falls back to fuzzy-picking one.
+
+!!! note "Good to know"
+    - **New branches fork from the current `HEAD`** — run ++ctrl+b+shift+w++ from
+      your default-branch session for the usual "fresh branch off main" behaviour.
+    - ++ctrl+d++ on a **dirty** worktree prompts before force-removing (it discards
+      uncommitted/untracked changes — explicit `y` required, never silent); it
+      never touches the worktree of the session you're currently in.
+    - Long worktree session names can overflow the name column in the
+      ++ctrl+b+s++ tree view — see `tmux/TODO.md`.
+
+**Typical flow:**
+
+1. ++ctrl+f++ into a repo session.
+2. ++ctrl+b+shift+w++, type a branch name, ++ctrl+n++ → new worktree + session.
+3. Work in it / launch your coding agent there.
+4. ++ctrl+b+s++ to hop between worktree sessions by their branch labels.
+5. ++ctrl+b+shift+w++ → ++ctrl+d++ to tear a worktree down when finished.
+
 ## References
 
 - **Config**: `tmux/.tmux.conf`
-- **Scripts**: `bin/tmux-sessionizer`
+- **Scripts**: `bin/tmux-sessionizer`, `bin/tmux-worktreeizer`
