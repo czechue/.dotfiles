@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Wrapper around `hunk` that filters the Bun startup warning about missing
+# AVX support. The warning is emitted on every invocation on this machine's
+# pre-AVX CPU and would otherwise clutter the tmux popup; hunk itself runs
+# fine in practice.
+hunk "$@" 2> >(grep -vE 'CPU lacks AVX|bun-darwin-x64-baseline' >&2)
