@@ -867,6 +867,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#base-layers-switching-glorious-engrammer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Layers &amp; Switching (Glorious Engrammer)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#qwerty-layer" class="md-nav__link">
     <span class="md-ellipsis">
       QWERTY Layer
@@ -1030,6 +1039,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#base-layers-switching-glorious-engrammer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Layers &amp; Switching (Glorious Engrammer)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#qwerty-layer" class="md-nav__link">
     <span class="md-ellipsis">
       QWERTY Layer
@@ -1108,8 +1126,67 @@
 
 
 <h1 id="glove80-keyboard">Glove80 Keyboard</h1>
-<p>The MoErgo Glove80 is a split ergonomic keyboard with 80 keys, powered by ZMK firmware. This configuration uses a simplified 4-layer setup optimized for development work.</p>
-<p><strong>Keymap File</strong>: <code>glove80/glove80-simple.keymap</code></p>
+<p>The MoErgo Glove80 is a split ergonomic keyboard with 80 keys, powered by ZMK firmware.</p>
+<p><strong>Active Firmware</strong>: Sunaku's <strong>"Glorious Engrammer" v39</strong> — <code>glove80/6a07687d-05b1-435a-a72e-dfc92a217194_Glorious Engrammer v39 (new system layer)_1.keymap</code></p>
+<p>The layer visualizations below document the older simplified 4-layer keymap (<code>glove80/glove80-simple.keymap</code>). The Glorious Engrammer firmware adds multiple switchable <strong>base layers</strong> on top of QWERTY — see the next section.</p>
+<hr />
+<h2 id="base-layers-switching-glorious-engrammer">Base Layers &amp; Switching (Glorious Engrammer)</h2>
+<p>The Glorious Engrammer firmware ships <strong>9 base layers</strong>. You switch between them by <strong>holding the Magic key</strong> (the outermost key in the bottom-left corner of the left half — the one with the MoErgo glyph; mirrored in the bottom-right corner of the right half) and <strong>pressing a key in the number row</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Magic + key</th>
+<th>Base layer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-equal">=</kbd></span> (left of <span class="keys"><kbd class="key-1">1</kbd></span>)</td>
+<td><strong>QWERTY</strong> (default)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-1">1</kbd></span></td>
+<td>Enthium</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-2">2</kbd></span></td>
+<td>Engrammer</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-3">3</kbd></span></td>
+<td>Engram</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-4">4</kbd></span></td>
+<td>Dvorak</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-5">5</kbd></span></td>
+<td>ColemakDHm</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-6">6</kbd></span></td>
+<td>Colemak</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-7">7</kbd></span></td>
+<td>Norman</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-8">8</kbd></span></td>
+<td>Workman</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Typing <code>qwerty</code> prints <code>byou'\"</code>? You're on the Engram layer</p>
+<p>If pressing the physical keys <span class="keys"><kbd class="key-q">Q</kbd></span> <span class="keys"><kbd class="key-w">W</kbd></span> <span class="keys"><kbd class="key-e">E</kbd></span> <span class="keys"><kbd class="key-r">R</kbd></span> <span class="keys"><kbd class="key-t">T</kbd></span> <span class="keys"><kbd class="key-y">Y</kbd></span> produces <code>byou'"</code>, the keyboard
+has switched to the <strong>Engram</strong> base layer (its top letter row is <code>b y o u ' "</code>). This happens by
+accidentally holding <strong>Magic</strong> and hitting <span class="keys"><kbd class="key-3">3</kbd></span>.</p>
+<p><strong>Fix</strong>: hold <strong>Magic</strong> and press <span class="keys"><kbd class="key-equal">=</kbd></span> (the leftmost key in the number row, left of <span class="keys"><kbd class="key-1">1</kbd></span>)
+to return to <strong>QWERTY</strong>. Alternatively, power-cycle the keyboard — the base layer switch (<code>&amp;to</code>)
+is not persisted, so it always boots back into QWERTY (layer 0).</p>
+</div>
 <hr />
 <h2 id="qwerty-layer">QWERTY Layer</h2>
 <p><img alt="QWERTY Layer" src="../qwerty.svg" /></p>
@@ -1192,7 +1269,8 @@ git push  # Triggers GitHub Actions deployment</code></p>
 <h2 id="references">References</h2>
 <ul>
 <li><strong>Config</strong>: <code>.dotfiles/glove80/</code></li>
-<li><strong>Keymap File</strong>: <code>glove80-simple.keymap</code></li>
+<li><strong>Active Keymap</strong>: <code>6a07687d-05b1-435a-a72e-dfc92a217194_Glorious Engrammer v39 (new system layer)_1.keymap</code> (<a href="https://sunaku.github.io/moergo-glove80-keyboard.html">Glorious Engrammer</a>)</li>
+<li><strong>Legacy Keymap</strong> (visualizations below): <code>glove80-simple.keymap</code></li>
 <li><strong>Style Config</strong>: <code>glove80/config.yaml</code> (minimal config with default styles)</li>
 <li><strong>Visualization</strong>: Generated with keymap-drawer v0.22.1 (default light theme)</li>
 <li><strong>Official Layout Editor</strong>: <a href="https://my.glove80.com">my.glove80.com</a></li>
