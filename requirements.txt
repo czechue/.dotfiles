@@ -1,3 +1,3 @@
 mkdocs-material==9.5.3
-pymdown-extensions==10.7
+pymdown-extensions==10.21.3
 keymap-drawer==0.22.1

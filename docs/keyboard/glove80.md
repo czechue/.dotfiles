@@ -24,7 +24,7 @@ The Glorious Engrammer firmware ships **9 base layers**. You switch between them
 | ++7++ | Norman |
 | ++8++ | Workman |
 
-!!! warning "Typing `qwerty` prints `byou'\"`? You're on the Engram layer"
+!!! warning "Typing `qwerty` prints `byou'`…? You're on the Engram layer"
 
     If pressing the physical keys ++q++ ++w++ ++e++ ++r++ ++t++ ++y++ produces `byou'"`, the keyboard
     has switched to the **Engram** base layer (its top letter row is `b y o u ' "`). This happens by
