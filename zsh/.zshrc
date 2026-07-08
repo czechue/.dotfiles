@@ -17,7 +17,9 @@ source /usr/local/share/chruby/chruby.sh
 alias air='$(go env GOPATH)/bin/air'
 alias vim='nvim'
 
-export PATH="/usr/local/bin:$PATH"
+# Removed: this forced Intel /usr/local/bin ahead of arm64 /opt/homebrew/bin,
+# shadowing native arm64 tools (e.g. tmux). /usr/local/bin is still on PATH via ~/.zprofile.
+# export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 bindkey -s '^F' "tmux-sessionizer\n"
@@ -261,3 +263,4 @@ alias gemini="NODE_NO_WARNINGS=1 gemini"
 
 # bun completions
 [ -s "/Users/michallester/.bun/_bun" ] && source "/Users/michallester/.bun/_bun"
+ export PATH="$HOME/.docker/bin:$PATH"
