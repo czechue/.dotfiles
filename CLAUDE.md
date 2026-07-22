@@ -16,7 +16,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **ideavim/**: IntelliJ IDEA Vim emulation
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
 - **ghostty/**: Ghostty terminal emulator configuration (Catppuccin Mocha, tmux-only multiplexing)
-- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`) and `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers)
+- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
 
@@ -39,6 +39,7 @@ ln -sf ~/.dotfiles/yazi ~/.config/yazi
 ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
 ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 ln -sf ~/.dotfiles/ghostty/config ~/.config/ghostty/config
+ln -sf ~/.dotfiles/bin/git-open ~/bin/git-open
 ```
 
 ### Reloading Configurations
