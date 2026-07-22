@@ -803,6 +803,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#git-recent" class="md-nav__link">
+    <span class="md-ellipsis">
+      git recent
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1060,6 +1069,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#git-recent" class="md-nav__link">
+    <span class="md-ellipsis">
+      git recent
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1152,6 +1170,36 @@
 </tbody>
 </table>
 <p>Works with GitHub, GitLab (including self-hosted), Bitbucket, Azure DevOps, Gitea, and more.</p>
+<h3 id="git-recent">git recent</h3>
+<p>Interactive fzf picker over recently edited local branches — the branch-switching companion to <code>tmux-sessionizer</code>. Requires <code>fzf</code>.</p>
+<p>Vendored from <a href="https://github.com/paulirish/git-recent">paulirish/git-recent</a> (MIT).</p>
+<table>
+<thead>
+<tr>
+<th>Command / Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git recent</code></td>
+<td>Open the fzf picker: branches sorted by last commit date, preview shows each branch's unique commits vs main</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-enter">Enter</kbd></span></td>
+<td>Checkout the selected branch — or <strong>jump to its worktree</strong> if it's checked out elsewhere</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-o">O</kbd></span></td>
+<td>Show the full diff of the selected branch against main/master (uses <code>delta</code>/<code>diff-so-fancy</code> if installed)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span></td>
+<td>Exit without switching</td>
+</tr>
+</tbody>
+</table>
+<p>Type to fuzzy-filter branch names. Note: <code>git recent --help</code> won't work (git intercepts <code>--help</code> to look for a man page) — use <code>git-recent --help</code> instead.</p>
 <h2 id="adding-a-new-git-script">Adding a New Git Script</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Create (or vendor) the script</span>
 <span class="nv">$EDITOR</span><span class="w"> </span>~/.dotfiles/bin/git-myscript
