@@ -39,6 +39,21 @@ Vendored from [paulirish/git-open](https://github.com/paulirish/git-open) (MIT).
 
 Works with GitHub, GitLab (including self-hosted), Bitbucket, Azure DevOps, Gitea, and more.
 
+### git recent
+
+Interactive fzf picker over recently edited local branches — the branch-switching companion to `tmux-sessionizer`. Requires `fzf`.
+
+Vendored from [paulirish/git-recent](https://github.com/paulirish/git-recent) (MIT).
+
+| Command / Key | Action |
+|---------------|--------|
+| `git recent` | Open the fzf picker: branches sorted by last commit date, preview shows each branch's unique commits vs main |
+| ++enter++ | Checkout the selected branch — or **jump to its worktree** if it's checked out elsewhere |
+| ++ctrl+o++ | Show the full diff of the selected branch against main/master (uses `delta`/`diff-so-fancy` if installed) |
+| ++ctrl+c++ | Exit without switching |
+
+Type to fuzzy-filter branch names. Note: `git recent --help` won't work (git intercepts `--help` to look for a man page) — use `git-recent --help` instead.
+
 ## Adding a New Git Script
 
 ```bash

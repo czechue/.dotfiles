@@ -40,6 +40,7 @@ ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/Us
 ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 ln -sf ~/.dotfiles/ghostty/config ~/.config/ghostty/config
 ln -sf ~/.dotfiles/bin/git-open ~/bin/git-open
+ln -sf ~/.dotfiles/bin/git-recent ~/bin/git-recent
 ```
 
 ### Reloading Configurations
