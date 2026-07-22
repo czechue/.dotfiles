@@ -54,6 +54,9 @@ Vendored from [paulirish/git-recent](https://github.com/paulirish/git-recent) (M
 
 Type to fuzzy-filter branch names. Note: `git recent --help` won't work (git intercepts `--help` to look for a man page) — use `git-recent --help` instead.
 
+!!! note "Ctrl-O shows a blank pane?"
+    The diff is `origin/HEAD...branch` (merge-base to branch tip). For the currently checked-out branch, a branch already merged into main, or a branch with no merge base (e.g. `gh-pages`), that diff is legitimately empty — the binding works, there's just nothing to show. Test it on a branch with unmerged commits.
+
 ## Adding a New Git Script
 
 ```bash
