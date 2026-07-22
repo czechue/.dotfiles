@@ -1200,6 +1200,10 @@
 </tbody>
 </table>
 <p>Type to fuzzy-filter branch names. Note: <code>git recent --help</code> won't work (git intercepts <code>--help</code> to look for a man page) — use <code>git-recent --help</code> instead.</p>
+<div class="admonition note">
+<p class="admonition-title">Ctrl-O shows a blank pane?</p>
+<p>The diff is <code>origin/HEAD...branch</code> (merge-base to branch tip). For the currently checked-out branch, a branch already merged into main, or a branch with no merge base (e.g. <code>gh-pages</code>), that diff is legitimately empty — the binding works, there's just nothing to show. Test it on a branch with unmerged commits.</p>
+</div>
 <h2 id="adding-a-new-git-script">Adding a New Git Script</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Create (or vendor) the script</span>
 <span class="nv">$EDITOR</span><span class="w"> </span>~/.dotfiles/bin/git-myscript
