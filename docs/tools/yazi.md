@@ -4,6 +4,36 @@ Terminal file manager with vim-style navigation and DuckDB plugin for CSV previe
 
 **Configuration**: `yazi/keymap.toml`
 
+## Launching yazi
+
+### From the terminal (tmux)
+
+Use the `y` wrapper function (defined in `zsh/.zshrc`) instead of calling `yazi` directly:
+
+```bash
+y            # open yazi in the current directory
+y ~/projects # open yazi in a specific directory
+```
+
+The wrapper passes `--cwd-file` to yazi, so when you quit (++q++) the shell **cd-s into the directory you navigated to**. Quit with ++shift+q++ to exit without changing the shell's directory. It works in any terminal pane, including tmux — no dedicated tmux keybinding is needed.
+
+Pressing ++enter++ or ++o++ on a text file opens it **in nvim** (via the `edit` opener in `yazi/yazi.toml`, `block = true`) — quit nvim to return to yazi. ++shift+enter++ / ++shift+o++ shows an interactive picker (nvim / Open / Reveal in Finder) instead.
+
+### From Neovim
+
+The [yazi.nvim](https://github.com/mikavilpas/yazi.nvim) plugin (configured in `nvim/.config/nvim/lua/custom/plugins/init.lua`) opens yazi in a floating window:
+
+<div class="shortcuts-table" markdown>
+
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| ++space+e++ | Open yazi at the current file | Neovim |
+| ++space+shift+e++ | Open yazi in the working directory | Neovim |
+
+</div>
+
+Selecting a file in yazi opens it in the current Neovim instance. Directories are still handled by Neo-tree (`open_for_directories = false`).
+
 ## Navigation
 
 <div class="shortcuts-table" markdown>
