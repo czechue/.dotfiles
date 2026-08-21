@@ -44,8 +44,20 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Also see: https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
+# Pin 1-9 to the external Dell, 10 to the laptop screen.
+# Patterns match monitor names case-insensitively; when the Dell is
+# disconnected, workspaces fall back to the main (laptop) monitor.
 [workspace-to-monitor-force-assignment]
-1 = 'main'  # Force workspace 1 to main monitor to avoid animations
+1 = 'dell'
+2 = 'dell'
+3 = 'dell'
+4 = 'dell'
+5 = 'dell'
+6 = 'dell'
+7 = 'dell'
+8 = 'dell'
+9 = 'dell'
+10 = 'built-in'
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -136,6 +148,7 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
+alt-0 = 'workspace 10' # laptop screen (see workspace-to-monitor-force-assignment)
 # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
 # alt-b = 'workspace B'
 # alt-c = 'workspace C'
@@ -169,6 +182,7 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
 # alt-shift-a = 'move-node-to-workspace A'
 # alt-shift-b = 'move-node-to-workspace B'
 # alt-shift-c = 'move-node-to-workspace C'
