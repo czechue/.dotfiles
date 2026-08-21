@@ -117,6 +117,42 @@ After pressing ++alt+shift+semicolon++:
 
 </div>
 
+## Troubleshooting
+
+### Hotkeys stop working (e.g. ++alt+1++ does nothing)
+
+If AeroSpace itself is fine but no shortcut responds, macOS **secure input** is
+likely blocking keyboard capture for all apps. Diagnose in this order:
+
+```bash
+# 1. Is the daemon alive and responding?
+pgrep -fl -i aerospace
+aerospace list-modes --current   # should print: main
+
+# 2. Does switching work via CLI? (if yes, only hotkey capture is broken)
+aerospace workspace 1
+
+# 3. Is secure input active, and who holds it?
+ioreg -l -w 0 | grep -o 'kCGSSessionSecureInputPID"=[0-9]*' | sort -u
+ps -p <PID> -o pid,lstart,command
+```
+
+Notes:
+
+- The `ioreg` entry appears **twice** for one session — same PID, one problem.
+- If the holder is `loginwindow`, the *real* culprit is usually some app with a
+  **pending password prompt** hiding in the background — seen in practice with
+  **1Password waiting for the master password** after wake/boot. Keychain, sudo,
+  or VPN prompts can do the same.
+- AeroSpace Accessibility permission can be checked with:
+  `sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" "SELECT client, auth_value FROM access WHERE service='kTCCServiceAccessibility';"`
+  (`bobko.aerospace|2` = allowed).
+
+Fix: find and complete (or dismiss) the pending password prompt — hotkeys
+resume immediately, no AeroSpace restart needed. If nothing is visibly
+prompting, lock the screen (++ctrl+cmd+q++) and unlock **by typing the
+password** (not Touch ID); escalate to logout/login, then reboot.
+
 ## References
 
 - **Config**: `aerospace/.config/aerospace/aerospace.toml`
