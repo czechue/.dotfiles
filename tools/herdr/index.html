@@ -12,13 +12,13 @@
         <meta name="author" content="Michal Lester">
       
       
-        <link rel="canonical" href="https://czechue.github.io/.dotfiles/keyboard/glove80/">
+        <link rel="canonical" href="https://czechue.github.io/.dotfiles/tools/herdr/">
       
       
-        <link rel="prev" href="../../tools/gas-town/">
+        <link rel="prev" href="../tmux/">
       
       
-        <link rel="next" href="../glove80-symbol/">
+        <link rel="next" href="../aerospace/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Glove80 - Dotfiles Keybindings</title>
+        <title>Herdr - Dotfiles Keybindings</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#glove80-keyboard" class="md-skip">
+        <a href="#herdr" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Glove80
+              Herdr
             
           </span>
         </div>
@@ -239,11 +239,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../tools/neovim/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../neovim/" class="md-tabs__link">
           
   
   Tools
@@ -257,13 +259,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../keyboard/glove80/" class="md-tabs__link">
           
   
   Keyboard
@@ -383,8 +383,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -393,14 +395,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -414,7 +414,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Tools
@@ -428,7 +428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/neovim/" class="md-nav__link">
+      <a href="../neovim/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -449,7 +449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/tmux/" class="md-nav__link">
+      <a href="../tmux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -467,10 +467,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../tools/herdr/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Herdr
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -479,6 +499,104 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-switcher-herdr-sessionizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project switcher (herdr-sessionizer)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keybindings-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keybindings (defaults)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keybindings (defaults)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workspaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tabs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Session &amp; UI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -491,7 +609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/aerospace/" class="md-nav__link">
+      <a href="../aerospace/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -512,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/yazi/" class="md-nav__link">
+      <a href="../yazi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -533,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/cursor/" class="md-nav__link">
+      <a href="../cursor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -596,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/intellij-mastery-path/" class="md-nav__link">
+      <a href="../intellij-mastery-path/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -617,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/intellij-keybindings/" class="md-nav__link">
+      <a href="../intellij-keybindings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -638,7 +756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/intellij-quick-ref/" class="md-nav__link">
+      <a href="../intellij-quick-ref/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -659,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/ideavim/" class="md-nav__link">
+      <a href="../ideavim/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -680,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/intellij-improvements/" class="md-nav__link">
+      <a href="../intellij-improvements/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -701,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/intellij-improvements-summary/" class="md-nav__link">
+      <a href="../intellij-improvements-summary/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -730,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/zsh/" class="md-nav__link">
+      <a href="../zsh/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -751,7 +869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/git/" class="md-nav__link">
+      <a href="../git/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -772,7 +890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/fabric/" class="md-nav__link">
+      <a href="../fabric/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -793,7 +911,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/gas-town/" class="md-nav__link">
+      <a href="../gas-town/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -818,8 +936,6 @@
       
   
   
-    
-  
   
   
     
@@ -830,12 +946,14 @@
       
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -849,7 +967,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Keyboard
@@ -860,30 +978,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Glove80
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../keyboard/glove80/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -892,122 +990,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#base-layers-switching-glorious-engrammer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Base Layers &amp; Switching (Glorious Engrammer)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#qwerty-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      QWERTY Layer
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#number-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Number Layer
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cursornavigation-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cursor/Navigation Layer
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#symbol-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Symbol Layer
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#customization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Customization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Customization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-edit-the-keymap" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Edit the Keymap
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-regenerate-visualizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Regenerate Visualizations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-deploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Deploy
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1020,7 +1002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glove80-symbol/" class="md-nav__link">
+      <a href="../../keyboard/glove80-symbol/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1108,82 +1090,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#base-layers-switching-glorious-engrammer" class="md-nav__link">
+  <a href="#launching" class="md-nav__link">
     <span class="md-ellipsis">
-      Base Layers &amp; Switching (Glorious Engrammer)
+      Launching
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#qwerty-layer" class="md-nav__link">
+  <a href="#project-switcher-herdr-sessionizer" class="md-nav__link">
     <span class="md-ellipsis">
-      QWERTY Layer
+      Project switcher (herdr-sessionizer)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#number-layer" class="md-nav__link">
+  <a href="#keybindings-defaults" class="md-nav__link">
     <span class="md-ellipsis">
-      Number Layer
+      Keybindings (defaults)
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cursornavigation-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cursor/Navigation Layer
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#symbol-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Symbol Layer
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#customization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Customization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Customization">
+    <nav class="md-nav" aria-label="Keybindings (defaults)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-edit-the-keymap" class="md-nav__link">
+  <a href="#workspaces" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Edit the Keymap
+      Workspaces
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-regenerate-visualizations" class="md-nav__link">
+  <a href="#tabs" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Regenerate Visualizations
+      Tabs
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-deploy" class="md-nav__link">
+  <a href="#panes" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Deploy
+      Panes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Session &amp; UI
     </span>
   </a>
   
@@ -1221,159 +1185,189 @@
   
 
 
-<h1 id="glove80-keyboard">Glove80 Keyboard</h1>
-<p>The MoErgo Glove80 is a split ergonomic keyboard with 80 keys, powered by ZMK firmware.</p>
-<p><strong>Active Firmware</strong>: Sunaku's <strong>"Glorious Engrammer" v39</strong> — <code>glove80/6a07687d-05b1-435a-a72e-dfc92a217194_Glorious Engrammer v39 (new system layer)_1.keymap</code></p>
-<p>The layer visualizations below document the older simplified 4-layer keymap (<code>glove80/glove80-simple.keymap</code>). The Glorious Engrammer firmware adds multiple switchable <strong>base layers</strong> on top of QWERTY — see the next section.</p>
-<hr />
-<h2 id="base-layers-switching-glorious-engrammer">Base Layers &amp; Switching (Glorious Engrammer)</h2>
-<p>The Glorious Engrammer firmware ships <strong>9 base layers</strong>. You switch between them by <strong>holding the Magic key</strong> (the outermost key in the bottom-left corner of the left half — the one with the MoErgo glyph; mirrored in the bottom-right corner of the right half) and <strong>pressing a key in the number row</strong>:</p>
+<h1 id="herdr">Herdr</h1>
+<p>Terminal workspace manager for AI coding agents — a tmux-like persistent server/client with a sidebar that tracks agent state (working / done / needs attention) across workspaces.</p>
+<p><strong>Configuration</strong>: <code>herdr/config.toml</code> (symlinked to <code>~/.config/herdr/config.toml</code>)</p>
+<p>The tracked config is the full annotated default (<code>herdr --default-config</code>, v0.8.2) — every option is present but commented out, so customizations are explicit diffs against upstream defaults. After editing, apply with <code>herdr server reload-config</code> (or <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> then <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-r">R</kbd></span> from inside).</p>
+<div class="admonition warning">
+<p class="admonition-title">Prefix conflict with tmux</p>
+<p>Herdr's default prefix is <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> — the same as tmux. Run Herdr <strong>directly in the terminal</strong> (instead of tmux), or change <code>prefix</code> in <code>[keys]</code> before nesting them.</p>
+</div>
+<h2 id="launching">Launching</h2>
+<div class="highlight"><pre><span></span><code>herdr<span class="w">                        </span><span class="c1"># launch or attach to the persistent session</span>
+herdr<span class="w"> </span>--session<span class="w"> </span>&lt;name&gt;<span class="w">       </span><span class="c1"># named session</span>
+herdr<span class="w"> </span>session<span class="w"> </span>attach<span class="w"> </span>&lt;name&gt;<span class="w">  </span><span class="c1"># attach to a named session</span>
+herdr<span class="w"> </span>--remote<span class="w"> </span>&lt;ssh-target&gt;<span class="w">  </span><span class="c1"># attach to a remote Herdr server over SSH</span>
+herdr<span class="w"> </span>status<span class="w">                 </span><span class="c1"># client + server status</span>
+herdr<span class="w"> </span>server<span class="w"> </span>stop<span class="w">            </span><span class="c1"># stop the server</span>
+herdr<span class="w"> </span>update<span class="w">                 </span><span class="c1"># self-update</span>
+</code></pre></div>
+<h2 id="project-switcher-herdr-sessionizer">Project switcher (herdr-sessionizer)</h2>
+<p><code>bin/herdr-sessionizer</code> is the Herdr analog of <code>tmux-sessionizer</code>: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-f">F</kbd></span> (direct, no prefix) opens an fzf popup listing project directories (<code>~</code>, <code>~/personal</code>, <code>~/fourthwall</code>, Dropbox). Picking one focuses the workspace with a matching label, creating it first when it doesn't exist. Configured as a <code>[[keys.command]]</code> popup in <code>herdr/config.toml</code>; the script talks to the server over the socket API (<code>herdr workspace list/create/focus</code>).</p>
+<h2 id="keybindings-defaults">Keybindings (defaults)</h2>
+<p>All actions below require the prefix <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> first, unless noted.</p>
+<h3 id="workspaces">Workspaces</h3>
+<div class="shortcuts-table">
 <table>
 <thead>
 <tr>
-<th>Magic + key</th>
-<th>Base layer</th>
+<th>Shortcut</th>
+<th>Action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><span class="keys"><kbd class="key-equal">=</kbd></span> (left of <span class="keys"><kbd class="key-1">1</kbd></span>)</td>
-<td><strong>QWERTY</strong> (default)</td>
+<td><span class="keys"><kbd class="key-w">W</kbd></span></td>
+<td>Workspace picker</td>
 </tr>
 <tr>
-<td><span class="keys"><kbd class="key-1">1</kbd></span></td>
-<td>Enthium</td>
+<td><span class="keys"><kbd class="key-g">G</kbd></span></td>
+<td>Goto</td>
 </tr>
 <tr>
-<td><span class="keys"><kbd class="key-2">2</kbd></span></td>
-<td>Engrammer</td>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-n">N</kbd></span></td>
+<td>New workspace</td>
 </tr>
 <tr>
-<td><span class="keys"><kbd class="key-3">3</kbd></span></td>
-<td>Engram</td>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-w">W</kbd></span></td>
+<td>Rename workspace</td>
 </tr>
 <tr>
-<td><span class="keys"><kbd class="key-4">4</kbd></span></td>
-<td>Dvorak</td>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Close workspace</td>
 </tr>
 <tr>
-<td><span class="keys"><kbd class="key-5">5</kbd></span></td>
-<td>ColemakDHm</td>
-</tr>
-<tr>
-<td><span class="keys"><kbd class="key-6">6</kbd></span></td>
-<td>Colemak</td>
-</tr>
-<tr>
-<td><span class="keys"><kbd class="key-7">7</kbd></span></td>
-<td>Norman</td>
-</tr>
-<tr>
-<td><span class="keys"><kbd class="key-8">8</kbd></span></td>
-<td>Workman</td>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-g">G</kbd></span></td>
+<td>New git worktree</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">Typing <code>qwerty</code> prints <code>byou'</code>…? You're on the Engram layer</p>
-<p>If pressing the physical keys <span class="keys"><kbd class="key-q">Q</kbd></span> <span class="keys"><kbd class="key-w">W</kbd></span> <span class="keys"><kbd class="key-e">E</kbd></span> <span class="keys"><kbd class="key-r">R</kbd></span> <span class="keys"><kbd class="key-t">T</kbd></span> <span class="keys"><kbd class="key-y">Y</kbd></span> produces <code>byou'"</code>, the keyboard
-has switched to the <strong>Engram</strong> base layer (its top letter row is <code>b y o u ' "</code>). This happens by
-accidentally holding <strong>Magic</strong> and hitting <span class="keys"><kbd class="key-3">3</kbd></span>.</p>
-<p><strong>Fix</strong>: hold <strong>Magic</strong> and press <span class="keys"><kbd class="key-equal">=</kbd></span> (the leftmost key in the number row, left of <span class="keys"><kbd class="key-1">1</kbd></span>)
-to return to <strong>QWERTY</strong>. Alternatively, power-cycle the keyboard — the base layer switch (<code>&amp;to</code>)
-is not persisted, so it always boots back into QWERTY (layer 0).</p>
 </div>
-<hr />
-<h2 id="qwerty-layer">QWERTY Layer</h2>
-<p><img alt="QWERTY Layer" src="../qwerty.svg" /></p>
-<p>The base typing layer with standard QWERTY layout. Key features:</p>
-<ul>
-<li><strong>F-keys Row</strong>: F1-F10 function keys across the top</li>
-<li><strong>Number Row</strong>: Numbers 1-0 with symbols (=, )</li>
-<li><strong>Alpha Keys</strong>: Standard QWERTY letter layout</li>
-<li><strong>Modifiers</strong>: Caps Lock, Shift keys on home positions</li>
-<li><strong>Arrow Cluster</strong>: Dedicated arrow keys in center (↑↓←→)</li>
-<li><strong>Thumb Clusters</strong>:</li>
-<li>Left: Navigation (Home, PgUp, PgDn, End) + Layer access (Cursor, Number)</li>
-<li>Right: Layer access (Symbol) + Modifiers (Alt) + Brackets</li>
-</ul>
-<hr />
-<h2 id="number-layer">Number Layer</h2>
-<p><img alt="Number Layer" src="../number.svg" /></p>
-<p>Numeric keypad and function keys layer, activated via thumb key. Optimized for:</p>
-<ul>
-<li><strong>Right Hand Number Pad</strong>: Traditional numpad layout (7-8-9, 4-5-6, 1-2-3, 0)</li>
-<li><strong>Arithmetic Operators</strong>: +, -, *, / positioned around the numpad</li>
-<li><strong>Symbols</strong>: Mathematical and programming symbols (^, #, $, !, ~, |)</li>
-<li><strong>Special Characters</strong>: &lt;, &gt;, (, ), [, ], =</li>
-<li><strong>Left Hand</strong>: Modifiers (Shift, Cmd, Alt, Ctrl) for easy shortcuts</li>
-</ul>
-<p>Perfect for spreadsheet work, calculator-style number entry, and mathematical expressions.</p>
-<hr />
-<h2 id="cursornavigation-layer">Cursor/Navigation Layer</h2>
-<p><img alt="Cursor Layer" src="../cursor.svg" /></p>
-<p>Navigation and browser control layer. Features:</p>
-<ul>
-<li><strong>Arrow Keys</strong>: Vim-style navigation (←↓↑→) on right hand home row</li>
-<li><strong>Page Navigation</strong>: Home, End, PgUp, PgDn on right hand</li>
-<li><strong>Modifiers</strong>: Easy access to Shift, Cmd, Alt, Ctrl on left hand</li>
-<li><strong>Common Actions</strong>: Backspace, Delete, Tab, Space, Enter, Esc</li>
-<li><strong>Left Hand</strong>: Mirror positioning for symmetric operation</li>
-</ul>
-<p>Ideal for browsing documentation, navigating code, and text selection.</p>
-<hr />
-<h2 id="symbol-layer">Symbol Layer</h2>
-<p><img alt="Symbol Layer" src="../symbol.svg" /></p>
-<p>Programming symbols and special characters - <strong><a href="../glove80-symbol/">See detailed guide</a></strong></p>
-<p>Quick access to:</p>
-<ul>
-<li><strong>Brackets</strong>: (), [], {}, &lt;&gt;</li>
-<li><strong>Operators</strong>: =, +, -, *, /, |, &amp;, ^</li>
-<li><strong>Punctuation</strong>: !, ?, @, #, $, %</li>
-<li><strong>Quotes</strong>: ', ", `, ~</li>
-<li><strong>Special</strong>: \, /, ;, :, ,, .</li>
-</ul>
-<hr />
-<h2 id="customization">Customization</h2>
-<p>To modify your Glove80 layout:</p>
-<h3 id="1-edit-the-keymap">1. Edit the Keymap</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Edit simplified keymap</span>
-vim<span class="w"> </span>glove80/glove80-simple.keymap
-</code></pre></div>
-<h3 id="2-regenerate-visualizations">2. Regenerate Visualizations</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Parse keymap to YAML</span>
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>parse<span class="w"> </span>-z<span class="w"> </span>glove80/glove80-simple.keymap<span class="w"> </span>-o<span class="w"> </span>glove80/parsed.yaml
-
-<span class="c1"># Fix layout name</span>
-sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="s1">'s/glove80-simple/glove80/'</span><span class="w"> </span>glove80/parsed.yaml
-
-<span class="c1"># Generate individual layer SVGs</span>
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>QWERTY<span class="w"> </span>-o<span class="w"> </span>glove80/qwerty.svg
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>Symbol<span class="w"> </span>-o<span class="w"> </span>glove80/symbol.svg
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>Number<span class="w"> </span>-o<span class="w"> </span>glove80/number.svg
-python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>Cursor<span class="w"> </span>-o<span class="w"> </span>glove80/cursor.svg
-
-<span class="c1"># Copy to docs</span>
-cp<span class="w"> </span>glove80/<span class="o">{</span>qwerty,symbol,number,cursor<span class="o">}</span>.svg<span class="w"> </span>docs/keyboard/
-
-<span class="c1"># Preview</span>
-mkdocs<span class="w"> </span>serve
-</code></pre></div>
-<h3 id="3-deploy">3. Deploy</h3>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"docs: update glove80 visualization"</span>
-git<span class="w"> </span>push<span class="w">  </span><span class="c1"># Triggers GitHub Actions deployment</span>
-</code></pre></div>
-<hr />
+<h3 id="tabs">Tabs</h3>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-c">C</kbd></span></td>
+<td>New tab</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-1">1</kbd></span> … <span class="keys"><kbd class="key-9">9</kbd></span></td>
+<td>Switch to tab 1–9</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-p">P</kbd></span> / <span class="keys"><kbd class="key-n">N</kbd></span></td>
+<td>Previous / next tab</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-t">T</kbd></span></td>
+<td>Rename tab</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-x">X</kbd></span></td>
+<td>Close tab</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="panes">Panes</h3>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-v">V</kbd></span></td>
+<td>Split vertical</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-minus">-</kbd></span></td>
+<td>Split horizontal</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-h">H</kbd></span> / <span class="keys"><kbd class="key-j">J</kbd></span> / <span class="keys"><kbd class="key-k">K</kbd></span> / <span class="keys"><kbd class="key-l">L</kbd></span></td>
+<td>Focus pane left / down / up / right</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-tab">Tab</kbd></span> / <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-tab">Tab</kbd></span></td>
+<td>Cycle panes forward / back</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-z">Z</kbd></span></td>
+<td>Zoom (fullscreen) pane</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-r">R</kbd></span></td>
+<td>Resize mode</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-x">X</kbd></span></td>
+<td>Close pane</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-p">P</kbd></span></td>
+<td>Rename pane</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-e">E</kbd></span></td>
+<td>Edit scrollback in editor</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="session-ui">Session &amp; UI</h3>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-question">?</kbd></span></td>
+<td>Help</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-s">S</kbd></span></td>
+<td>Settings</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-q">Q</kbd></span></td>
+<td>Detach (session keeps running)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-b">B</kbd></span></td>
+<td>Toggle sidebar</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-o">O</kbd></span></td>
+<td>Open notification target</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-r">R</kbd></span></td>
+<td>Reload config</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="references">References</h2>
 <ul>
-<li><strong>Config</strong>: <code>.dotfiles/glove80/</code></li>
-<li><strong>Active Keymap</strong>: <code>6a07687d-05b1-435a-a72e-dfc92a217194_Glorious Engrammer v39 (new system layer)_1.keymap</code> (<a href="https://sunaku.github.io/moergo-glove80-keyboard.html">Glorious Engrammer</a>)</li>
-<li><strong>Legacy Keymap</strong> (visualizations below): <code>glove80-simple.keymap</code></li>
-<li><strong>Style Config</strong>: <code>glove80/config.yaml</code> (minimal config with default styles)</li>
-<li><strong>Visualization</strong>: Generated with keymap-drawer v0.22.1 (default light theme)</li>
-<li><strong>Official Layout Editor</strong>: <a href="https://my.glove80.com">my.glove80.com</a></li>
-<li><strong>ZMK Firmware</strong>: <a href="https://zmk.dev/">zmk.dev</a></li>
-<li><strong>Keymap Drawer</strong>: <a href="https://github.com/caksoylar/keymap-drawer">github.com/caksoylar/keymap-drawer</a></li>
+<li><strong>Config</strong>: <code>herdr/config.toml</code></li>
+<li><strong>Website</strong>: <a href="https://herdr.dev">herdr.dev</a></li>
+<li><strong>Print defaults</strong>: <code>herdr --default-config</code></li>
+<li><strong>Reset custom keys</strong>: <code>herdr config reset-keys</code></li>
 </ul>
 
 

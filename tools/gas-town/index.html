@@ -470,6 +470,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../herdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Herdr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../aerospace/" class="md-nav__link">
         
   
@@ -547,10 +568,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -561,8 +582,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             IntelliJ IDEA
           </label>
@@ -2258,7 +2279,7 @@ gt<span class="w"> </span>start
 gt<span class="w"> </span>mayor<span class="w"> </span>attach
 
 <span class="c1"># 2. In Mayor, create work</span>
-<span class="s2">&quot;Create a convoy for issues bd-123 and bd-456 in myproject&quot;</span>
+<span class="s2">"Create a convoy for issues bd-123 and bd-456 in myproject"</span>
 
 <span class="c1"># 3. Monitor</span>
 gt<span class="w"> </span>convoy<span class="w"> </span>list
@@ -2267,7 +2288,7 @@ gt<span class="w"> </span>dashboard
 <h3 id="minimal-no-tmux">Minimal (No Tmux)</h3>
 <p>Run agents manually, Gas Town tracks state.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Create &amp; assign</span>
-gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;Fixes&quot;</span><span class="w"> </span>bd-123
+gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> </span><span class="s2">"Fixes"</span><span class="w"> </span>bd-123
 gt<span class="w"> </span>sling<span class="w"> </span>bd-123<span class="w"> </span>myproject
 
 <span class="c1"># 2. Start agent</span>
@@ -2292,12 +2313,12 @@ claude
 <h3 id="swarm-development">Swarm Development</h3>
 <p>Parallel agents on multiple issues.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Plan</span>
-bd<span class="w"> </span>epic<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;Auth System&quot;</span>
-bd<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;OAuth&quot;</span><span class="w"> </span>--parent<span class="o">=</span>auth-epic
-bd<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;JWT&quot;</span><span class="w"> </span>--parent<span class="o">=</span>auth-epic
+bd<span class="w"> </span>epic<span class="w"> </span>create<span class="w"> </span><span class="s2">"Auth System"</span>
+bd<span class="w"> </span>create<span class="w"> </span><span class="s2">"OAuth"</span><span class="w"> </span>--parent<span class="o">=</span>auth-epic
+bd<span class="w"> </span>create<span class="w"> </span><span class="s2">"JWT"</span><span class="w"> </span>--parent<span class="o">=</span>auth-epic
 
 <span class="c1"># 2. Convoy &amp; swarm</span>
-gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;Auth&quot;</span><span class="w"> </span>bd-101<span class="w"> </span>bd-102
+gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> </span><span class="s2">"Auth"</span><span class="w"> </span>bd-101<span class="w"> </span>bd-102
 gt<span class="w"> </span>sling<span class="w"> </span>bd-101<span class="w"> </span>myproject
 gt<span class="w"> </span>sling<span class="w"> </span>bd-102<span class="w"> </span>myproject
 
@@ -2320,17 +2341,17 @@ gt<span class="w"> </span>shutdown
 </code></pre></div>
 <h3 id="rule-of-five">Rule of Five</h3>
 <p><strong>Always review work 5 times before considering done.</strong></p>
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;Review this design&quot;</span>
-<span class="s2">&quot;Review again, broader perspective&quot;</span>
-<span class="s2">&quot;Review for architecture fit&quot;</span>
-<span class="s2">&quot;Review for YAGNI&quot;</span>
-<span class="s2">&quot;Final polish - is it as good as it can get?&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="s2">"Review this design"</span>
+<span class="s2">"Review again, broader perspective"</span>
+<span class="s2">"Review for architecture fit"</span>
+<span class="s2">"Review for YAGNI"</span>
+<span class="s2">"Final polish - is it as good as it can get?"</span>
 </code></pre></div>
 <h3 id="code-health-40-of-time">Code Health (40% of Time)</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Weekly session</span>
-<span class="s2">&quot;Review codebase for code smells, file beads&quot;</span>
-bd<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;refactor&quot;</span>
-gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;Code Health&quot;</span><span class="w"> </span>bd-200<span class="w"> </span>bd-201
+<span class="s2">"Review codebase for code smells, file beads"</span>
+bd<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"refactor"</span>
+gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> </span><span class="s2">"Code Health"</span><span class="w"> </span>bd-200<span class="w"> </span>bd-201
 </code></pre></div>
 <h3 id="issue-tracking">Issue Tracking</h3>
 <ul>
@@ -2341,7 +2362,7 @@ gt<span class="w"> </span>convoy<span class="w"> </span>create<span class="w"> <
 </ul>
 <h3 id="agent-lifecycle">Agent Lifecycle</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Restart after each task</span>
-<span class="s2">&quot;Let&#39;s hand off&quot;</span>
+<span class="s2">"Let's hand off"</span>
 gt<span class="w"> </span>handoff
 
 <span class="c1"># When stuck</span>
@@ -2388,14 +2409,14 @@ gt<span class="w"> </span>seance
 </div>
 <h2 id="environment-setup">Environment Setup</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Add to ~/.zshrc</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">:</span><span class="nv">$HOME</span><span class="s2">/go/bin&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PATH</span><span class="s2">:</span><span class="nv">$HOME</span><span class="s2">/go/bin"</span>
 <span class="nb">source</span><span class="w"> </span>&lt;<span class="o">(</span>gt<span class="w"> </span>completion<span class="w"> </span>zsh<span class="o">)</span>
 
 <span class="c1"># Optional aliases</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">gts</span><span class="o">=</span><span class="s1">&#39;gt status&#39;</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">gtc</span><span class="o">=</span><span class="s1">&#39;gt convoy list&#39;</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">bdr</span><span class="o">=</span><span class="s1">&#39;bd ready&#39;</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">bdl</span><span class="o">=</span><span class="s1">&#39;bd list&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gts</span><span class="o">=</span><span class="s1">'gt status'</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gtc</span><span class="o">=</span><span class="s1">'gt convoy list'</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">bdr</span><span class="o">=</span><span class="s1">'bd ready'</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">bdl</span><span class="o">=</span><span class="s1">'bd list'</span>
 </code></pre></div>
 <h2 id="meow-stack-advanced">MEOW Stack (Advanced)</h2>
 <p><strong>Molecular Expression of Work</strong> - workflow algebra.</p>
