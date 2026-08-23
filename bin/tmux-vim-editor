@@ -9,12 +9,16 @@ if [ -z "$FILE" ]; then
     FILE=$(mktemp /tmp/editor.XXXXXX)
 fi
 
-# Check if we're inside tmux
-if [ -n "$TMUX" ]; then
+# Herdr panes inherit a stale $TMUX from the environment the herdr server was
+# started in, so "$TMUX is set" does not prove a popup can render — with no
+# attached tmux client, display-popup fails with "no current client" and the
+# editor never opens (Claude Code Ctrl+G appears dead). Use a popup only when
+# this is not a herdr pane AND a tmux client is actually attached.
+if [ -z "$HERDR_ENV" ] && [ -n "$TMUX" ] && [ -n "$(tmux list-clients 2>/dev/null)" ]; then
     # Open nvim in a popup overlay (80% width, 80% height)
     # -E = close popup when command exits
     tmux display-popup -E -w 80% -h 80% "nvim '$FILE'"
 else
-    # Not in tmux - fall back to regular nvim
+    # Herdr pane, no tmux, or detached tmux - open nvim inline
     nvim "$FILE"
 fi
