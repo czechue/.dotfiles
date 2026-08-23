@@ -74,7 +74,9 @@
 # workspace_picker = "prefix+w"
 # goto = "prefix+g"
 # new_workspace = "prefix+shift+n"
-# new_worktree = "prefix+shift+g"
+# Default prefix+shift+g is taken over by the lazygit popup below (muscle
+# memory from tmux prefix+G), so worktree creation moves to prefix+shift+o.
+new_worktree = "prefix+shift+o"
 # open_worktree = ""    # optional, unset by default
 # remove_worktree = ""  # optional, unset by default; opens confirmation
 # rename_workspace = "prefix+shift+w"
@@ -144,6 +146,15 @@ type = "popup"
 command = "herdr-sessionizer"
 width = "60%"
 height = "60%"
+
+# lazygit popup — mirrors tmux prefix+G. Inherits the pane's cwd
+# (new_cwd = "follow"), so it opens in the right repo.
+[[keys.command]]
+key = "prefix+shift+g"
+type = "popup"
+command = "lazygit"
+width = "95%"
+height = "95%"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
