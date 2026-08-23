@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://czechue.github.io/.dotfiles/tools/aerospace/">
       
       
-        <link rel="prev" href="../tmux/">
+        <link rel="prev" href="../herdr/">
       
       
         <link rel="next" href="../yazi/">
@@ -467,6 +467,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../herdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Herdr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -594,6 +615,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hotkeys-stop-working-eg-alt1-does-nothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotkeys stop working (e.g. Alt+1 does nothing)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -674,10 +719,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -688,8 +733,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             IntelliJ IDEA
           </label>
@@ -1156,6 +1201,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hotkeys-stop-working-eg-alt1-does-nothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotkeys stop working (e.g. Alt+1 does nothing)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -1484,6 +1553,36 @@
 </tbody>
 </table>
 </div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="hotkeys-stop-working-eg-alt1-does-nothing">Hotkeys stop working (e.g. <span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-1">1</kbd></span> does nothing)</h3>
+<p>If AeroSpace itself is fine but no shortcut responds, macOS <strong>secure input</strong> is
+likely blocking keyboard capture for all apps. Diagnose in this order:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Is the daemon alive and responding?</span>
+pgrep<span class="w"> </span>-fl<span class="w"> </span>-i<span class="w"> </span>aerospace
+aerospace<span class="w"> </span>list-modes<span class="w"> </span>--current<span class="w">   </span><span class="c1"># should print: main</span>
+
+<span class="c1"># 2. Does switching work via CLI? (if yes, only hotkey capture is broken)</span>
+aerospace<span class="w"> </span>workspace<span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># 3. Is secure input active, and who holds it?</span>
+ioreg<span class="w"> </span>-l<span class="w"> </span>-w<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'kCGSSessionSecureInputPID"=[0-9]*'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
+ps<span class="w"> </span>-p<span class="w"> </span>&lt;PID&gt;<span class="w"> </span>-o<span class="w"> </span>pid,lstart,command
+</code></pre></div>
+<p>Notes:</p>
+<ul>
+<li>The <code>ioreg</code> entry appears <strong>twice</strong> for one session — same PID, one problem.</li>
+<li>If the holder is <code>loginwindow</code>, the <em>real</em> culprit is usually some app with a
+  <strong>pending password prompt</strong> hiding in the background — seen in practice with
+  <strong>1Password waiting for the master password</strong> after wake/boot. Keychain, sudo,
+  or VPN prompts can do the same.</li>
+<li>AeroSpace Accessibility permission can be checked with:
+  <code>sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" "SELECT client, auth_value FROM access WHERE service='kTCCServiceAccessibility';"</code>
+  (<code>bobko.aerospace|2</code> = allowed).</li>
+</ul>
+<p>Fix: find and complete (or dismiss) the pending password prompt — hotkeys
+resume immediately, no AeroSpace restart needed. If nothing is visibly
+prompting, lock the screen (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-q">Q</kbd></span>) and unlock <strong>by typing the
+password</strong> (not Touch ID); escalate to logout/login, then reboot.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><strong>Config</strong>: <code>aerospace/.config/aerospace/aerospace.toml</code></li>

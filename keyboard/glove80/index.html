@@ -470,6 +470,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tools/herdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Herdr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tools/aerospace/" class="md-nav__link">
         
   
@@ -547,10 +568,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -561,8 +582,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             IntelliJ IDEA
           </label>
@@ -1324,7 +1345,7 @@ vim<span class="w"> </span>glove80/glove80-simple.keymap
 python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>parse<span class="w"> </span>-z<span class="w"> </span>glove80/glove80-simple.keymap<span class="w"> </span>-o<span class="w"> </span>glove80/parsed.yaml
 
 <span class="c1"># Fix layout name</span>
-sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="s1">&#39;s/glove80-simple/glove80/&#39;</span><span class="w"> </span>glove80/parsed.yaml
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="s1">'s/glove80-simple/glove80/'</span><span class="w"> </span>glove80/parsed.yaml
 
 <span class="c1"># Generate individual layer SVGs</span>
 python<span class="w"> </span>-m<span class="w"> </span>keymap_drawer<span class="w"> </span>-c<span class="w"> </span>glove80/config.yaml<span class="w"> </span>draw<span class="w"> </span>glove80/parsed.yaml<span class="w"> </span>-s<span class="w"> </span>QWERTY<span class="w"> </span>-o<span class="w"> </span>glove80/qwerty.svg
@@ -1339,7 +1360,7 @@ cp<span class="w"> </span>glove80/<span class="o">{</span>qwerty,symbol,number,c
 mkdocs<span class="w"> </span>serve
 </code></pre></div>
 <h3 id="3-deploy">3. Deploy</h3>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update glove80 visualization&quot;</span>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"docs: update glove80 visualization"</span>
 git<span class="w"> </span>push<span class="w">  </span><span class="c1"># Triggers GitHub Actions deployment</span>
 </code></pre></div>
 <hr />

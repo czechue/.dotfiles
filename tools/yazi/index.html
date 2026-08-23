@@ -470,6 +470,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../herdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Herdr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../aerospace/" class="md-nav__link">
         
   
@@ -535,6 +556,39 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launching-yazi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching yazi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching yazi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-terminal-tmux" class="md-nav__link">
+    <span class="md-ellipsis">
+      From the terminal (tmux)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-neovim" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Neovim
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#navigation" class="md-nav__link">
@@ -650,10 +704,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -664,8 +718,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             IntelliJ IDEA
           </label>
@@ -1054,6 +1108,39 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#launching-yazi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching yazi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching yazi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-terminal-tmux" class="md-nav__link">
+    <span class="md-ellipsis">
+      From the terminal (tmux)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-neovim" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Neovim
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#navigation" class="md-nav__link">
     <span class="md-ellipsis">
       Navigation
@@ -1137,6 +1224,40 @@
 <h1 id="yazi">yazi</h1>
 <p>Terminal file manager with vim-style navigation and DuckDB plugin for CSV preview.</p>
 <p><strong>Configuration</strong>: <code>yazi/keymap.toml</code></p>
+<h2 id="launching-yazi">Launching yazi</h2>
+<h3 id="from-the-terminal-tmux">From the terminal (tmux)</h3>
+<p>Use the <code>y</code> wrapper function (defined in <code>zsh/.zshrc</code>) instead of calling <code>yazi</code> directly:</p>
+<div class="highlight"><pre><span></span><code>y<span class="w">            </span><span class="c1"># open yazi in the current directory</span>
+y<span class="w"> </span>~/projects<span class="w"> </span><span class="c1"># open yazi in a specific directory</span>
+</code></pre></div>
+<p>The wrapper passes <code>--cwd-file</code> to yazi, so when you quit (<span class="keys"><kbd class="key-q">Q</kbd></span>) the shell <strong>cd-s into the directory you navigated to</strong>. Quit with <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-q">Q</kbd></span> to exit without changing the shell's directory. It works in any terminal pane, including tmux — no dedicated tmux keybinding is needed.</p>
+<p>Pressing <span class="keys"><kbd class="key-enter">Enter</kbd></span> or <span class="keys"><kbd class="key-o">O</kbd></span> on a text file opens it <strong>in nvim</strong> (via the <code>edit</code> opener in <code>yazi/yazi.toml</code>, <code>block = true</code>) — quit nvim to return to yazi. <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> / <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-o">O</kbd></span> shows an interactive picker (nvim / Open / Reveal in Finder) instead.</p>
+<h3 id="from-neovim">From Neovim</h3>
+<p>The <a href="https://github.com/mikavilpas/yazi.nvim">yazi.nvim</a> plugin (configured in <code>nvim/.config/nvim/lua/custom/plugins/init.lua</code>) opens yazi in a floating window:</p>
+<div class="shortcuts-table">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-space">Space</kbd><span>+</span><kbd class="key-e">E</kbd></span></td>
+<td>Open yazi at the current file</td>
+<td>Neovim</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-space">Space</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-e">E</kbd></span></td>
+<td>Open yazi in the working directory</td>
+<td>Neovim</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Selecting a file in yazi opens it in the current Neovim instance. Directories are still handled by Neo-tree (<code>open_for_directories = false</code>).</p>
 <h2 id="navigation">Navigation</h2>
 <div class="shortcuts-table">
 <table>

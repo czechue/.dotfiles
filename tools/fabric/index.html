@@ -470,6 +470,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../herdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Herdr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../aerospace/" class="md-nav__link">
         
   
@@ -547,10 +568,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -561,8 +582,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             IntelliJ IDEA
           </label>
@@ -1260,7 +1281,7 @@
 <h2 id="installation">Installation</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Build from local repo (preferred over go install)</span>
 <span class="nb">cd</span><span class="w"> </span>~/personal/Fabric<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-ldflags<span class="w"> </span><span class="s2">&quot;-s -w -X main.version=</span><span class="k">$(</span>git<span class="w"> </span>describe<span class="w"> </span>--tags<span class="w"> </span>--abbrev<span class="o">=</span><span class="m">0</span><span class="k">)</span><span class="s2"> -X main.commit=</span><span class="k">$(</span>git<span class="w"> </span>rev-parse<span class="w"> </span>--short<span class="w"> </span>HEAD<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-ldflags<span class="w"> </span><span class="s2">"-s -w -X main.version=</span><span class="k">$(</span>git<span class="w"> </span>describe<span class="w"> </span>--tags<span class="w"> </span>--abbrev<span class="o">=</span><span class="m">0</span><span class="k">)</span><span class="s2"> -X main.commit=</span><span class="k">$(</span>git<span class="w"> </span>rev-parse<span class="w"> </span>--short<span class="w"> </span>HEAD<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span>~/go/bin/fabric<span class="w"> </span>./cmd/fabric
 
 <span class="c1"># First-time setup (configures API keys and downloads patterns)</span>
@@ -1271,22 +1292,22 @@ fabric<span class="w"> </span>-U
 </code></pre></div>
 <h2 id="core-usage">Core Usage</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Pipe content into a pattern</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;some text&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>&lt;pattern_name&gt;
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"some text"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>&lt;pattern_name&gt;
 
 <span class="c1"># Process a file</span>
 cat<span class="w"> </span>article.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize
 
 <span class="c1"># YouTube transcript (auto-fetches + processes)</span>
-fabric<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;https://youtube.com/watch?v=...&quot;</span><span class="w"> </span>-p<span class="w"> </span>extract_wisdom
+fabric<span class="w"> </span>-y<span class="w"> </span><span class="s2">"https://youtube.com/watch?v=..."</span><span class="w"> </span>-p<span class="w"> </span>extract_wisdom
 
 <span class="c1"># Use a specific model</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize<span class="w"> </span>-m<span class="w"> </span>gpt-4o
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"text"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize<span class="w"> </span>-m<span class="w"> </span>gpt-4o
 
 <span class="c1"># List all patterns</span>
 fabric<span class="w"> </span>-l
 
 <span class="c1"># Stream output (default)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize<span class="w"> </span>-s
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"text"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize<span class="w"> </span>-s
 </code></pre></div>
 <h2 id="best-patterns-by-category">Best Patterns by Category</h2>
 <h3 id="content-summarization">Content Summarization</h3>
@@ -1300,7 +1321,7 @@ cat<span class="w"> </span>long_report.pdf<span class="w"> </span><span class="p
 cat<span class="w"> </span>notes.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize_micro
 
 <span class="c1"># YouTube video summary</span>
-fabric<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;https://youtube.com/watch?v=...&quot;</span><span class="w"> </span>-p<span class="w"> </span>youtube_summary
+fabric<span class="w"> </span>-y<span class="w"> </span><span class="s2">"https://youtube.com/watch?v=..."</span><span class="w"> </span>-p<span class="w"> </span>youtube_summary
 </code></pre></div>
 <h3 id="wisdom-extraction">Wisdom Extraction</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Extract ideas, insights, quotes, habits, and recommendations</span>
@@ -1362,7 +1383,7 @@ cat<span class="w"> </span>blog_post.md<span class="w"> </span><span class="p">|
 cat<span class="w"> </span>draft.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>improve_writing
 
 <span class="c1"># Write an essay (Paul Graham style)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;topic: why startups fail&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>write_essay_pg
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"topic: why startups fail"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>write_essay_pg
 
 <span class="c1"># Create flashcards from any content</span>
 cat<span class="w"> </span>lecture_notes.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>create_flash_cards
@@ -1375,7 +1396,7 @@ cat<span class="w"> </span>architecture.md<span class="w"> </span><span class="p
 </code></pre></div>
 <h3 id="research-learning">Research &amp; Learning</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create a reading plan from a topic</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;I want to learn about distributed systems&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>create_reading_plan
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"I want to learn about distributed systems"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>create_reading_plan
 
 <span class="c1"># Explain complex terms with analogies</span>
 cat<span class="w"> </span>paper.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>explain_terms
@@ -1389,7 +1410,7 @@ cat<span class="w"> </span>tech_review.md<span class="w"> </span><span class="p"
 <h2 id="power-combos">Power Combos</h2>
 <p>Chain patterns together for multi-step workflows:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># YouTube -&gt; wisdom extraction</span>
-fabric<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;https://youtube.com/watch?v=...&quot;</span><span class="w"> </span>-p<span class="w"> </span>extract_wisdom
+fabric<span class="w"> </span>-y<span class="w"> </span><span class="s2">"https://youtube.com/watch?v=..."</span><span class="w"> </span>-p<span class="w"> </span>extract_wisdom
 
 <span class="c1"># Summarize a meeting then extract action items</span>
 cat<span class="w"> </span>meeting.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>summarize_meeting<span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>extract_instructions
@@ -1402,12 +1423,12 @@ cat<span class="w"> </span>article.md<span class="w"> </span><span class="p">|</
 </code></pre></div>
 <h2 id="finding-the-right-pattern">Finding the Right Pattern</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Let Fabric suggest a pattern for your task</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;I need to analyze security risks in my AWS architecture&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>suggest_pattern
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"I need to analyze security risks in my AWS architecture"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fabric<span class="w"> </span>-p<span class="w"> </span>suggest_pattern
 
 <span class="c1"># List all patterns with fuzzy search</span>
 fabric<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>fzf
 
-<span class="c1"># Read a pattern&#39;s system prompt</span>
+<span class="c1"># Read a pattern's system prompt</span>
 cat<span class="w"> </span>~/.config/fabric/patterns/extract_wisdom/system.md
 </code></pre></div>
 <h2 id="references">References</h2>
