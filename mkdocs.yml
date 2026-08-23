@@ -63,6 +63,7 @@ nav:
   - Tools:
       - Neovim: tools/neovim.md
       - tmux: tools/tmux.md
+      - Herdr: tools/herdr.md
       - AeroSpace: tools/aerospace.md
       - yazi: tools/yazi.md
       - Cursor: tools/cursor.md

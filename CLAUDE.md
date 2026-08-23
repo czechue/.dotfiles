@@ -11,12 +11,13 @@ This is a personal dotfiles repository for managing development tool configurati
 - **aerospace/**: AeroSpace window manager (i3-like for macOS) configuration
 - **nvim/**: Neovim configuration based on Kickstart.nvim with lazy.nvim plugin manager
 - **tmux/**: Terminal multiplexer with vim-style navigation and custom keybindings
+- **herdr/**: Herdr terminal workspace manager for AI coding agents (tracked config is the annotated `herdr --default-config` output; note: default prefix `C-b` clashes with tmux)
 - **yazi/**: Terminal file manager with DuckDB plugin for CSV/data file preview
 - **zsh/**: Zsh shell with zoxide and yazi wrapper
 - **ideavim/**: IntelliJ IDEA Vim emulation
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
 - **ghostty/**: Ghostty terminal emulator configuration (Catppuccin Mocha, tmux-only multiplexing)
-- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
+- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `herdr-sessionizer` (same picker for Herdr workspaces, `C-f` inside Herdr), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
 
@@ -39,6 +40,8 @@ ln -sf ~/.dotfiles/yazi ~/.config/yazi
 ln -sf ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
 ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
 ln -sf ~/.dotfiles/ghostty/config ~/.config/ghostty/config
+ln -sf ~/.dotfiles/herdr/config.toml ~/.config/herdr/config.toml  # file only — ~/.config/herdr/ also holds sockets/logs
+ln -sf ~/.dotfiles/bin/herdr-sessionizer ~/.local/bin/herdr-sessionizer
 ln -sf ~/.dotfiles/bin/git-open ~/bin/git-open
 ln -sf ~/.dotfiles/bin/git-recent ~/bin/git-recent
 ```
@@ -57,6 +60,9 @@ tmux source-file ~/.tmux.conf  # or C-b r from within tmux
 
 # yazi
 # Restart yazi
+
+# Herdr
+herdr server reload-config  # or prefix + Shift-R from within Herdr
 
 # zsh
 source ~/.zshrc  # or open new terminal

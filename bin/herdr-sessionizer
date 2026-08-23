@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# herdr-sessionizer — Herdr analog of tmux-sessionizer.
+# Pick a project directory with fzf, then focus the Herdr workspace with a
+# matching label, creating it first when it doesn't exist yet.
+# Bound to Ctrl-F as a popup command in herdr/config.toml.
+
+selected=$(find ~ ~/personal ~/fourthwall ~/Library/CloudStorage/Dropbox -maxdepth 1 -mindepth 1 -type d | fzf)
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+
+existing_id=$(herdr workspace list \
+    | jq -r --arg label "$selected_name" \
+        '.result.workspaces[] | select(.label == $label) | .workspace_id' \
+    | head -n1)
+
+if [[ -n $existing_id ]]; then
+    herdr workspace focus "$existing_id" >/dev/null
+else
+    herdr workspace create --cwd "$selected" --label "$selected_name" --focus >/dev/null
+fi
