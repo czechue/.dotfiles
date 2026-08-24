@@ -28,6 +28,8 @@
 # red = "#ff6188"
 # green = "#a6e3a1"
 
+name = "catppuccin"
+auto_switch = false
 [terminal]
 # Executable used for new interactive panes.
 # Empty means $SHELL, then /bin/sh.
@@ -302,6 +304,7 @@ height = "95%"
 
 # Background notification popup delivery
 show_agent_labels_on_pane_borders = true
+agent_panel_sort = "spaces"
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
@@ -331,6 +334,7 @@ delivery = "herdr"
 # [ui.sound.agents]
 # droid = "off"
 
+enabled = false
 [session]
 # Resume supported AI-agent panes into their native conversation sessions after
 # a Herdr server restart. Requires official integrations that report session refs.
