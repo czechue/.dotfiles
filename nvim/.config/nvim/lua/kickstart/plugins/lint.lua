@@ -7,7 +7,20 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        python = { 'pylint' },
       }
+
+      -- Run the project's own pylint (from its .venv) so it sees the project's
+      -- dependencies and plugins; a global pylint is the fallback. Without the
+      -- venv copy, third-party imports show up as false import-errors.
+      lint.linters.pylint.cmd = function()
+        local root = vim.fs.root(0, { 'pyproject.toml', '.git' }) or vim.fn.getcwd()
+        local venv_pylint = root .. '/.venv/bin/pylint'
+        if vim.fn.executable(venv_pylint) == 1 then
+          return venv_pylint
+        end
+        return 'pylint'
+      end
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:
@@ -51,7 +64,9 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.opt_local.modifiable:get() then
-            lint.try_lint()
+            -- ignore_errors: skip silently when a linter isn't installed
+            -- (e.g. no markdownlint, or a python project without pylint)
+            lint.try_lint(nil, { ignore_errors = true })
           end
         end,
       })

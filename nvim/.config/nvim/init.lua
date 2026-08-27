@@ -615,6 +615,7 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -793,8 +794,31 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        -- pyright = {},
         -- rust_analyzer = {},
+
+        basedpyright = {
+          -- Point the analyzer at the project's local virtualenv (uv/poetry style
+          -- `.venv` in the repo root) so third-party imports resolve. Falls back to
+          -- whatever python is on PATH when no .venv exists.
+          before_init = function(_, config)
+            local root = config.root_dir or vim.fn.getcwd()
+            local venv_python = root .. '/.venv/bin/python'
+            if vim.fn.executable(venv_python) == 1 then
+              config.settings = vim.tbl_deep_extend('force', config.settings or {}, {
+                python = { pythonPath = venv_python },
+              })
+            end
+          end,
+          settings = {
+            basedpyright = {
+              analysis = {
+                -- 'standard' matches upstream pyright defaults; basedpyright's own
+                -- 'recommended' default is too noisy for codebases not written against it
+                typeCheckingMode = 'standard',
+              },
+            },
+          },
+        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -929,7 +953,9 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'black', -- Python formatter fallback (project .venv/bin/black is preferred)
       })
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(servers or {}),
@@ -1003,6 +1029,7 @@ require('lazy').setup({
         typescriptreact = { 'prettier' },
         ruby = { 'rubocop' },
         eruby = { 'erb_format' },
+        python = { 'black' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1010,6 +1037,18 @@ require('lazy').setup({
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
       formatters = {
+        black = {
+          -- Prefer the project's own black (matches its pinned version and reads
+          -- the repo's pyproject.toml either way); Mason black is the fallback
+          command = function(_, ctx)
+            local root = vim.fs.root(ctx.dirname, { 'pyproject.toml', '.git' }) or vim.fn.getcwd()
+            local venv_black = root .. '/.venv/bin/black'
+            if vim.fn.executable(venv_black) == 1 then
+              return venv_black
+            end
+            return 'black'
+          end,
+        },
         prettier = {
           -- Skip .prettierignore for editor formatting — ignore files are for batch ops,
           -- not single-file saves (fixes monorepos with root-level workspace ignores)
@@ -1233,7 +1272,7 @@ require('lazy').setup({
     lazy = false, -- the main branch does not support lazy-loading
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     config = function()
-      local ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'query', 'toml', 'vim', 'vimdoc' }
       require('nvim-treesitter').install(ensure_installed)
 
       -- The main branch has no 'highlight'/'indent' modules; enable per-buffer instead.
@@ -1284,7 +1323,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.nvim-tmux-navigator',
