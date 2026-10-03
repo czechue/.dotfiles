@@ -2,11 +2,14 @@
 # tmux-vim-editor - Opens vim in a tmux popup for external editor support
 # Used by EDITOR/VISUAL for tools like git commit, Claude Code Ctrl+G, etc.
 
-FILE="$1"
+# Pass every argument through to nvim, not just $1: callers add their own
+# flags before the file. Claude Code Ctrl+G runs "$EDITOR +<line> <file>" for
+# any editor whose name contains "vim", so taking $1 as the file opened nvim
+# on "+<line>" with an empty buffer.
 
-# If no file provided, create a temp file
-if [ -z "$FILE" ]; then
-    FILE=$(mktemp /tmp/editor.XXXXXX)
+# If no arguments provided, create a temp file
+if [ $# -eq 0 ]; then
+    set -- "$(mktemp /tmp/editor.XXXXXX)"
 fi
 
 # Herdr panes inherit a stale $TMUX from the environment the herdr server was
@@ -17,8 +20,8 @@ fi
 if [ -z "$HERDR_ENV" ] && [ -n "$TMUX" ] && [ -n "$(tmux list-clients 2>/dev/null)" ]; then
     # Open nvim in a popup overlay (80% width, 80% height)
     # -E = close popup when command exits
-    tmux display-popup -E -w 80% -h 80% "nvim '$FILE'"
+    tmux display-popup -E -w 80% -h 80% "nvim $(printf '%q ' "$@")"
 else
     # Herdr pane, no tmux, or detached tmux - open nvim inline
-    nvim "$FILE"
+    nvim "$@"
 fi
