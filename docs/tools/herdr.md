@@ -25,6 +25,35 @@ herdr update                 # self-update
 
 `bin/herdr-sessionizer` is the Herdr analog of `tmux-sessionizer`: ++ctrl+f++ (direct, no prefix) opens an fzf popup listing project directories (`~`, `~/personal`, `~/fourthwall`, Dropbox). Picking one focuses the workspace with a matching label, creating it first when it doesn't exist. Configured as a `[[keys.command]]` popup in `herdr/config.toml`; the script talks to the server over the socket API (`herdr workspace list/create/focus`).
 
+## Prevent sleep while agents work
+
+[herdr-wakeup](https://github.com/usrivastava92/herdr-wakeup) automatically prevents idle system sleep while any agent in the current Herdr session reports `working`. The display can still sleep. It activates after 5 seconds of work and releases the sleep assertion 30 seconds after the last working agent stops. Agents waiting for input do not keep the Mac awake.
+
+Install the pinned commit below, which includes automatic startup on pane creation, tab creation, and pane focus. The published `v0.1.0` tag predates those startup hooks. Installation requires Rust (`cargo`) and enables the plugin.
+
+```bash
+herdr plugin install usrivastava92/herdr-wakeup/plugin --ref 43db0b9f88a4b1bc560593b0ce8f2a7d2a940f04
+herdr plugin action invoke start --plugin herdr-wakeup
+```
+
+The explicit start activates it immediately for an existing session. Future Herdr activity starts the watcher automatically; no shell startup command or login agent is needed.
+
+Press ++ctrl+b++ then ++a++ to enable sleep prevention, or ++ctrl+b++ then ++shift+a++ to disable it. Both shortcuts appear in ++ctrl+b++ then ++question++ as **Keep awake while agents work: ON/OFF**. The setting changes on the watcher's next evaluation (within 60 seconds, or sooner when a Herdr event arrives).
+
+```bash
+herdr plugin action invoke status --plugin herdr-wakeup
+herdr plugin action invoke disarm --plugin herdr-wakeup  # turn sleep prevention off
+herdr plugin action invoke arm --plugin herdr-wakeup     # turn it back on
+herdr plugin action invoke doctor --plugin herdr-wakeup
+herdr plugin log list --plugin herdr-wakeup --limit 5     # read action results
+```
+
+Plugin actions run asynchronously; read their results with `plugin log list` after they finish. `pmset -g assertions` shows a `wakeup` process holding `PreventUserIdleSystemSleep` while protection is active. Herdr also shows toast notifications when protection activates or releases.
+
+Configuration is stored per session under `~/.config/herdr/plugins/config/herdr-wakeup/sessions/`; `doctor` reports the exact path. Defaults enable both `armed` and `autostart`, with `display` disabled. Use `disarm` for a persistent off switch; `stop` alone can be reversed by the next autostart event. Before uninstalling, stop the watcher in each running Herdr session, then run `herdr plugin uninstall herdr-wakeup`.
+
+This prevents idle sleep, like Codex's setting. It does not override MacBook lid-close sleep.
+
 ## Keybindings (defaults)
 
 All actions below require the prefix ++ctrl+b++ first, unless noted.
@@ -88,6 +117,8 @@ All actions below require the prefix ++ctrl+b++ first, unless noted.
 | ++b++ | Toggle sidebar |
 | ++o++ | Open notification target |
 | ++shift+r++ | Reload config |
+| ++a++ | Keep awake while agents work: ON |
+| ++shift+a++ | Keep awake while agents work: OFF |
 
 </div>
 

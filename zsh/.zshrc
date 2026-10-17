@@ -13,7 +13,6 @@ compinit
 # Load local environment variables (not tracked in git)
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-source /usr/local/share/chruby/chruby.sh
 alias air='$(go env GOPATH)/bin/air'
 alias vim='nvim'
 
@@ -219,10 +218,32 @@ function y() {
  # Increase file descriptor limit
   ulimit -n 10240
 
-# PAI / Claude Code Aliases
-source ~/personal/pai/.claude/zshrc-aliases
+# Claude Code — one clean setup for everything. Config lives in ~/.dotfiles/claude,
+# symlinked into ~/.claude (the default config dir).
+#
+# PAI is deliberately NOT sourced here. Its config is project-scoped now: it loads
+# only when Claude Code runs inside ~/personal/pai, via that repo's .claude/.
+# Vendored communication system prompt, appended to every session.
+dotfiles_claude_prompt="$HOME/.dotfiles/claude/system-prompt.md"
 
-# Clean Claude - bypasses PAI customizations
+cl() {
+  claude update 2>/dev/null
+  claude --dangerously-skip-permissions \
+    --append-system-prompt-file "$dotfiles_claude_prompt" "$@"
+}
+clr() {
+  cl --resume "$@"
+}
+alias ccl='cl'
+alias clsr='claude --append-system-prompt-file "$dotfiles_claude_prompt" --resume'
+alias ccusage="bunx ccusage"
+alias ccu="bunx ccusage"
+
+# PAI tooling, addressed by its real path instead of through ~/.claude
+export PAI_DIR="$HOME/personal/pai/.claude"
+alias lifeos='bun $PAI_DIR/LIFEOS/TOOLS/lifeos.ts -s $PAI_DIR/LIFEOS/LIFEOS_SYSTEM_PROMPT.md'
+alias discord='$PAI_DIR/Skills/Discord/cli/bin/discord'
+
 alias claude-clean='CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
 alias claude-storefront='cd ~/fourthwall/storefront-apps && CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
 
@@ -255,7 +276,6 @@ ws() {
 
 # Initialize zsh completions
 autoload -U compinit && compinit
-export PAI_DIR="/Users/michallester/personal/pai"
 
 # Source secrets (API keys, tokens) - not tracked in git
 [ -f ~/.dotfiles/zsh/.zshrc.secrets ] && source ~/.dotfiles/zsh/.zshrc.secrets

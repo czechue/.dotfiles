@@ -18,6 +18,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
 - **ghostty/**: Ghostty terminal emulator configuration (Catppuccin Mocha, tmux-only multiplexing)
 - **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `herdr-sessionizer` (same picker for Herdr workspaces, `C-f` inside Herdr), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
+- **claude/**: Claude Code configuration — `settings.json` and global `CLAUDE.md` symlinked into `~/.claude`, plus `system-prompt.md` passed on the command line
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
 
@@ -42,6 +43,8 @@ ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor
 ln -sf ~/.dotfiles/ghostty/config ~/.config/ghostty/config
 ln -sf ~/.dotfiles/herdr/config.toml ~/.config/herdr/config.toml  # file only — ~/.config/herdr/ also holds sockets/logs
 ln -sf ~/.dotfiles/bin/herdr-sessionizer ~/.local/bin/herdr-sessionizer
+ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json  # Claude Code (~/.claude must be a real dir, not a symlink)
+ln -sf ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf ~/.dotfiles/bin/git-open ~/bin/git-open
 ln -sf ~/.dotfiles/bin/git-recent ~/bin/git-recent
 ```
@@ -106,59 +109,33 @@ Each tool has its own directory. Adding/removing tools doesn't affect others. No
 - **Configuration structure**: Single-file `init.lua` with modular plugins in `lua/kickstart/plugins/` and `lua/custom/plugins/`
 - **Required dependencies**: git, make, unzip, C compiler, ripgrep, clipboard tool, Nerd Font (optional)
 
-## Claude Code & PAI Integration
+## Claude Code
 
-This dotfiles repository is integrated with Claude Code and PAI (Personal AI Infrastructure) for AI-assisted development workflows.
+One clean setup, tracked in `claude/` and symlinked into `~/.claude` (the default config dir). Full details in `docs/tools/claude-code.md`.
 
-### Claude Code Aliases
+### Launchers
 
-Defined in `~/.claude/zshrc-aliases` (sourced from `.zshrc`):
+Defined in `zsh/.zshrc`. All use the default config dir, so they share one `settings.json`, one history and one login.
 
 ```bash
-# Launch Claude Code with latest version, skip permissions
-alias cl="bun install -g @anthropic-ai/claude-code; claude --dangerously-skip-permissions"
-
-# Launch Claude Code with resume, skip permissions
-alias clr="bun install -g @anthropic-ai/claude-code; claude --dangerously-skip-permissions --resume"
-
-# Launch Claude Code with resume (with permissions prompt)
-alias clsr="bun install -g @anthropic-ai/claude-code; claude --resume"
-
-# Claude Code usage reporting
-alias ccusage="bunx ccusage"
-alias ccu="bunx ccusage"
+cl        # self-update, then claude --dangerously-skip-permissions
+ccl       # alias of cl
+clr       # cl --resume
+clsr      # claude --resume, with permission prompts
+ccusage   # usage reporting (alias: ccu)
 ```
 
-### MCP Server Configuration
+`cl`, `clr` and `clsr` all pass `--append-system-prompt-file claude/system-prompt.md` — a vendored communication-style prompt from `disler/fixing-smartass-opus-5`. It is a CLI flag, not config, so a bare `claude` does not get it.
 
-Claude Code is configured with MCP servers in `~/.claude.json`:
+### Global config must stay in this repo
 
-- **context7**: Documentation lookup for libraries (via Upstash)
-- **mcp-sequentialthinking-tools**: Extended thinking/reasoning capabilities
-- **mcp-omnisearch**: Multi-source web search (Tavily, Brave, Perplexity, Jina AI, Firecrawl)
+`~/.claude` and `~/.claude.json` are real files and directories, not symlinks elsewhere. Keep them that way. `CLAUDE_CONFIG_DIR` does not redirect the user-level `CLAUDE.md` — it is always read from `~/.claude/CLAUDE.md` — so pointing `~/.claude` at another AI-config repo leaks that repo's instructions into every session, in every project, with no way to opt out.
 
-**To disable MCP servers temporarily:**
-```bash
-# Option 1: Use --disable-mcp flag
-claude --disable-mcp
+External agent configs belong in their own repository, where they load as project config when Claude Code runs inside it.
 
-# Option 2: Rename mcpServers key in ~/.claude.json
-# Change "mcpServers" to "mcpServersDisabled"
-```
+### MCP servers
 
-### PAI Directory Structure
-
-- **PAI_DIR**: `~/.claude` → symlinked to `~/personal/Personal_AI_Infrastructure/.claude`
-- Contains skills, tools, configuration, and session history
-- Auto-loads CORE skill at session start with identity, preferences, and workflows
-- Uses startup hook for automatic context loading
-
-### Integration Points
-
-- **Zsh**: Sources PAI aliases via `~/.claude/zshrc-aliases`
-- **Git**: Multi-context workflow (personal vs work) managed via separate git configs
-- **Package managers**: Prefers bun for JS/TS, uv for Python (per PAI conventions)
-- **Session history**: Automatically captured in `${PAI_DIR}/History/`
+None configured. MCP servers live under `mcpServers` in `~/.claude.json`; `claude --disable-mcp` turns them off for one run.
 
 ## Development Guidelines
 
@@ -167,4 +144,3 @@ claude --disable-mcp
 - When adding keybindings, check for conflicts with AeroSpace window manager
 - Configuration files may contain Polish comments from original author
 - Use conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`
-- When working with Claude Code, reference PAI CORE skill for standards and workflows

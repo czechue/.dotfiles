@@ -75,6 +75,7 @@ nav:
           - Improvements Analysis: tools/intellij-improvements.md
           - Implementation Summary: tools/intellij-improvements-summary.md
       - zsh: tools/zsh.md
+      - Claude Code: tools/claude-code.md
       - Git: tools/git.md
       - Fabric: tools/fabric.md
       - Gas Town: tools/gas-town.md
