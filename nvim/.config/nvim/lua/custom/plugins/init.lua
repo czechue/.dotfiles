@@ -142,6 +142,37 @@ return {
     },
   },
 
+  -- Snacks.nvim - inline image rendering (Kitty graphics protocol via Ghostty)
+  -- Opens PNG/JPG/GIF/WebP as real images; also renders images inline in markdown
+  -- Requires: ImageMagick (brew install imagemagick), tmux allow-passthrough on
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    init = function()
+      -- Inside tmux the terminal-version query snacks sends gets no reply, so Ghostty
+      -- is never identified and image support silently stays off (endless "loading …"
+      -- spinner). Identify the terminal via tmux instead and tell snacks directly.
+      if vim.env.SNACKS_GHOSTTY then
+        return
+      end
+      local term = vim.env.TERM_PROGRAM or ''
+      if not term:find 'ghostty' and vim.env.TMUX then
+        local ok, out = pcall(vim.fn.system, { 'tmux', 'display-message', '-p', '#{client_termname}' })
+        term = ok and vim.trim(out) or ''
+      end
+      -- Herdr panes don't expose the outer terminal; herdr renders kitty
+      -- graphics itself (config: [experimental] kitty_graphics = true), and the
+      -- outer terminal here is always Ghostty.
+      if term:find 'ghostty' or vim.env.HERDR_ENV then
+        vim.env.SNACKS_GHOSTTY = '1'
+      end
+    end,
+    opts = {
+      image = { enabled = true },
+    },
+  },
+
   -- AI Autocompletion (Codeium) - toggleable with <leader>tc
   {
     'Exafunction/codeium.nvim',
