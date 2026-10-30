@@ -534,6 +534,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#prevent-sleep-while-agents-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevent sleep while agents work
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#keybindings-defaults" class="md-nav__link">
     <span class="md-ellipsis">
       Keybindings (defaults)
@@ -869,6 +878,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../claude-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Claude Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../git/" class="md-nav__link">
         
   
@@ -1108,6 +1138,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#prevent-sleep-while-agents-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevent sleep while agents work
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#keybindings-defaults" class="md-nav__link">
     <span class="md-ellipsis">
       Keybindings (defaults)
@@ -1204,6 +1243,23 @@ herdr<span class="w"> </span>update<span class="w">                 </span><span
 </code></pre></div>
 <h2 id="project-switcher-herdr-sessionizer">Project switcher (herdr-sessionizer)</h2>
 <p><code>bin/herdr-sessionizer</code> is the Herdr analog of <code>tmux-sessionizer</code>: <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-f">F</kbd></span> (direct, no prefix) opens an fzf popup listing project directories (<code>~</code>, <code>~/personal</code>, <code>~/fourthwall</code>, Dropbox). Picking one focuses the workspace with a matching label, creating it first when it doesn't exist. Configured as a <code>[[keys.command]]</code> popup in <code>herdr/config.toml</code>; the script talks to the server over the socket API (<code>herdr workspace list/create/focus</code>).</p>
+<h2 id="prevent-sleep-while-agents-work">Prevent sleep while agents work</h2>
+<p><a href="https://github.com/usrivastava92/herdr-wakeup">herdr-wakeup</a> automatically prevents idle system sleep while any agent in the current Herdr session reports <code>working</code>. The display can still sleep. It activates after 5 seconds of work and releases the sleep assertion 30 seconds after the last working agent stops. Agents waiting for input do not keep the Mac awake.</p>
+<p>Install the pinned commit below, which includes automatic startup on pane creation, tab creation, and pane focus. The published <code>v0.1.0</code> tag predates those startup hooks. Installation requires Rust (<code>cargo</code>) and enables the plugin.</p>
+<div class="highlight"><pre><span></span><code>herdr<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>usrivastava92/herdr-wakeup/plugin<span class="w"> </span>--ref<span class="w"> </span>43db0b9f88a4b1bc560593b0ce8f2a7d2a940f04
+herdr<span class="w"> </span>plugin<span class="w"> </span>action<span class="w"> </span>invoke<span class="w"> </span>start<span class="w"> </span>--plugin<span class="w"> </span>herdr-wakeup
+</code></pre></div>
+<p>The explicit start activates it immediately for an existing session. Future Herdr activity starts the watcher automatically; no shell startup command or login agent is needed.</p>
+<p>Press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> then <span class="keys"><kbd class="key-a">A</kbd></span> to enable sleep prevention, or <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> then <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-a">A</kbd></span> to disable it. Both shortcuts appear in <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> then <span class="keys"><kbd class="key-question">?</kbd></span> as <strong>Keep awake while agents work: ON/OFF</strong>. The setting changes on the watcher's next evaluation (within 60 seconds, or sooner when a Herdr event arrives).</p>
+<div class="highlight"><pre><span></span><code>herdr<span class="w"> </span>plugin<span class="w"> </span>action<span class="w"> </span>invoke<span class="w"> </span>status<span class="w"> </span>--plugin<span class="w"> </span>herdr-wakeup
+herdr<span class="w"> </span>plugin<span class="w"> </span>action<span class="w"> </span>invoke<span class="w"> </span>disarm<span class="w"> </span>--plugin<span class="w"> </span>herdr-wakeup<span class="w">  </span><span class="c1"># turn sleep prevention off</span>
+herdr<span class="w"> </span>plugin<span class="w"> </span>action<span class="w"> </span>invoke<span class="w"> </span>arm<span class="w"> </span>--plugin<span class="w"> </span>herdr-wakeup<span class="w">     </span><span class="c1"># turn it back on</span>
+herdr<span class="w"> </span>plugin<span class="w"> </span>action<span class="w"> </span>invoke<span class="w"> </span>doctor<span class="w"> </span>--plugin<span class="w"> </span>herdr-wakeup
+herdr<span class="w"> </span>plugin<span class="w"> </span>log<span class="w"> </span>list<span class="w"> </span>--plugin<span class="w"> </span>herdr-wakeup<span class="w"> </span>--limit<span class="w"> </span><span class="m">5</span><span class="w">     </span><span class="c1"># read action results</span>
+</code></pre></div>
+<p>Plugin actions run asynchronously; read their results with <code>plugin log list</code> after they finish. <code>pmset -g assertions</code> shows a <code>wakeup</code> process holding <code>PreventUserIdleSystemSleep</code> while protection is active. Herdr also shows toast notifications when protection activates or releases.</p>
+<p>Configuration is stored per session under <code>~/.config/herdr/plugins/config/herdr-wakeup/sessions/</code>; <code>doctor</code> reports the exact path. Defaults enable both <code>armed</code> and <code>autostart</code>, with <code>display</code> disabled. Use <code>disarm</code> for a persistent off switch; <code>stop</code> alone can be reversed by the next autostart event. Before uninstalling, stop the watcher in each running Herdr session, then run <code>herdr plugin uninstall herdr-wakeup</code>.</p>
+<p>This prevents idle sleep, like Codex's setting. It does not override MacBook lid-close sleep.</p>
 <h2 id="keybindings-defaults">Keybindings (defaults)</h2>
 <p>All actions below require the prefix <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-b">B</kbd></span> first, unless noted.</p>
 <h3 id="workspaces">Workspaces</h3>
@@ -1358,6 +1414,14 @@ herdr<span class="w"> </span>update<span class="w">                 </span><span
 <tr>
 <td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-r">R</kbd></span></td>
 <td>Reload config</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-a">A</kbd></span></td>
+<td>Keep awake while agents work: ON</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-a">A</kbd></span></td>
+<td>Keep awake while agents work: OFF</td>
 </tr>
 </tbody>
 </table>
