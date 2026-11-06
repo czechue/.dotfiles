@@ -247,6 +247,9 @@ alias discord='$PAI_DIR/Skills/Discord/cli/bin/discord'
 alias claude-clean='CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
 alias claude-work='cd ~/work/web-app && CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
 
+# Slots dashboard (~/personal/herdr-dashboard) for my-gateway, runnable outside Herdr
+alias slots-dash='HERDR_SOCKET_PATH=$HOME/.config/herdr/herdr.sock SLOTS_REPO=$HOME/work/my-gateway $HOME/personal/herdr-dashboard/slots tui'
+
 export PATH="$HOME/go/bin:$PATH"
 # Fabric AI tool
 export PATH="$HOME/go/bin:$PATH"
