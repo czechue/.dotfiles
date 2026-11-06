@@ -1,7 +1,7 @@
 {
     "window.commandCenter": 1,
     "workbench.colorTheme": "Default Light Modern",
-    "update.releaseTrack": "prerelease",
+    "update.releaseTrack": "stable",
 
     // Vim Configuration
     "vim.leader": "<space>",
