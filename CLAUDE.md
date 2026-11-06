@@ -17,7 +17,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **ideavim/**: IntelliJ IDEA Vim emulation
 - **cursor/**: Cursor IDE with Vim mode and IntelliJ-style keybindings
 - **ghostty/**: Ghostty terminal emulator configuration (Catppuccin Mocha, tmux-only multiplexing)
-- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `herdr-sessionizer` (same picker for Herdr workspaces, `C-f` inside Herdr), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
+- **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `herdr-sessionizer` (same picker for Herdr workspaces, `C-f` inside Herdr), `slot-browser` (AeroSpace callback: workspace 3 shows the focused Herdr slot's Chrome window, named `slot-N`, in the company profile), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
 - **claude/**: Claude Code configuration — `settings.json` and global `CLAUDE.md` symlinked into `~/.claude`, plus `system-prompt.md` passed on the command line
 - **.dotfiles-personal/**: Personal context git configuration
 - **.dotfiles-fourthwall/**: Work context git configuration
@@ -43,6 +43,7 @@ ln -sf ~/.dotfiles/cursor/keybindings.json ~/Library/Application\ Support/Cursor
 ln -sf ~/.dotfiles/ghostty/config ~/.config/ghostty/config
 ln -sf ~/.dotfiles/herdr/config.toml ~/.config/herdr/config.toml  # file only — ~/.config/herdr/ also holds sockets/logs
 ln -sf ~/.dotfiles/bin/herdr-sessionizer ~/.local/bin/herdr-sessionizer
+ln -sf ~/.dotfiles/bin/slot-browser ~/.local/bin/slot-browser  # aerospace.toml exec-on-workspace-change calls it
 ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json  # Claude Code (~/.claude must be a real dir, not a symlink)
 ln -sf ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf ~/.dotfiles/bin/git-open ~/bin/git-open

@@ -11,6 +11,10 @@ after-login-command = []
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = []
 
+# Workspace 3 shows the focused Herdr slot's named Chrome window (slot-N);
+# other slot windows are parked on hidden workspace S. See ~/.dotfiles/bin/slot-browser.
+exec-on-workspace-change = ['/bin/bash', '-c', '$HOME/.local/bin/slot-browser sync']
+
 # Start AeroSpace at login
 start-at-login = true
 

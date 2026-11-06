@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+# slot-browser — one Chrome window per Herdr slot, shown on AeroSpace workspace 3.
+#
+# Each slot (Herdr workspace labelled "slot-N ...") owns a Chrome window named
+# "slot-N" (Chrome: Window > Name Window) in the company profile, so logins and
+# extensions are shared. On entering workspace 3, the focused slot's window is
+# moved there and every other slot window is parked on a hidden workspace.
+# Unnamed Chrome windows are never touched.
+#
+#   slot-browser sync      AeroSpace exec-on-workspace-change callback
+#   slot-browser open [N]  show slot N (default: focused slot) on workspace 3;
+#                          with N, focuses that Herdr slot first
+#
+# Overrides: SLOT_BROWSER_WORKSPACE (3), SLOT_BROWSER_PARK_WORKSPACE (S),
+# SLOT_BROWSER_PROFILE ("Profile 7" = fourthwall.com). New windows open
+# http://localhost:(8050+N)/make-product/.
+
+set -euo pipefail
+
+PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+: "${HERDR_SOCKET_PATH:=$HOME/.config/herdr/herdr.sock}"
+export HERDR_SOCKET_PATH
+
+BROWSER_WS="${SLOT_BROWSER_WORKSPACE:-3}"
+PARK_WS="${SLOT_BROWSER_PARK_WORKSPACE:-S}"
+PROFILE="${SLOT_BROWSER_PROFILE:-Profile 7}"
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+focused_slot() {
+    herdr workspace list \
+        | jq -r '.result.workspaces[] | select(.focused) | .label' \
+        | sed -nE 's/^slot-([0-9]+).*/\1/p'
+}
+
+slot_workspace_id() {
+    herdr workspace list \
+        | jq -r --arg re "^slot-$1( |$)" \
+            '.result.workspaces[] | select(.label | test($re)) | .workspace_id' \
+        | head -n1
+}
+
+slot_windows() {
+    aerospace list-windows --monitor all --app-bundle-id com.google.Chrome \
+            --format '%{window-id}|%{window-title}' \
+        | sed -nE 's/^([0-9]+)\|slot-([0-9]+)( .*)?$/\1 \2/p'
+}
+
+chrome_window_ids() {
+    osascript -e 'tell application "Google Chrome" to get id of every window' \
+        | tr -s ', ' '\n' | sed '/^$/d' | sort
+}
+
+create_window() {
+    local slot=$1 url="http://localhost:$((8050 + $1))/make-product/" before id=""
+    before=$(chrome_window_ids)
+    "$CHROME" --profile-directory="$PROFILE" --new-window "$url" >/dev/null 2>&1 &
+    for _ in {1..40}; do
+        id=$(comm -13 <(printf '%s\n' "$before") <(chrome_window_ids) | head -n1)
+        [[ -n $id ]] && break
+        sleep 0.25
+    done
+    [[ -n $id ]] || { echo "slot-browser: no new Chrome window for slot-$slot" >&2; return 1; }
+    osascript -e "tell application \"Google Chrome\" to set given name of window id $id to \"slot-$slot\""
+    for _ in {1..20}; do
+        id=$(slot_windows | awk -v s="$slot" '$2 == s { print $1; exit }')
+        [[ -n $id ]] && { aerospace move-node-to-workspace --window-id "$id" "$BROWSER_WS"; return 0; }
+        sleep 0.25
+    done
+}
+
+show_slot() {
+    local slot=$1 found=0 wid n
+    while read -r wid n <&3; do
+        if [[ $n == "$slot" ]]; then
+            aerospace move-node-to-workspace --window-id "$wid" "$BROWSER_WS"
+            found=1
+        else
+            aerospace move-node-to-workspace --window-id "$wid" "$PARK_WS"
+        fi
+    done 3< <(slot_windows)
+    ((found)) || create_window "$slot"
+}
+
+cmd_sync() {
+    [[ ${AEROSPACE_FOCUSED_WORKSPACE:-} == "$BROWSER_WS" ]] || return 0
+    local slot
+    slot=$(focused_slot)
+    [[ -n $slot ]] || return 0
+    show_slot "$slot"
+}
+
+cmd_open() {
+    local slot=${1:-} wsid
+    if [[ -n $slot ]]; then
+        wsid=$(slot_workspace_id "$slot")
+        [[ -n $wsid ]] || { echo "slot-browser: no Herdr workspace slot-$slot" >&2; return 1; }
+        herdr workspace focus "$wsid" >/dev/null
+    else
+        slot=$(focused_slot)
+        [[ -n $slot ]] || { echo "slot-browser: focused Herdr workspace is not a slot" >&2; return 1; }
+    fi
+    if [[ $(aerospace list-workspaces --focused) == "$BROWSER_WS" ]]; then
+        show_slot "$slot"
+    else
+        aerospace workspace "$BROWSER_WS"
+    fi
+}
+
+case "${1:-}" in
+    sync) cmd_sync ;;
+    open) shift; cmd_open "$@" ;;
+    *) sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
+esac
