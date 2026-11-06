@@ -10,6 +10,14 @@
 #   slot-browser sync      AeroSpace exec-on-workspace-change callback
 #   slot-browser open [N]  show slot N (default: focused slot) on workspace 3;
 #                          with N, focuses that Herdr slot first
+#   slot-browser agent-hook
+#                          Claude Code PreToolUse hook for claude-in-chrome:
+#                          the extension puts a session's tab group in Chrome's
+#                          last focused window, so once per session, before the
+#                          group is created, briefly focus the slot's window
+#   slot-browser agent-hook-post
+#                          PostToolUse pair: when focus was on another Chrome
+#                          window, give it back only after the group exists
 #
 # Overrides: SLOT_BROWSER_WORKSPACE (3), SLOT_BROWSER_PARK_WORKSPACE (S),
 # SLOT_BROWSER_PROFILE ("Profile 7" = fourthwall.com). New windows open
@@ -50,8 +58,19 @@ chrome_window_ids() {
         | tr -s ', ' '\n' | sed '/^$/d' | sort
 }
 
+slot_for_dir() {
+    herdr workspace list \
+        | jq -r --arg d "$1" '.result.workspaces[]
+            | select(.label | test("^slot-[0-9]+"))
+            | select(.worktree.checkout_path as $p
+                | $p != null and ($d == $p or ($d | startswith($p + "/"))))
+            | .label' \
+        | sed -nE 's/^slot-([0-9]+).*/\1/p' | head -n1
+}
+
 create_window() {
-    local slot=$1 url="http://localhost:$((8050 + $1))/make-product/" before id=""
+    local slot=$1 target_ws=${2:-$BROWSER_WS}
+    local url="http://localhost:$((8050 + $1))/make-product/" before id=""
     before=$(chrome_window_ids)
     "$CHROME" --profile-directory="$PROFILE" --new-window "$url" >/dev/null 2>&1 &
     for _ in {1..40}; do
@@ -63,7 +82,7 @@ create_window() {
     osascript -e "tell application \"Google Chrome\" to set given name of window id $id to \"slot-$slot\""
     for _ in {1..20}; do
         id=$(slot_windows | awk -v s="$slot" '$2 == s { print $1; exit }')
-        [[ -n $id ]] && { aerospace move-node-to-workspace --window-id "$id" "$BROWSER_WS"; return 0; }
+        [[ -n $id ]] && { aerospace move-node-to-workspace --window-id "$id" "$target_ws"; return 0; }
         sleep 0.25
     done
 }
@@ -106,8 +125,63 @@ cmd_open() {
     fi
 }
 
+cmd_agent_hook() {
+    local input tool create session marker slot wid target_ws prev_wid prev_app prev_ws
+    input=$(cat)
+    tool=$(jq -r '.tool_name // ""' <<<"$input")
+    create=$(jq -r '.tool_input.createIfEmpty // false' <<<"$input")
+    [[ $tool == *tabs_create_mcp || $create == true ]] || return 0
+    session=$(jq -r '.session_id // ""' <<<"$input")
+    [[ -n $session ]] || return 0
+    marker="${TMPDIR:-/tmp}/slot-browser/$session"
+    [[ -e $marker ]] && return 0
+    slot=$(slot_for_dir "$(jq -r '.cwd // ""' <<<"$input")")
+    [[ -n $slot ]] || return 0
+    mkdir -p "${marker%/*}" && : >"$marker"
+
+    read -r prev_wid prev_app < <(aerospace list-windows --focused \
+        --format '%{window-id} %{app-bundle-id}' 2>/dev/null || true)
+    prev_ws=$(aerospace list-workspaces --focused)
+    wid=$(slot_windows | awk -v s="$slot" '$2 == s { print $1; exit }')
+    [[ -n $wid && $wid == "$prev_wid" ]] && return 0
+    if [[ -n $wid ]]; then
+        aerospace focus --window-id "$wid"
+        sleep 0.3
+    else
+        target_ws=$PARK_WS
+        [[ $(focused_slot) == "$slot" ]] && target_ws=$BROWSER_WS
+        create_window "$slot" "$target_ws"
+    fi
+    if [[ ${prev_app:-} == com.google.Chrome ]]; then
+        printf '%s %s\n' "$prev_wid" "$prev_ws" >"$marker"
+    else
+        restore_focus "${prev_wid:-}" "$prev_ws"
+    fi
+}
+
+restore_focus() {
+    if [[ -n $1 ]]; then
+        aerospace focus --window-id "$1"
+    else
+        aerospace workspace "$2"
+    fi
+}
+
+cmd_agent_hook_post() {
+    local session marker prev_wid prev_ws
+    session=$(jq -r '.session_id // ""')
+    [[ -n $session ]] || return 0
+    marker="${TMPDIR:-/tmp}/slot-browser/$session"
+    [[ -s $marker ]] || return 0
+    read -r prev_wid prev_ws <"$marker"
+    : >"$marker"
+    restore_focus "$prev_wid" "$prev_ws"
+}
+
 case "${1:-}" in
     sync) cmd_sync ;;
     open) shift; cmd_open "$@" ;;
-    *) sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
+    agent-hook) cmd_agent_hook || true ;;
+    agent-hook-post) cmd_agent_hook_post || true ;;
+    *) sed -n '2,25p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
 esac
