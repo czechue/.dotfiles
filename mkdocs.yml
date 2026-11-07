@@ -65,6 +65,7 @@ nav:
       - tmux: tools/tmux.md
       - Herdr: tools/herdr.md
       - AeroSpace: tools/aerospace.md
+      - Slot browser: tools/slot-browser.md
       - yazi: tools/yazi.md
       - Cursor: tools/cursor.md
       - IntelliJ IDEA:

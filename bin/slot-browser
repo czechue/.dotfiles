@@ -18,6 +18,9 @@
 #   slot-browser agent-hook-post
 #                          PostToolUse pair: when focus was on another Chrome
 #                          window, give it back only after the group exists
+#   slot-browser install-hooks
+#                          merge claude/slot-browser-hooks.json into every slot
+#                          worktree's .claude/settings.local.json
 #
 # Overrides: SLOT_BROWSER_WORKSPACE (3), SLOT_BROWSER_PARK_WORKSPACE (S),
 # SLOT_BROWSER_PROFILE ("Profile 7" = fourthwall.com). New windows open
@@ -178,10 +181,31 @@ cmd_agent_hook_post() {
     restore_focus "$prev_wid" "$prev_ws"
 }
 
+cmd_install_hooks() {
+    local hooks p f tmp
+    hooks="$(dirname "$(readlink -f "$0")")/../claude/slot-browser-hooks.json"
+    herdr workspace list \
+        | jq -r '.result.workspaces[] | select(.label | test("^slot-[0-9]+"))
+            | .worktree.checkout_path // empty' \
+        | while read -r p; do
+            f="$p/.claude/settings.local.json"
+            mkdir -p "$p/.claude"
+            [[ -s $f ]] || echo '{}' >"$f"
+            tmp=$(mktemp)
+            jq --slurpfile h "$hooks" '
+                reduce ($h[0].hooks | to_entries[]) as $e (.;
+                    .hooks[$e.key] = ([(.hooks[$e.key] // [])[]
+                        | select(any(.hooks[]?; .command | test("slot-browser")) | not)]
+                        + $e.value))' "$f" >"$tmp" && mv "$tmp" "$f"
+            echo "$f"
+        done
+}
+
 case "${1:-}" in
     sync) cmd_sync ;;
     open) shift; cmd_open "$@" ;;
     agent-hook) cmd_agent_hook || true ;;
     agent-hook-post) cmd_agent_hook_post || true ;;
-    *) sed -n '2,25p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
+    install-hooks) cmd_install_hooks ;;
+    *) sed -n '2,28p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
 esac
