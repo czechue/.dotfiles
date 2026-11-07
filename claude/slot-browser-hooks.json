@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__claude-in-chrome__tabs_context_mcp|mcp__claude-in-chrome__tabs_create_mcp",
+        "hooks": [{ "type": "command", "command": "$HOME/.local/bin/slot-browser agent-hook" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__claude-in-chrome__tabs_context_mcp|mcp__claude-in-chrome__tabs_create_mcp",
+        "hooks": [{ "type": "command", "command": "$HOME/.local/bin/slot-browser agent-hook-post" }]
+      }
+    ]
+  }
+}
