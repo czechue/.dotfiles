@@ -1246,7 +1246,7 @@
 <p>Changes take effect on the next session. <code>/config</code> and <code>/permissions</code> write to the same file through the symlink, so commit after using them.</p>
 <p>The tmux status-line integration (<code>bin/tmux-claude-status</code>) is not wired up. To restore it, add a <code>hooks</code> block with <code>UserPromptSubmit</code>, <code>PreToolUse</code>, <code>Stop</code> and <code>Notification</code> entries calling that script — see <code>docs/tools/tmux.md</code>.</p>
 <h2 id="legacy">Legacy</h2>
-<p><code>~/.claude-clean</code> is a previous "clean" attempt: ~1000 startups of accumulated state, 174 MB of transcripts, five plugins and a 147-entry permission allowlist. Superseded; delete it once nothing is needed from its <code>--resume</code> history. The <code>claude-clean</code> and <code>claude-work</code> aliases in <code>zsh/.zshrc</code> still point at it.</p>
+<p><code>~/.claude-clean</code> is a previous "clean" attempt: ~1000 startups of accumulated state, 174 MB of transcripts, five plugins and a 147-entry permission allowlist. Superseded; delete it once nothing is needed from its <code>--resume</code> history. The <code>claude-clean</code> alias in <code>zsh/.zshrc</code> still points at it.</p>
 <p>Pre-cut symlink state and PAI's original <code>.claude.json</code> are backed up under <code>~/.claude-backups/hard-cut-*/</code>.</p>
 
 

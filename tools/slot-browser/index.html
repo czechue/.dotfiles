@@ -1219,7 +1219,7 @@ browser of the slot you are working in, and a slot's Claude agent opens its
 <h2 id="the-idea">The idea</h2>
 <p>Slots are Herdr workspaces labelled <code>slot-N ...</code>, each on its own git worktree
 with its own gateway port (<code>8050 + N</code>). Every slot owns an ordinary Chrome
-window in the <strong>company profile</strong> (<code>Profile 7</code>, "company.com") that carries
+window in the <strong>company profile</strong> (<code>Profile 7</code>) that carries
 the window name <code>slot-N</code> (Chrome: <em>Window → Name Window…</em>).</p>
 <p>Because all slot windows live in one profile, logins, cookies, 1Password and
 the Claude extension are shared: nothing to sign into per slot. Chrome shows
@@ -1239,7 +1239,7 @@ touched.</p>
            ├─ window "slot-5"         → move to workspace 3
            ├─ windows "slot-1..8"     → park on hidden workspace S
            └─ no "slot-5" window yet  → open one in Profile 7 at
-                                        http://localhost:8055/app/,
+                                        http://localhost:8055&lt;SLOT_BROWSER_PATH&gt;,
                                         name it "slot-5", move it to 3
 </code></pre></div>
 <p>The callback fires on every workspace change and exits at once unless the new
@@ -1337,7 +1337,8 @@ after adding a slot. Restart running Claude Code sessions to load new hooks.</p>
 </tbody>
 </table>
 <p>Overrides: <code>SLOT_BROWSER_WORKSPACE</code> (default <code>3</code>), <code>SLOT_BROWSER_PARK_WORKSPACE</code>
-(<code>S</code>), <code>SLOT_BROWSER_PROFILE</code> (<code>Profile 7</code>).</p>
+(<code>S</code>), <code>SLOT_BROWSER_PROFILE</code> (<code>Profile 7</code>). The URL path a new window opens,
+<code>SLOT_BROWSER_PATH</code> (default <code>/</code>), is set in the untracked <code>~/.dotfiles/local.sh</code>.</p>
 <h2 id="setup">Setup</h2>
 <div class="highlight"><pre><span></span><code>ln<span class="w"> </span>-sf<span class="w"> </span>~/.dotfiles/bin/slot-browser<span class="w"> </span>~/.local/bin/slot-browser
 aerospace<span class="w"> </span>reload-config<span class="w">          </span><span class="c1"># picks up exec-on-workspace-change</span>
