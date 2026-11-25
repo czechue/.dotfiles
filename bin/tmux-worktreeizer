@@ -83,6 +83,9 @@ pause() {
     read -r -n1 _ 2>/dev/null || true
 }
 
+# Extra project parent dirs (PROJECT_DIRS_EXTRA) come from the untracked local.sh.
+[[ -f $HOME/.dotfiles/local.sh ]] && source "$HOME/.dotfiles/local.sh"
+
 # Resolve the MAIN worktree root of the repo we're in (works even when invoked
 # from inside a linked worktree). Falls back to fzf-picking a repo when the
 # current directory isn't a git repository. Echoes the path, or returns 1.
@@ -93,7 +96,7 @@ resolve_main_root() {
             | awk '/^worktree /{sub(/^worktree /,""); print; exit}'
         return 0
     fi
-    picked=$(find ~ ~/personal ~/fourthwall ~/Library/CloudStorage/Dropbox \
+    picked=$(find ~ ~/personal ${PROJECT_DIRS_EXTRA[@]+"${PROJECT_DIRS_EXTRA[@]}"} ~/Library/CloudStorage/Dropbox \
         -maxdepth 1 -mindepth 1 -type d 2>/dev/null | fzf --prompt='repo > ')
     [[ -z $picked ]] && return 1
     if ! git -C "$picked" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -180,7 +183,7 @@ build_rows() {
     # br/rem rows leave PATH (field 3) empty — it's computed lazily for the ONE
     # selected branch in main(). Membership tests use pure-builtin glob matches
     # against newline-delimited sets (no per-branch grep fork). Both matter:
-    # storefront-apps has ~1600 branches, and forking here cost ~100s.
+    # a large monorepo with ~1600 branches, and forking here cost ~100s.
     while IFS= read -r b; do
         [[ -z $b ]] && continue
         [[ $checked_out == *$'\n'"$b"$'\n'* ]] && continue

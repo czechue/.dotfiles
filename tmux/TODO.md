@@ -5,10 +5,10 @@
 ### Problem
 
 In `prefix s` (and `prefix S`), long session names like
-`storefront-apps-product-catalog-omni` push the subsequent columns
+`web-app-search-filters-v2` push the subsequent columns
 (claude title, status, summary) far to the right, breaking column
 alignment across rows. The fzf picker (`prefix C-s`) already solves
-this with leading-ellipsis truncation (`…catalog-omni`), but
+this with leading-ellipsis truncation (`…filters-v2`), but
 choose-tree does not.
 
 ### Why it's not configurable
@@ -59,7 +59,7 @@ is the session name itself. This requires three coordinated pieces:
   changes its naming convention, the shortener will stop touching
   sessions it should still touch — needs to be kept in sync.
 - **Suffix collisions** between two different paths that share a
-  trailing segment (`/a/foo/storefront-apps`, `/b/bar/storefront-apps`)
+  trailing segment (`/a/foo/web-app`, `/b/bar/web-app`)
   would shorten to the same display name. Sessionizer's collision
   handling falls back to the full name in that case; rare in practice.
 - **`tmux-sessionizer` becomes path-centric.** Name no longer is the

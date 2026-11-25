@@ -168,9 +168,9 @@ additive — falling back to `prefix s` always works.
 
 ```
             .dotfiles  Auth refactor    ●  ⚡ working (01:23)   Działa. Wyciąg...
-      storefront-apps  Disputes copy    ·  ⏸ waiting! (33:15)   Yes — `git worktree...`
-storefront-apps-home-…                  ·  ⏸ waiting (40h 20m)  /1_research-codebase...
-                 omni  Public chat MVP  ·  ⏸ waiting! (14:59)   ## How public conversations...
+              web-app  Copy tweaks      ·  ⏸ waiting! (33:15)   Yes — `git worktree...`
+web-app-settings-page…                  ·  ⏸ waiting (40h 20m)  /1_research-codebase...
+                  api  Chat MVP         ·  ⏸ waiting! (14:59)   ## How chat sessions...
 └──────┬──────┘ └────────┬────────┘ ┬   └─────────┬─────────┘  └─────────┬──────────┘
        │                 │          │             │                       │
        │                 │          │             │                       summary (cut to 80ch)
@@ -222,7 +222,7 @@ A manual label attached to each session, surfaced by both views:
   the marker; the column collapses entirely if no session has a title yet.
 
 Useful when several sessions share a directory pattern and you want to
-remember what each is for ("Auth refactor", "Disputes copy", "MVP demo").
+remember what each is for ("Auth refactor", "Copy tweaks", "MVP demo").
 
 ```
 bind T command-prompt -I "#{@claude_title}" -p "Session title: " \

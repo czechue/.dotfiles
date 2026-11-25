@@ -225,17 +225,27 @@ function y() {
 # only when Claude Code runs inside ~/personal/pai, via that repo's .claude/.
 # Vendored communication system prompt, appended to every session.
 dotfiles_claude_prompt="$HOME/.dotfiles/claude/system-prompt.md"
+# Machine-local settings layered on top of settings.json (untracked, optional),
+# e.g. plugins and marketplaces that belong to one machine only.
+dotfiles_claude_local="$HOME/.dotfiles/claude/settings.local.json"
+
+_claude_local_args() {
+  [[ -f $dotfiles_claude_local ]] && print -r -- --settings "$dotfiles_claude_local"
+}
 
 cl() {
   claude update 2>/dev/null
-  claude --dangerously-skip-permissions \
+  claude --dangerously-skip-permissions $(_claude_local_args) \
     --append-system-prompt-file "$dotfiles_claude_prompt" "$@"
 }
 clr() {
   cl --resume "$@"
 }
 alias ccl='cl'
-alias clsr='claude --append-system-prompt-file "$dotfiles_claude_prompt" --resume'
+clsr() {
+  claude $(_claude_local_args) \
+    --append-system-prompt-file "$dotfiles_claude_prompt" --resume "$@"
+}
 alias ccusage="bunx ccusage"
 alias ccu="bunx ccusage"
 
@@ -245,10 +255,10 @@ alias lifeos='bun $PAI_DIR/LIFEOS/TOOLS/lifeos.ts -s $PAI_DIR/LIFEOS/LIFEOS_SYST
 alias discord='$PAI_DIR/Skills/Discord/cli/bin/discord'
 
 alias claude-clean='CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
-alias claude-storefront='cd ~/fourthwall/storefront-apps && CLAUDE_CONFIG_DIR=$HOME/.claude-clean claude'
 
-# Slots dashboard (~/personal/herdr-dashboard) for mcp-gateway, runnable outside Herdr
-alias slots-dash='HERDR_SOCKET_PATH=$HOME/.config/herdr/herdr.sock SLOTS_REPO=$HOME/fourthwall/mcp-gateway $HOME/personal/herdr-dashboard/slots tui'
+# Slots dashboard (~/personal/herdr-dashboard), runnable outside Herdr.
+# The orchestrated repo comes from SLOTS_REPO in ~/.dotfiles/local.sh.
+alias slots-dash='$HOME/.dotfiles/bin/slots-dash'
 
 export PATH="$HOME/go/bin:$PATH"
 # Fabric AI tool
@@ -282,6 +292,8 @@ autoload -U compinit && compinit
 
 # Source secrets (API keys, tokens) - not tracked in git
 [ -f ~/.dotfiles/zsh/.zshrc.secrets ] && source ~/.dotfiles/zsh/.zshrc.secrets
+# Machine-local paths and aliases - not tracked in git
+[ -f ~/.dotfiles/local.sh ] && source ~/.dotfiles/local.sh
 alias gemini="NODE_NO_WARNINGS=1 gemini"
 
 # bun completions

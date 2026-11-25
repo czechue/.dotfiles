@@ -65,6 +65,6 @@ The tmux status-line integration (`bin/tmux-claude-status`) is not wired up. To 
 
 ## Legacy
 
-`~/.claude-clean` is a previous "clean" attempt: ~1000 startups of accumulated state, 174 MB of transcripts, five plugins and a 147-entry permission allowlist. Superseded; delete it once nothing is needed from its `--resume` history. The `claude-clean` and `claude-storefront` aliases in `zsh/.zshrc` still point at it.
+`~/.claude-clean` is a previous "clean" attempt: ~1000 startups of accumulated state, 174 MB of transcripts, five plugins and a 147-entry permission allowlist. Superseded; delete it once nothing is needed from its `--resume` history. The `claude-clean` alias in `zsh/.zshrc` still points at it.
 
 Pre-cut symlink state and PAI's original `.claude.json` are backed up under `~/.claude-backups/hard-cut-*/`.

@@ -5,7 +5,7 @@ git_commit_start: 6bf6b10
 branch: master
 repository: .dotfiles
 topic: "Fix Neovim 0.11 LSP Configuration for TypeScript and ESLint"
-tags: [implementation-plan, nvim, lsp, typescript, eslint, neovim-0.11, diagnostics, storefront-apps]
+tags: [implementation-plan, nvim, lsp, typescript, eslint, neovim-0.11, diagnostics, web-app]
 status: pending
 priority: high
 affects: [nvim/.config/nvim/init.lua]
@@ -15,7 +15,7 @@ affects: [nvim/.config/nvim/init.lua]
 
 ## Overview
 
-Fix TypeScript and ESLint LSP servers not showing diagnostics in Neovim 0.11 within the storefront-apps monorepo. The issue stems from incomplete migration to Neovim 0.11's new LSP API (`vim.lsp.config()` + `vim.lsp.enable()`).
+Fix TypeScript and ESLint LSP servers not showing diagnostics in Neovim 0.11 within the web-app monorepo. The issue stems from incomplete migration to Neovim 0.11's new LSP API (`vim.lsp.config()` + `vim.lsp.enable()`).
 
 ## Current State Analysis
 
@@ -68,7 +68,7 @@ After implementation:
 - ✅ LSP attaches automatically to `.ts`, `.tsx`, `.js`, `.jsx` files
 - ✅ `:LspInfo` shows active clients (ts_ls, eslint)
 - ✅ `gd` (goto definition), `gr` (references) work
-- ✅ Configuration works in monorepo structure (storefront-apps)
+- ✅ Configuration works in monorepo structure (web-app)
 
 ### Verification:
 1. Open `apps/checkout/src/index.tsx`
@@ -164,7 +164,7 @@ require('mason-lspconfig').setup_handlers {
 - [ ] Hover over error - see full diagnostic message
 - [ ] Fix error - diagnostic clears immediately
 
-**Implementation Note**: After making this change, restart Neovim completely (close all instances) and test in storefront-apps. If LSP still doesn't attach, check `:LspLog` for errors.
+**Implementation Note**: After making this change, restart Neovim completely (close all instances) and test in web-app. If LSP still doesn't attach, check `:LspLog` for errors.
 
 ---
 
@@ -209,7 +209,7 @@ workingDirectory = {
 
 #### Automated Verification:
 - [ ] ESLint server executable exists: `test -f ~/.local/share/nvim/mason/bin/vscode-eslint-language-server`
-- [ ] ESLint config found: `test -f .eslintrc.js` (in storefront-apps root)
+- [ ] ESLint config found: `test -f .eslintrc.js` (in web-app root)
 
 #### Manual Verification:
 - [ ] Open `apps/checkout/src/SomeComponent.tsx`
@@ -335,7 +335,7 @@ git checkout c5e0da3 -- nvim/.config/nvim/init.lua
 ## Post-Implementation Tasks
 
 - [ ] Update `.dotfiles/CLAUDE.md` with Neovim 0.11 LSP setup notes
-- [ ] Test in storefront-apps (current project)
+- [ ] Test in web-app (current project)
 - [ ] Test in another TypeScript project (verify portability)
 - [ ] Verify lua_ls still works
 - [ ] Consider adding keybinding for `:LspRestart`
@@ -380,7 +380,7 @@ The `require('lspconfig')` "framework" is deprecated, use vim.lsp.config (see :h
 
 Now that LSP servers are attaching, please manually verify:
 
-1. **Open a TypeScript file** in storefront-apps:
+1. **Open a TypeScript file** in web-app:
    ```bash
    nvim apps/checkout/src/index.tsx
    ```

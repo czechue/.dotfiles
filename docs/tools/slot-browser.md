@@ -12,7 +12,7 @@ browser of the slot you are working in, and a slot's Claude agent opens its
 
 Slots are Herdr workspaces labelled `slot-N ...`, each on its own git worktree
 with its own gateway port (`8050 + N`). Every slot owns an ordinary Chrome
-window in the **company profile** (`Profile 7`, "fourthwall.com") that carries
+window in the **company profile** (`Profile 7`) that carries
 the window name `slot-N` (Chrome: *Window → Name Window…*).
 
 Because all slot windows live in one profile, logins, cookies, 1Password and
@@ -20,8 +20,8 @@ the Claude extension are shared: nothing to sign into per slot. Chrome shows
 the name in the window title, which is how the script finds the windows:
 
 ```
-5747|3|slot-1 - Google Chrome – Michał (fourthwall.com)
-5759|S|slot-2 – błąd sieci - Google Chrome – Michał (fourthwall.com)
+5747|3|slot-1 - Google Chrome – Michał (company.com)
+5759|S|slot-2 – błąd sieci - Google Chrome – Michał (company.com)
 ```
 
 Chrome appends page status after the name (`– błąd sieci`, `– należy do grupy …`),
@@ -34,12 +34,12 @@ touched.
 alt-3 ──► AeroSpace runs `slot-browser sync`
            │  AEROSPACE_FOCUSED_WORKSPACE == 3 ?
            ▼
-        herdr workspace list → focused workspace "slot-5 AI-1029" → slot 5
+        herdr workspace list → focused workspace "slot-5 my-task" → slot 5
            │
            ├─ window "slot-5"         → move to workspace 3
            ├─ windows "slot-1..8"     → park on hidden workspace S
            └─ no "slot-5" window yet  → open one in Profile 7 at
-                                        http://localhost:8055/make-product/,
+                                        http://localhost:8055<SLOT_BROWSER_PATH>,
                                         name it "slot-5", move it to 3
 ```
 
@@ -110,7 +110,8 @@ after adding a slot. Restart running Claude Code sessions to load new hooks.
 | `slot-browser install-hooks` | Merge the hook template into every slot's `.claude/settings.local.json` |
 
 Overrides: `SLOT_BROWSER_WORKSPACE` (default `3`), `SLOT_BROWSER_PARK_WORKSPACE`
-(`S`), `SLOT_BROWSER_PROFILE` (`Profile 7`).
+(`S`), `SLOT_BROWSER_PROFILE` (`Profile 7`). The URL path a new window opens,
+`SLOT_BROWSER_PATH` (default `/`), is set in the untracked `~/.dotfiles/local.sh`.
 
 ## Setup
 

@@ -5,7 +5,7 @@
 # Alternative to `prefix s` choose-tree that gives:
 #   - True column alignment with status on the left, so "waiting!/working"
 #     is the first thing you read — folder names move to the middle and
-#     are truncated with a leading ellipsis ("…catalog-omni") so the
+#     are truncated with a leading ellipsis ("…filters-v2") so the
 #     distinctive suffix stays visible while shared prefixes drop off
 #   - Full-width rows with the live preview docked below (down,40%) —
 #     gives the list horizontal room and the preview still has 10+ lines
@@ -167,8 +167,8 @@ main() {
         summary="${summary//$'\n'/ }"
         summary="${summary:0:80}"
         # Leading-ellipsis truncation: keep the distinctive suffix of the
-        # session name (e.g. ".../storefront-apps-product-catalog-omni"
-        # → "…product-catalog-omni"). Common path prefixes drop off naturally.
+        # session name (e.g. ".../web-app-search-filters-v2"
+        # → "…search-filters-v2"). Common path prefixes drop off naturally.
         # After cutting to the budget, advance past the first dash/underscore
         # so the result starts at a clean word boundary instead of mid-syllable
         # ("…ps-product-..." → "…product-..."). Skip the advance if it would
