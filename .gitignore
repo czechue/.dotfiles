@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 zsh/.zshrc.secrets
 .claude/
+local.sh
+claude/settings.local.json

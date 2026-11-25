@@ -42,7 +42,6 @@ The repository follows a modular architecture with each tool in its own director
 - **claude/** - Claude Code CLI global configuration
 - **bin/** - Utility scripts (tmux-sessionizer)
 - **.dotfiles-personal/** - Personal git configuration context
-- **.dotfiles-work/** - Work git configuration context
 
 ### Configuration Files and Locations
 

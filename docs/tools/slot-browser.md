@@ -12,7 +12,7 @@ browser of the slot you are working in, and a slot's Claude agent opens its
 
 Slots are Herdr workspaces labelled `slot-N ...`, each on its own git worktree
 with its own gateway port (`8050 + N`). Every slot owns an ordinary Chrome
-window in the **company profile** (`Profile 7`, "company.com") that carries
+window in the **company profile** (`Profile 7`) that carries
 the window name `slot-N` (Chrome: *Window → Name Window…*).
 
 Because all slot windows live in one profile, logins, cookies, 1Password and
@@ -39,7 +39,7 @@ alt-3 ──► AeroSpace runs `slot-browser sync`
            ├─ window "slot-5"         → move to workspace 3
            ├─ windows "slot-1..8"     → park on hidden workspace S
            └─ no "slot-5" window yet  → open one in Profile 7 at
-                                        http://localhost:8055/app/,
+                                        http://localhost:8055<SLOT_BROWSER_PATH>,
                                         name it "slot-5", move it to 3
 ```
 
@@ -110,7 +110,8 @@ after adding a slot. Restart running Claude Code sessions to load new hooks.
 | `slot-browser install-hooks` | Merge the hook template into every slot's `.claude/settings.local.json` |
 
 Overrides: `SLOT_BROWSER_WORKSPACE` (default `3`), `SLOT_BROWSER_PARK_WORKSPACE`
-(`S`), `SLOT_BROWSER_PROFILE` (`Profile 7`).
+(`S`), `SLOT_BROWSER_PROFILE` (`Profile 7`). The URL path a new window opens,
+`SLOT_BROWSER_PATH` (default `/`), is set in the untracked `~/.dotfiles/local.sh`.
 
 ## Setup
 

@@ -20,7 +20,7 @@ This is a personal dotfiles repository for managing development tool configurati
 - **bin/**: Utility scripts — `tmux-sessionizer` (project switching with fzf, `C-f`), `herdr-sessionizer` (same picker for Herdr workspaces, `C-f` inside Herdr), `slot-browser` (AeroSpace callback: workspace 3 shows the focused Herdr slot's Chrome window, named `slot-N`, in the company profile; its `agent-hook`/`agent-hook-post` Claude Code hooks put a slot agent's claude-in-chrome tab group in that window and `install-hooks` writes them into each slot's `.claude/settings.local.json`; see `docs/tools/slot-browser.md`), `tmux-worktreeizer` (git worktree launcher, `prefix W`: creates a sibling `../<repo>-<branch>` worktree and opens a tmux session in it, integrated with the claude session pickers), and git subcommands (`git-<name>` scripts auto-discovered by git via PATH; third-party ones like `git-open` are vendored with a provenance header — see `docs/tools/git.md`)
 - **claude/**: Claude Code configuration — `settings.json` and global `CLAUDE.md` symlinked into `~/.claude`, plus `system-prompt.md` passed on the command line
 - **.dotfiles-personal/**: Personal context git configuration
-- **.dotfiles-work/**: Work context git configuration
+- **local.sh** (untracked, gitignored): machine-local values sourced by `zsh/.zshrc` and the `bin/` scripts — extra project dirs (`PROJECT_DIRS_EXTRA`), `SLOTS_REPO`, `SLOT_BROWSER_PATH`, work-only aliases. Keep anything employer- or machine-specific here, never in tracked files: this repo is public
 
 ## Configuration Management
 
@@ -94,7 +94,7 @@ source ~/.zshrc  # or open new terminal
 
 ### Multi-Context Git Workflow
 
-The repository supports personal vs work contexts via `.dotfiles-personal/` and `.dotfiles-work/` directories containing separate git configurations. This allows context-specific email addresses and commit settings.
+Personal vs work git contexts are picked by `includeIf "gitdir:..."` in `~/.gitconfig`. The personal one is tracked in `.dotfiles-personal/`; the work one lives only on the machine (`~/.gitconfig-<work>`), so no employer name or address is committed here.
 
 ### Modular Tool Structure
 
@@ -126,7 +126,7 @@ clsr      # claude --resume, with permission prompts
 ccusage   # usage reporting (alias: ccu)
 ```
 
-`cl`, `clr` and `clsr` all pass `--append-system-prompt-file claude/system-prompt.md` — a vendored communication-style prompt from `disler/fixing-smartass-opus-5`. It is a CLI flag, not config, so a bare `claude` does not get it.
+`cl`, `clr` and `clsr` also pass `--settings claude/settings.local.json` when that untracked file exists — the place for machine-only plugins and marketplaces (e.g. an employer's). They all pass `--append-system-prompt-file claude/system-prompt.md` — a vendored communication-style prompt from `disler/fixing-smartass-opus-5`. It is a CLI flag, not config, so a bare `claude` does not get it.
 
 ### Global config must stay in this repo
 

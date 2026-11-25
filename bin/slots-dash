@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# slots-dash — open the Slots dashboard (~/personal/herdr-dashboard) for the
+# repository in SLOTS_REPO, set in the untracked ~/.dotfiles/local.sh.
+# Herdr's prefix+i popup runs it with --popup; the slots-dash alias runs it
+# outside Herdr, where HERDR_SOCKET_PATH falls back to the default socket.
+
+[[ -f $HOME/.dotfiles/local.sh ]] && source "$HOME/.dotfiles/local.sh"
+export SLOTS_REPO
+export HERDR_SOCKET_PATH="${HERDR_SOCKET_PATH:-$HOME/.config/herdr/herdr.sock}"
+exec "$HOME/personal/herdr-dashboard/slots" tui "$@"
