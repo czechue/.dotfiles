@@ -4,7 +4,10 @@
 # matching label, creating it first when it doesn't exist yet.
 # Bound to Ctrl-F as a popup command in herdr/config.toml.
 
-selected=$(find ~ ~/personal ~/work ~/Library/CloudStorage/Dropbox -maxdepth 1 -mindepth 1 -type d | fzf)
+# Extra project parent dirs (PROJECT_DIRS_EXTRA) come from the untracked local.sh.
+[[ -f $HOME/.dotfiles/local.sh ]] && source "$HOME/.dotfiles/local.sh"
+
+selected=$(find ~ ~/personal ${PROJECT_DIRS_EXTRA[@]+"${PROJECT_DIRS_EXTRA[@]}"} ~/Library/CloudStorage/Dropbox -maxdepth 1 -mindepth 1 -type d | fzf)
 
 if [[ -z $selected ]]; then
     exit 0

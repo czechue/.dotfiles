@@ -16,16 +16,7 @@
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
-    "work@work": true,
     "mattpocock-skills@mattpocock": true
-  },
-  "extraKnownMarketplaces": {
-    "work": {
-      "source": {
-        "source": "git",
-        "url": "git@gitlab.com:example/skills.git"
-      }
-    }
   },
   "autoUpdatesChannel": "latest",
   "skipDangerousModePermissionPrompt": true,

@@ -23,7 +23,7 @@ herdr update                 # self-update
 
 ## Project switcher (herdr-sessionizer)
 
-`bin/herdr-sessionizer` is the Herdr analog of `tmux-sessionizer`: ++ctrl+f++ (direct, no prefix) opens an fzf popup listing project directories (`~`, `~/personal`, `~/work`, Dropbox). Picking one focuses the workspace with a matching label, creating it first when it doesn't exist. Configured as a `[[keys.command]]` popup in `herdr/config.toml`; the script talks to the server over the socket API (`herdr workspace list/create/focus`).
+`bin/herdr-sessionizer` is the Herdr analog of `tmux-sessionizer`: ++ctrl+f++ (direct, no prefix) opens an fzf popup listing project directories (`~`, `~/personal`, Dropbox, plus any `PROJECT_DIRS_EXTRA` from the untracked `~/.dotfiles/local.sh`). Picking one focuses the workspace with a matching label, creating it first when it doesn't exist. Configured as a `[[keys.command]]` popup in `herdr/config.toml`; the script talks to the server over the socket API (`herdr workspace list/create/focus`).
 
 ## Prevent sleep while agents work
 

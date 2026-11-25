@@ -151,8 +151,7 @@ This repository contains configurations for:
 ├── tmux/               # Tmux configuration
 ├── yazi/               # Yazi file manager
 ├── zsh/                # Zsh shell configuration
-├── .dotfiles-personal/ # Personal git context
-└── .dotfiles-work/ # Work git context
+└── .dotfiles-personal/ # Personal git context (the work one is local-only)
 ```
 
 ## Key Features

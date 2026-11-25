@@ -183,7 +183,7 @@ description = "reviewr: toggle diff review pane"
 [[keys.command]]
 key = "prefix+i"
 type = "popup"
-command = "env SLOTS_REPO=/Users/michallester/work/my-gateway /Users/michallester/personal/herdr-dashboard/slots tui --popup"
+command = "/Users/michallester/.dotfiles/bin/slots-dash --popup"
 description = "Slots dashboard: who needs you, stages, agents"
 width = "90%"
 height = "90%"

@@ -23,18 +23,21 @@
 #                          worktree's .claude/settings.local.json
 #
 # Overrides: SLOT_BROWSER_WORKSPACE (3), SLOT_BROWSER_PARK_WORKSPACE (S),
-# SLOT_BROWSER_PROFILE ("Profile 7" = company.com). New windows open
-# http://localhost:(8050+N)/app/.
+# SLOT_BROWSER_PROFILE ("Profile 7" = the company profile). New windows open
+# http://localhost:(8050+N)<SLOT_BROWSER_PATH>; the path ("/" by default) is set
+# in the untracked ~/.dotfiles/local.sh.
 
 set -euo pipefail
 
 PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 : "${HERDR_SOCKET_PATH:=$HOME/.config/herdr/herdr.sock}"
 export HERDR_SOCKET_PATH
+[[ -f $HOME/.dotfiles/local.sh ]] && source "$HOME/.dotfiles/local.sh"
 
 BROWSER_WS="${SLOT_BROWSER_WORKSPACE:-3}"
 PARK_WS="${SLOT_BROWSER_PARK_WORKSPACE:-S}"
 PROFILE="${SLOT_BROWSER_PROFILE:-Profile 7}"
+URL_PATH="${SLOT_BROWSER_PATH:-/}"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 focused_slot() {
@@ -73,7 +76,7 @@ slot_for_dir() {
 
 create_window() {
     local slot=$1 target_ws=${2:-$BROWSER_WS}
-    local url="http://localhost:$((8050 + $1))/app/" before id=""
+    local url="http://localhost:$((8050 + $1))$URL_PATH" before id=""
     before=$(chrome_window_ids)
     "$CHROME" --profile-directory="$PROFILE" --new-window "$url" >/dev/null 2>&1 &
     for _ in {1..40}; do
